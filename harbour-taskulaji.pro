@@ -16,7 +16,9 @@ CONFIG += sailfishapp_qml
 
 DISTFILES += \
     qml/cover/CoverPage.qml \
-    qml/pages/FirstPage.qml \
+    qml/pages/*.qml \
+    qml/components/*.qml \
+    qml/js/*.js \
     rpm/harbour-taskulaji.changes.in \
     rpm/harbour-taskulaji.changes.run.in \
     rpm/harbour-taskulaji.spec \
