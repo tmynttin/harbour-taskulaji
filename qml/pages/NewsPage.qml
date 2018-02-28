@@ -7,7 +7,6 @@ Page {
     id: newsPage
     property bool run_timer: false
 
-
     Timer {
         interval: 500
         running: run_timer
@@ -75,6 +74,7 @@ Page {
                         var elapsed = Format.formatDate(time, Formatter.DurationElapsed)
                         return txt + (elapsed ? ' (' + elapsed + ')' : '')
                     }
+
                     id: news_time
                     text: timestamp()
                     font.pixelSize: Theme.fontSizeExtraSmall

@@ -34,7 +34,6 @@ Dialog {
         obs = new Doc.Document();
         obs.gatheringEvent = new Doc.GatheringEvent();
         obs.gatherings.push(new Doc.Gathering());
-        //obs.gatherings[0].units.push(Doc.unit);
 
         // Fill document information
         user_data = DB.dbGetUser();
@@ -110,7 +109,6 @@ Dialog {
                 checked: false
             }
 
-
             SectionHeader { text: "Observation Time" }
 
             ValueButton {
@@ -123,7 +121,6 @@ Dialog {
                                  })
 
                     dialog.accepted.connect(function() {
-                        //value = dialog.dateText
                         selectedDate = dialog.date
                     })
                 }
@@ -161,7 +158,7 @@ Dialog {
             }
 
             ComboBox {
-                property var sec_lev: "none"
+                property string sec_lev: "none"
 
                 id: secure_level
                 width: parent.width
@@ -300,7 +297,7 @@ Dialog {
                         width: parent.width
                         text: amount
                         inputMethodHints: Qt.ImhFormattedNumbersOnly
-                        label: "Amount "// + model.id
+                        label: "Amount "
                         placeholderText: "Amount e.g. '5m2f' or '7'"
                         EnterKey.iconSource: "image://theme/icon-m-enter-next"
                         EnterKey.onClicked: {amount = text}

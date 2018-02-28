@@ -10,9 +10,7 @@ Dialog {
     property bool run_timer: false
     property var selected_taxo
 
-
     onSearchStringChanged: result_list.get_taxons()
-    //Component.onCompleted: listModel.update()
 
     Timer {
         interval: 500
@@ -23,7 +21,6 @@ Dialog {
 
     Column {
         id: headerContainer
-
         width: taxo_page.width
 
         PageHeader {
@@ -63,6 +60,7 @@ Dialog {
             ListView.onAdd: AddAnimation {
                 target: backgroundItem
             }
+
             ListView.onRemove: RemoveAnimation {
                 target: backgroundItem
             }
@@ -75,8 +73,6 @@ Dialog {
             }
 
             onClicked: {
-//                pageStack.previousPage().selectedTaxo = {"name": model.name, "id": model.id}
-//                pageStack.pop()
                 selected_taxo = {"name": model.name, "id": model.id}
                 accept()
             }
@@ -96,7 +92,6 @@ Dialog {
             if (searchString.length > 2) {
                 Logic.api_qet("autocomplete/taxon", {'q':searchString, 'matchType':'partial,exact'});
                 run_timer = true;
-
             }
         }
 

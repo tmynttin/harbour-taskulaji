@@ -26,7 +26,6 @@ function Document() {
     this.creator = ""
     this.editors = []
     this.formID = "JX.519"
-   // "gatheringEvent": {},
     this.secureLevel = secureLevel.none
     this.publicityRestrictions = publicityRestrictions.Public
     this.gatherings = []

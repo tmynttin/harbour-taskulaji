@@ -106,7 +106,6 @@ Page {
                 run_timer = true;
             }
 
-
             function print_obs() {
                 if (Logic.response_ready) {
                     var response = Logic.response;

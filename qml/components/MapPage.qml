@@ -64,9 +64,7 @@ Page {
         spacing: Theme.paddingLarge
 
         Map {
-
             id: kartta
-            //anchors.top: parent.top
             width: parent.width
             height: map_page.height * 0.6
             plugin: mapPlugin

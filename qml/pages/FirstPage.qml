@@ -38,7 +38,6 @@ Page {
 
     SilicaFlickable {
         anchors.fill: parent
-        //contentHeight: listView.height
         contentWidth: parent.width
 
         PullDownMenu {
@@ -115,7 +114,6 @@ Page {
                     source: model.iconSource
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
-                    //padding.right: Theme.paddingLarge
                 }
 
                 onClicked: pageStack.push(Qt.resolvedUrl(page))
