@@ -1,74 +1,126 @@
-/*
-  Copyright (C) 2013 Jolla Ltd.
-  Contact: Thomas Perl <thomas.perl@jollamobile.com>
-  All rights reserved.
-
-  You may use this file under the terms of BSD license as follows:
-
-  Redistribution and use in source and binary forms, with or without
-  modification, are permitted provided that the following conditions are met:
-    * Redistributions of source code must retain the above copyright
-      notice, this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright
-      notice, this list of conditions and the following disclaimer in the
-      documentation and/or other materials provided with the distribution.
-    * Neither the name of the Jolla Ltd nor the
-      names of its contributors may be used to endorse or promote products
-      derived from this software without specific prior written permission.
-
-  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE LIABLE FOR
-  ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-  (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-  ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import "../js/database.js" as Db
+import "../js/logic.js" as Logic
 
 
 Page {
-    id: page
+    id: mainPage
 
-    // The effective value will be restricted by ApplicationWindow.allowedOrientations
-    allowedOrientations: Orientation.All
+    property bool run_login_timer: false
+    property string person_token: ""
 
-    // To enable PullDownMenu, place our content in a SilicaFlickable
+    Timer {
+        id: login_timer
+        interval: 500
+        running: run_login_timer
+        repeat: true
+        onTriggered: {
+            saveUserData();
+        }
+    }
+
+    Component.onCompleted: {
+        Db.dbInit();
+    }
+
+    function saveUserData() {
+        if (Logic.response_ready) {
+            var response = Logic.response;
+            var pId = response.id;
+            var pName = response.fullName;
+            console.log("Name: " + pName + ", ID: " + pId);
+            Db.dbCreateUser(person_token, pId, pName);
+            Logic.get_person_token();
+            run_login_timer = false
+        }
+    }
+
     SilicaFlickable {
         anchors.fill: parent
+        //contentHeight: listView.height
+        contentWidth: parent.width
 
-        // PullDownMenu and PushUpMenu must be declared in SilicaFlickable, SilicaListView or SilicaGridView
         PullDownMenu {
+            id: pull_down
+            visible: true
+            spacing: Theme.paddingLarge
+
             MenuItem {
-                text: qsTr("Show Page 2")
-                onClicked: pageStack.push(Qt.resolvedUrl("SecondPage.qml"))
+                text: "Login"
+                onClicked: {
+                    openLoginDialog();
+                }
+
+                function openLoginDialog() {
+                    var dialog = pageStack.push("../components/LoginPage.qml", {})
+                    dialog.accepted.connect(function() {
+                        person_token = dialog.person_token
+                        Logic.api_qet("person/" + person_token);
+                        run_login_timer = true;
+                    })
+                }
             }
         }
 
-        // Tell SilicaFlickable the height of its content.
-        contentHeight: column.height
+        ListModel {
+            id: pagesModel
 
-        // Place our content in a Column.  The PageHeader is always placed at the top
-        // of the page, followed by our content.
-        Column {
-            id: column
+            ListElement {
+                page: "ObservationPage.qml"
+                title: "Observation"
+                iconSource: "image://theme/icon-m-right"
+            }
 
-            width: page.width
+            ListElement {
+                page: "MyObservationsPage.qml"
+                title: "My Observations"
+                iconSource: "image://theme/icon-m-right"
+            }
+
+            ListElement {
+                page: "NewsPage.qml"
+                title: "News"
+                iconSource: "image://theme/icon-m-right"
+            }
+
+            ListElement {
+                page: "UserPage.qml"
+                title: "User Info"
+                iconSource: "image://theme/icon-m-right"
+            }
+        }
+
+        SilicaListView {
+            id: listView
+            anchors.fill: parent
+            model: pagesModel
+            header: PageHeader { title: "Laji.fi" }
             spacing: Theme.paddingLarge
-            PageHeader {
-                title: qsTr("UI Template")
+
+            delegate: BackgroundItem {
+                width: listView.width
+
+                Label {
+                    id: list_label
+                    text: model.title
+                    color: highlighted ? Theme.highlightColor : Theme.primaryColor
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.right: list_image.left
+                    x: Theme.horizontalPageMargin
+                }
+
+                Image {
+                    id: list_image
+                    source: model.iconSource
+                    anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+                    //padding.right: Theme.paddingLarge
+                }
+
+                onClicked: pageStack.push(Qt.resolvedUrl(page))
             }
-            Label {
-                x: Theme.horizontalPageMargin
-                text: qsTr("Hello Sailors")
-                color: Theme.secondaryHighlightColor
-                font.pixelSize: Theme.fontSizeExtraLarge
-            }
+            VerticalScrollDecorator {}
         }
     }
 }

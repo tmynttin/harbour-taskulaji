@@ -14,16 +14,17 @@ TARGET = harbour-taskulaji
 
 CONFIG += sailfishapp_qml
 
-DISTFILES += qml/harbour-taskulaji.qml \
+DISTFILES += \
     qml/cover/CoverPage.qml \
     qml/pages/FirstPage.qml \
-    qml/pages/SecondPage.qml \
     rpm/harbour-taskulaji.changes.in \
     rpm/harbour-taskulaji.changes.run.in \
     rpm/harbour-taskulaji.spec \
     rpm/harbour-taskulaji.yaml \
     translations/*.ts \
-    harbour-taskulaji.desktop
+    harbour-taskulaji.desktop \
+    qml/pages/MyObservationsPage.qml \
+    qml/harbour-taskulaji.qml
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128
 
