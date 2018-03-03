@@ -276,13 +276,13 @@ Dialog {
 
                     ValueButton {
                         id: species_button
-                        property var selectedTime: currentDate
 
                         function openTaxoDialog() {
                             var dialog = pageStack.push("../components/TaxoPage.qml", {})
                             dialog.accepted.connect(function() {
                                 taxo_name = dialog.selected_taxo.name
                                 taxo_id = dialog.selected_taxo.id
+                                amount_field.forceActiveFocus()
                             })
                         }
 
