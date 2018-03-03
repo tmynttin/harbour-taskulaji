@@ -80,12 +80,7 @@ Dialog {
 
         VerticalScrollDecorator {}
 
-        Component.onCompleted: {
-            if (keepSearchFieldFocus) {
-                searchField.forceActiveFocus()
-            }
-            keepSearchFieldFocus = false
-        }
+        Component.onCompleted: {searchField.forceActiveFocus()}
 
         function get_taxons() {
             model.clear();
