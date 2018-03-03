@@ -9,6 +9,7 @@ import "../js/database.js" as DB
 
 Dialog {
     id: observation_page
+    objectName: "ObservationPage"
 
     property var locale: Qt.locale()
     property var currentDate: new Date()
@@ -26,26 +27,26 @@ Dialog {
     }
 
     function get_municipality(geometry) {
-        Logic.api_post("coordinates/location", geometry);
-        run_timer = true;
+        Logic.api_post("coordinates/location", geometry)
+        run_timer = true
     }
 
     function build_document() {
-        obs = new Doc.Document();
-        obs.gatheringEvent = new Doc.GatheringEvent();
-        obs.gatherings.push(new Doc.Gathering());
+        obs = new Doc.Document()
+        obs.gatheringEvent = new Doc.GatheringEvent()
+        obs.gatherings.push(new Doc.Gathering())
 
         // Fill document information
-        user_data = DB.dbGetUser();
-        obs.creator = user_data.person_id;
-        obs.editors.push(user_data.person_id);
-        obs.secureLevel = Doc.secureLevel[secure_level.sec_lev];
+        user_data = DB.dbGetUser()
+        obs.creator = user_data.person_id
+        obs.editors.push(user_data.person_id)
+        obs.secureLevel = Doc.secureLevel[secure_level.sec_lev]
 
         // Fill gathering event information
         obs.gatheringEvent.dateBegin = Qt.formatDate(date_button.selectedDate, "yyyy-MM-dd")
-        obs.gatheringEvent.leg.push(user_data.person_id);
-        obs.gatheringEvent.legUserID.push(user_data.person_id);
-        obs.gatheringEvent.timeStart = time_button.value;
+        obs.gatheringEvent.leg.push(user_data.person_id)
+        obs.gatheringEvent.legUserID.push(user_data.person_id)
+        obs.gatheringEvent.timeStart = time_button.value
         obs.gatheringEvent.legPublic = !hide_user.checked
 
         // Fill gathering information
@@ -55,17 +56,18 @@ Dialog {
 
         // Fill unit information
         for (var j = 0; j < unit_model.count; j++) {
-            var unit_doc = new Doc.Unit();
+            var unit_doc = new Doc.Unit()
             var unit = unit_model.get(j)
             console.log("Index: " + j + ", Unit: " + unit.taxo_name)
 
             unit_doc.count = unit.amount
-            var identification = new Doc.Identification();
-            identification.taxonID = unit.taxo_id;
-            identification.taxon = unit.taxo_name;
-            unit_doc.identifications.push(identification);
+            var identification = new Doc.Identification()
+            identification.taxonID = unit.taxo_id
+            identification.taxon = unit.taxo_name
+            unit_doc.identifications.push(identification)
+            unit_doc.notes = unit.notes
 
-            obs.gatherings[0].units.push(unit_doc);
+            obs.gatherings[0].units.push(unit_doc)
         }
     }
 
@@ -261,6 +263,7 @@ Dialog {
                     taxo_name: ""
                     taxo_id: ""
                     amount: ""
+                    notes: ""
                 }
             }
 
@@ -298,10 +301,23 @@ Dialog {
                         text: amount
                         inputMethodHints: Qt.ImhFormattedNumbersOnly
                         label: "Amount "
-                        placeholderText: "Amount e.g. '5m2f' or '7'"
-                        EnterKey.iconSource: "image://theme/icon-m-enter-next"
+                        placeholderText: label //"Amount e.g. '5m2f' or '7'"
+                        EnterKey.iconSource: "image://theme/icon-m-enter-accept"
                         EnterKey.onClicked: {amount = text}
                         onFocusChanged: {amount = text}
+                    }
+
+                    TextField {
+                        id: unit_notes
+                        width: parent.width
+                        label: "Notes"
+                        placeholderText: label
+                        EnterKey.iconSource: "image://theme/icon-m-enter-accept"
+                        EnterKey.onClicked: {
+                            notes = text
+                            focus = false
+                        }
+                        onFocusChanged: {notes = text}
                     }
                 }
 
@@ -317,7 +333,7 @@ Dialog {
                     id: unit_adder
                     icon.source: "image://theme/icon-l-add"
                     onClicked: {
-                        unit_model.append({taxo_name: "", taxo_id: "", amount: ""})
+                        unit_model.append({taxo_name: "", taxo_id: "", amount: "", notes: ""})
                     }
                 }
 
