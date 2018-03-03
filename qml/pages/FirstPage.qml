@@ -116,7 +116,7 @@ Page {
                     anchors.verticalCenter: parent.verticalCenter
                 }
 
-                onClicked: pageStack.push(Qt.resolvedUrl(page))
+                onClicked: pageStack.push(Qt.resolvedUrl(page), {objectName:title})
             }
             VerticalScrollDecorator {}
         }

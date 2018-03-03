@@ -3,20 +3,32 @@ import Sailfish.Silica 1.0
 
 CoverBackground {
     Label {
-        id: label
+        id: cover_label
         anchors.centerIn: parent
-        text: qsTr("My Cover")
+        text: qsTr("Taskulaji")
     }
 
     CoverActionList {
         id: coverAction
 
         CoverAction {
-            iconSource: "image://theme/icon-cover-next"
+            iconSource: "image://theme/icon-cover-new"
+            onTriggered: openObservationPage()
         }
 
-        CoverAction {
-            iconSource: "image://theme/icon-cover-pause"
+    }
+
+    function openObservationPage() {
+        var item = pageStack.find(function(item, index) { return item.objectName === "Observation" })
+
+        if (item) {
+            appWindow.activate()
+        }
+        else {
+            appWindow.activate()
+            pageStack.clear()
+            pageStack.push(Qt.resolvedUrl("../pages/FirstPage.qml"), {}, PageStackAction.Immediate)
+            pageStack.push(Qt.resolvedUrl("../pages/ObservationPage.qml"), {objectName:"Observation"}, PageStackAction.Immediate)
         }
     }
 }

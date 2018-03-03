@@ -6,6 +6,7 @@ import "js/database.js" as Db
 
 ApplicationWindow
 {
+    id: appWindow
     initialPage: Component { FirstPage { } }
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
     allowedOrientations: defaultAllowedOrientations
