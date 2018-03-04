@@ -22,6 +22,7 @@ Page {
 
     Component.onCompleted: {
         Db.dbInit();
+        Logic.page_stack = pageStack
     }
 
     function saveUserData() {

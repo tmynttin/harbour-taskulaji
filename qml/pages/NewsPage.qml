@@ -14,6 +14,13 @@ Page {
         onTriggered: news_column.print_news()
     }
 
+    BusyIndicator {
+         size: BusyIndicatorSize.Large
+         anchors.centerIn: parent
+         running: run_timer
+    }
+
+
     SilicaFlickable {
         anchors.fill: parent
 

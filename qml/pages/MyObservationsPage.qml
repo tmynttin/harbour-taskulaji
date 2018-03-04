@@ -15,6 +15,12 @@ Page {
         onTriggered: obs_column.print_obs()
     }
 
+    BusyIndicator {
+         size: BusyIndicatorSize.Large
+         anchors.centerIn: parent
+         running: run_timer
+    }
+
     SilicaFlickable {
         anchors.fill: parent
 

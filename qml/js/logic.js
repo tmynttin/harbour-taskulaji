@@ -10,6 +10,7 @@ var response_ready = false;
 var xhr = new XMLHttpRequest();
 var request_count = 0;
 var db;
+var page_stack;
 
 function get_person_token() {
     try {
@@ -26,12 +27,23 @@ function processRequest(e) {
     console.log(xhr.readyState)
     console.log(xhr.status)
 
-    if (xhr.readyState === 4 && xhr.status === 200) {
-        response = JSON.parse(xhr.responseText);
-        response_ready = true
-    }
-    if (xhr.status !== 200) {
-        console.log(JSON.parse(xhr.responseText).error.message)
+    if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+            response = JSON.parse(xhr.responseText);
+            response_ready = true
+        }
+        else {
+            var error_message
+            try{
+                error_message = JSON.parse(xhr.responseText).error.message
+            }
+            catch (e) {
+                error_message = xhr.responseText;
+            }
+            response_ready = true
+            page_stack.push(Qt.resolvedUrl("../components/ErrorPage.qml"), {message: error_message})
+            console.log(JSON.parse(xhr.responseText).error.message)
+        }
     }
 }
 

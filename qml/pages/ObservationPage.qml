@@ -319,6 +319,10 @@ Dialog {
                         }
                         onFocusChanged: {notes = text}
                     }
+
+                    Separator {
+
+                    }
                 }
 
             }
