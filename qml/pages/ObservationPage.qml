@@ -159,33 +159,19 @@ Dialog {
                 text: "Location"
             }
 
-            ComboBox {
+            TextSwitch {
                 property string sec_lev: "none"
 
                 id: secure_level
-                width: parent.width
-                label: "Secure level: "
-                currentIndex: 1
+                text: "Coarse location"
+                checked: false
 
-                menu: ContextMenu {
-                    Repeater {
-
-                        function build_model() {
-                            var ret = []
-                            for (var key in Doc.secureLevel) {
-                                ret.push(key)
-                            }
-                            return ret
-                        }
-
-                        model: build_model()
-                        MenuItem {
-                            id: itemi
-                            text: modelData
-                            onClicked: {
-                                secure_level.sec_lev = itemi.text
-                            }
-                        }
+                onCheckedChanged: {
+                    if (checked) {
+                        sec_lev = "KM10"
+                    }
+                    else {
+                        sec_lev = "none"
                     }
                 }
             }
@@ -289,8 +275,8 @@ Dialog {
                             })
                         }
 
-                        label: "Species"
-                        value: taxo_name
+                        label: "Species: "
+                        value: taxo_name ? taxo_name : "None"
                         width: parent.width
                         onClicked: openTaxoDialog()
                     }
