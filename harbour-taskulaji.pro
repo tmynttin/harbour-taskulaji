@@ -25,7 +25,8 @@ DISTFILES += \
     rpm/harbour-taskulaji.yaml \
     translations/*.ts \
     harbour-taskulaji.desktop \
-    qml/harbour-taskulaji.qml
+    qml/harbour-taskulaji.qml \
+    qml/components/UnitPage.qml
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128
 

@@ -263,22 +263,46 @@ Dialog {
                     height: childrenRect.height
                     width: parent.width
 
-                    ValueButton {
-                        id: species_button
+                    BackgroundItem {
+                        width: parent.width
 
-                        function openTaxoDialog() {
-                            var dialog = pageStack.push("../components/TaxoPage.qml", {})
-                            dialog.accepted.connect(function() {
-                                taxo_name = dialog.selected_taxo.name
-                                taxo_id = dialog.selected_taxo.id
-                                amount_field.forceActiveFocus()
-                            })
+                        ValueButton {
+                            id: species_button
+
+                            function openTaxoDialog() {
+                                var dialog = pageStack.push("../components/TaxoPage.qml", {})
+                                dialog.accepted.connect(function() {
+                                    taxo_name = dialog.selected_taxo.name
+                                    taxo_id = dialog.selected_taxo.id
+                                    amount_field.forceActiveFocus()
+                                })
+                            }
+
+                            label: "Species: "
+                            value: taxo_name ? taxo_name : "None"
+                            width: parent.width - unit_options.width - Theme.paddingLarge
+                            onClicked: openTaxoDialog()
                         }
 
-                        label: "Species: "
-                        value: taxo_name ? taxo_name : "None"
-                        width: parent.width
-                        onClicked: openTaxoDialog()
+                        IconButton {
+                            id: unit_options
+                            anchors.left: species_button.right
+                            anchors.verticalCenter: species_button.verticalCenter
+                            icon.source: "image://theme/icon-m-right"
+                            onClicked: {
+                                openUnitDialog()
+                            }
+
+                            function openUnitDialog() {
+                                var dialog = pageStack.push("../components/UnitPage.qml", {
+                                                unit_model: model
+                                             })
+
+                                dialog.accepted.connect(function() {
+                                    model = dialog.unit_model
+                                })
+                            }
+                        }
                     }
 
                     TextField {
@@ -292,25 +316,7 @@ Dialog {
                         EnterKey.onClicked: {amount = text}
                         onFocusChanged: {amount = text}
                     }
-
-                    TextField {
-                        id: unit_notes
-                        width: parent.width
-                        label: "Notes"
-                        placeholderText: label
-                        EnterKey.iconSource: "image://theme/icon-m-enter-accept"
-                        EnterKey.onClicked: {
-                            notes = text
-                            focus = false
-                        }
-                        onFocusChanged: {notes = text}
-                    }
-
-                    Separator {
-
-                    }
                 }
-
             }
 
             Row {
