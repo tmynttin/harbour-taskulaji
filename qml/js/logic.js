@@ -5,8 +5,6 @@
 var api_url = "https://apitest.laji.fi/v0/";
 var access_token = "Q1cVCk7I8sc2PCqIbhMHt1rib2FyZwJF9OhUXmxIIAy6R0bSeKEMWgtq47ecYVYo";
 var person_token
-var response = {};
-var response_ready = false;
 var xhr = new XMLHttpRequest();
 var request_count = 0;
 var db;
@@ -23,14 +21,16 @@ function get_person_token() {
     }
 }
 
-function processRequest(e) {
+function processRequest(callback, e) {
     console.log(xhr.readyState)
     console.log(xhr.status)
 
     if (xhr.readyState === 4) {
         if (xhr.status === 200) {
-            response = JSON.parse(xhr.responseText);
-            response_ready = true
+            var response = JSON.parse(xhr.responseText);
+            console.log("Calling: " + callback)
+            console.log("Response: " + xhr.responseText)
+            callback(response);
         }
         else {
             var error_message
@@ -47,12 +47,10 @@ function processRequest(e) {
     }
 }
 
-function api_qet(ep, params) {
+function api_qet(callback, ep, params) {
     request_count += 1;
     console.log("request_count: " + request_count)
     params = params || {}
-    response_ready = false
-    response = {}
     var end_point = ep;
     var parameters = ""
 
@@ -60,9 +58,9 @@ function api_qet(ep, params) {
         parameters += "&" + p + "=" + params[p]
     }
 
-    var request = api_url + end_point + "?access_token=" + access_token + "&personToken=" + person_token + parameters
-
-    xhr.onreadystatechange = processRequest;
+    var request = api_url + end_point + "?access_token=" + access_token// + "&personToken=" + person_token + parameters
+    console.log(request)
+    xhr.onreadystatechange = function() {processRequest(callback);};
 
     xhr.open('GET', request, true);
     xhr.send();
@@ -70,8 +68,6 @@ function api_qet(ep, params) {
 
 function api_post(ep, send_data, params) {
     params = params || {};
-    response_ready = false;
-    response = {};
     var end_point = ep;
     var parameters = "";
     for (var p in params) {

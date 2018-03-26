@@ -8,12 +8,12 @@ Page {
     property bool run_timer: false
 
 
-    Timer {
-        interval: 500
-        running: run_timer
-        repeat: true
-        onTriggered: obs_column.print_obs()
-    }
+//    Timer {
+//        interval: 500
+//        running: run_timer
+//        repeat: true
+//        onTriggered: obs_column.print_obs()
+//    }
 
     BusyIndicator {
          size: BusyIndicatorSize.Large
@@ -30,8 +30,7 @@ Page {
             MenuItem {
                 text: "Refresh"
                 onClicked: {
-                    Logic.api_qet("documents")
-                    run_timer = true
+                    obs_column.get_obs()
                 }
             }
         }
@@ -108,28 +107,25 @@ Page {
             }
 
             function get_obs() {
-                Logic.api_qet("documents");
+                Logic.api_qet(print_obs, "documents");
                 run_timer = true;
             }
 
-            function print_obs() {
-                if (Logic.response_ready) {
-                    var response = Logic.response;
-                    var response_obs = response.results;
+            function print_obs(response) {
+                var response_obs = response.results;
 
-                    for (var i in response_obs) {
-                        var single_obs = response_obs[i];
-                        var o_time = single_obs.gatheringEvent.timeStart;
-                        var o_date = single_obs.gatheringEvent.dateBegin;
-                        var time_string = o_date + " " + o_time;
-                        var time = Date.fromLocaleString(Qt.locale(), time_string, "yyyy-MM-dd hh:mm:ss");
-                        model.append({ 'location': single_obs.gatherings[0].municipality,
-                                       'taxon': String(single_obs.gatherings[0].units[0].identifications[0].taxon),
-                                       'time': time,
-                                       'section': Format.formatDate(time, Formatter.TimepointSectionRelative)});
-                    }
-                    run_timer = false;
+                for (var i in response_obs) {
+                    var single_obs = response_obs[i];
+                    var o_time = single_obs.gatheringEvent.timeStart;
+                    var o_date = single_obs.gatheringEvent.dateBegin;
+                    var time_string = o_date + " " + o_time;
+                    var time = Date.fromLocaleString(Qt.locale(), time_string, "yyyy-MM-dd hh:mm:ss");
+                    model.append({ 'location': single_obs.gatherings[0].municipality,
+                                     'taxon': String(single_obs.gatherings[0].units[0].identifications[0].taxon),
+                                     'time': time,
+                                     'section': Format.formatDate(time, Formatter.TimepointSectionRelative)});
                 }
+                run_timer = false;
             }
         }
     }

@@ -10,31 +10,28 @@ Page {
     property bool run_login_timer: false
     property string person_token: ""
 
-    Timer {
-        id: login_timer
-        interval: 500
-        running: run_login_timer
-        repeat: true
-        onTriggered: {
-            saveUserData();
-        }
-    }
+//    Timer {
+//        id: login_timer
+//        interval: 500
+//        running: run_login_timer
+//        repeat: true
+//        onTriggered: {
+//            saveUserData();
+//        }
+//    }
 
     Component.onCompleted: {
         Db.dbInit();
         Logic.page_stack = pageStack
     }
 
-    function saveUserData() {
-        if (Logic.response_ready) {
-            var response = Logic.response;
-            var pId = response.id;
-            var pName = response.fullName;
-            console.log("Name: " + pName + ", ID: " + pId);
-            Db.dbCreateUser(person_token, pId, pName);
-            Logic.get_person_token();
-            run_login_timer = false
-        }
+    function saveUserData(response) {
+        var pId = response.id;
+        var pName = response.fullName;
+        console.log("Name: " + pName + ", ID: " + pId);
+        Db.dbCreateUser(person_token, pId, pName);
+        Logic.get_person_token();
+        run_login_timer = false
     }
 
     SilicaFlickable {
@@ -56,7 +53,7 @@ Page {
                     var dialog = pageStack.push("../components/LoginPage.qml", {})
                     dialog.accepted.connect(function() {
                         person_token = dialog.person_token
-                        Logic.api_qet("person/" + person_token);
+                        Logic.api_qet(saveUserData, "person/" + person_token);
                         run_login_timer = true;
                     })
                 }
