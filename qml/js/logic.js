@@ -28,8 +28,6 @@ function processRequest(callback, e) {
     if (xhr.readyState === 4) {
         if (xhr.status === 200) {
             var response = JSON.parse(xhr.responseText);
-            console.log("Calling: " + callback)
-            console.log("Response: " + xhr.responseText)
             callback(response);
         }
         else {
@@ -47,18 +45,18 @@ function processRequest(callback, e) {
     }
 }
 
-function api_qet(callback, ep, params) {
+function api_qet(callback, end_point, params) {
     request_count += 1;
     console.log("request_count: " + request_count)
     params = params || {}
-    var end_point = ep;
+    //var end_point = ep;
     var parameters = ""
 
     for (var p in params) {
         parameters += "&" + p + "=" + params[p]
     }
 
-    var request = api_url + end_point + "?access_token=" + access_token// + "&personToken=" + person_token + parameters
+    var request = api_url + end_point + "?access_token=" + access_token + "&personToken=" + person_token + parameters
     console.log(request)
     xhr.onreadystatechange = function() {processRequest(callback);};
 
@@ -66,9 +64,9 @@ function api_qet(callback, ep, params) {
     xhr.send();
 }
 
-function api_post(ep, send_data, params) {
+function api_post(callback, end_point, send_data, params) {
     params = params || {};
-    var end_point = ep;
+    //var end_point = ep;
     var parameters = "";
     for (var p in params) {
         parameters += "&" + p + "=" + params[p];
@@ -78,7 +76,7 @@ function api_post(ep, send_data, params) {
     send_data = JSON.stringify(send_data)
     console.log(send_data)
 
-    xhr.onreadystatechange = processRequest;
+    xhr.onreadystatechange = function() {processRequest(callback);};
 
     xhr.open('POST', request, true);
     xhr.setRequestHeader("Content-Type", "application/json");

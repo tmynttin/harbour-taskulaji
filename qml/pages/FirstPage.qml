@@ -7,18 +7,7 @@ import "../js/logic.js" as Logic
 Page {
     id: mainPage
 
-    property bool run_login_timer: false
     property string person_token: ""
-
-//    Timer {
-//        id: login_timer
-//        interval: 500
-//        running: run_login_timer
-//        repeat: true
-//        onTriggered: {
-//            saveUserData();
-//        }
-//    }
 
     Component.onCompleted: {
         Db.dbInit();
@@ -31,7 +20,6 @@ Page {
         console.log("Name: " + pName + ", ID: " + pId);
         Db.dbCreateUser(person_token, pId, pName);
         Logic.get_person_token();
-        run_login_timer = false
     }
 
     SilicaFlickable {
@@ -54,7 +42,6 @@ Page {
                     dialog.accepted.connect(function() {
                         person_token = dialog.person_token
                         Logic.api_qet(saveUserData, "person/" + person_token);
-                        run_login_timer = true;
                     })
                 }
             }

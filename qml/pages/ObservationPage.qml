@@ -16,7 +16,6 @@ Dialog {
     property var selectedCoordinate
     property var country
     property var municipation
-    property bool run_timer: false
     property var selectedTaxo: {"name": "", "id": ""}
     property var obs
     property var user_data
@@ -27,8 +26,7 @@ Dialog {
     }
 
     function get_municipality(geometry) {
-        Logic.api_post("coordinates/location", geometry)
-        run_timer = true
+        Logic.api_post(location_label.update_location_label, "coordinates/location", geometry)
     }
 
     function build_document() {
@@ -72,7 +70,11 @@ Dialog {
     }
 
     function send_data() {
-        Logic.api_post("documents", obs)
+        Logic.api_post(pass_func, "documents", obs)
+    }
+
+    function pass_func() {
+        return
     }
 
     PositionSource {
@@ -80,13 +82,6 @@ Dialog {
         id: positionSource
         updateInterval: 1000
         active: Qt.application.active
-    }
-
-    Timer {
-        interval: 500
-        running: run_timer
-        repeat: true
-        onTriggered: location_label.update_location_label()
     }
 
     SilicaFlickable {
@@ -208,25 +203,20 @@ Dialog {
                     width: parent.width
                     text:  ""
 
-                    function update_location_label() {
+                    function update_location_label(response) {
                         console.log("Updating label")
-                        if (Logic.response_ready) {
-                            console.log("Response is ready")
-                            var response = Logic.response;
-                            console.log(JSON.stringify(response))
-                            var response_locations = response.results;
 
-                            for (var i in response_locations) {
-                                var location = response_locations[i];
-                                console.log("Location type: " + location.types[0])
-                                if (location.types[0] === "municipality") {
-                                    console.log(location.formatted_address)
-                                    location_label.text = location.formatted_address
-                                    run_timer = false;
-                                    return
-                                }
+                        console.log(JSON.stringify(response))
+                        var response_locations = response.results;
+
+                        for (var i in response_locations) {
+                            var location = response_locations[i];
+                            console.log("Location type: " + location.types[0])
+                            if (location.types[0] === "municipality") {
+                                console.log(location.formatted_address)
+                                location_label.text = location.formatted_address
+                                return
                             }
-                            run_timer = false;
                         }
                     }
                 }
@@ -237,6 +227,7 @@ Dialog {
                 width: parent.width
                 label: "Place description"
                 placeholderText: label
+                EnterKey.iconSource: "image://theme/icon-m-enter-accept"
             }
 
             SectionHeader {

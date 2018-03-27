@@ -9,15 +9,6 @@ Page {
     id: map_page
     backNavigation: false
 
-    property bool run_timer: false
-
-    Timer {
-        interval: 500
-        running: run_timer
-        repeat: true
-        onTriggered: result_list.update_list()
-    }
-
     Timer {
         interval: 1000
         running: true

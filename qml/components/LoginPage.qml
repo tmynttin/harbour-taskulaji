@@ -4,7 +4,7 @@ import "../js/logic.js" as Logic
 
 Dialog {
     id: login_page
-    property var person_token: ""
+    property string person_token: ""
 
     onAccepted: {
         person_token = token_field.text

@@ -7,19 +7,11 @@ Page {
     id: newsPage
     property bool run_timer: false
 
-//    Timer {
-//        interval: 500
-//        running: run_timer
-//        repeat: true
-//        onTriggered: news_column.print_news()
-//    }
-
     BusyIndicator {
          size: BusyIndicatorSize.Large
          anchors.centerIn: parent
          running: run_timer
     }
-
 
     SilicaFlickable {
         anchors.fill: parent
@@ -31,8 +23,6 @@ Page {
                 text: "Refresh"
                 onClicked: {
                     news_column.get_news()
-//                    Logic.api_qet("news")
-//                    run_timer = true
                 }
             }
         }
@@ -127,23 +117,6 @@ Page {
                 }
                 run_timer = false;
             }
-
-//            function print_news() {
-//                if (Logic.response_ready) {
-//                    var response = Logic.response;
-//                    var response_news = response.results;
-
-//                    for (var i in response_news) {
-//                        var single_news = response_news[i];
-//                        var time = new Date(parseInt(single_news.posted));
-//                        model.append({ 'title': String(single_news.title),
-//                                         'content': String(single_news.content),
-//                                         'time': time,
-//                                         'section': Format.formatDate(time, Formatter.TimepointSectionRelative)});
-//                    }
-//                    run_timer = false;
-//                }
-//            }
         }
     }
 }

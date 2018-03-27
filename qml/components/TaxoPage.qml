@@ -7,17 +7,9 @@ Dialog {
     property string searchString
     property bool keepSearchFieldFocus
     property string activeView: "list"
-    property bool run_timer: false
     property var selected_taxo
 
     onSearchStringChanged: result_list.get_taxons()
-
-    Timer {
-        interval: 500
-        running: run_timer
-        repeat: true
-        onTriggered: result_list.update_list()
-    }
 
     Column {
         id: headerContainer
@@ -85,20 +77,14 @@ Dialog {
         function get_taxons() {
             model.clear();
             if (searchString.length > 2) {
-                Logic.api_qet("autocomplete/taxon", {'q':searchString, 'matchType':'partial,exact'});
-                run_timer = true;
+                Logic.api_qet(update_list, "autocomplete/taxon", {'q':searchString, 'matchType':'partial,exact'});
             }
         }
 
-        function update_list() {
-            if (Logic.response_ready) {
-                var response = Logic.response;
-
-                for (var i in response) {
-                    model.append({ 'id': String(response[i].key),
-                                   'name': String(response[i].value)});
-                }
-                run_timer = false;
+        function update_list(response) {
+            for (var i in response) {
+                model.append({ 'id': String(response[i].key),
+                                 'name': String(response[i].value)});
             }
         }
     }

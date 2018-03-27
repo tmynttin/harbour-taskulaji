@@ -6,7 +6,6 @@ import "../js/database.js" as Db
 
 Page {
     id: newsPage
-    property bool run_timer: false
     property var user_data
 
     Component.onCompleted: {user_data = Db.dbGetUser();}
