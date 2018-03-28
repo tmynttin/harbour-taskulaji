@@ -16,7 +16,7 @@ Page {
             width: parent.width
 
             PageHeader {
-                title: "Error message"
+                title: qsTr("Error message")
             }
 
             Label {

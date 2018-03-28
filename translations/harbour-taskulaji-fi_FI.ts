@@ -1,205 +1,205 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1">
+<TS version="2.1" language="fi_FI">
 <context>
     <name>CoverPage</name>
     <message>
         <source>Taskulaji</source>
-        <translation type="unfinished"></translation>
+        <translation>Taskulaji</translation>
     </message>
 </context>
 <context>
     <name>ErrorPage</name>
     <message>
         <source>Error message</source>
-        <translation type="unfinished"></translation>
+        <translation>Virheviesti</translation>
     </message>
 </context>
 <context>
     <name>FirstPage</name>
     <message>
         <source>Login</source>
-        <translation type="unfinished"></translation>
+        <translation>Kirjaudu</translation>
     </message>
     <message>
         <source>Observation</source>
-        <translation type="unfinished"></translation>
+        <translation>Uusi havainto</translation>
     </message>
     <message>
         <source>My Observations</source>
-        <translation type="unfinished"></translation>
+        <translation>Omat havainnot</translation>
     </message>
     <message>
         <source>News</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiedotteet</translation>
     </message>
     <message>
         <source>User Info</source>
-        <translation type="unfinished"></translation>
+        <translation>Profiili</translation>
     </message>
 </context>
 <context>
     <name>LoginPage</name>
     <message>
         <source>Login</source>
-        <translation type="unfinished"></translation>
+        <translation>Kirjaudu</translation>
     </message>
     <message>
         <source>Person Token</source>
-        <translation type="unfinished"></translation>
+        <translation>Person Token</translation>
     </message>
 </context>
 <context>
     <name>MapPage</name>
     <message>
         <source>Center</source>
-        <translation type="unfinished"></translation>
+        <translation>Keskitä</translation>
     </message>
     <message>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Peruuta</translation>
     </message>
     <message>
         <source>Accept</source>
-        <translation type="unfinished"></translation>
+        <translation>Hyväksy</translation>
     </message>
 </context>
 <context>
     <name>MyObservationsPage</name>
     <message>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Päivitä</translation>
     </message>
     <message>
         <source>My Observations</source>
-        <translation type="unfinished"></translation>
+        <translation>Omat havainnot</translation>
     </message>
 </context>
 <context>
     <name>NewsPage</name>
     <message>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Päivitä</translation>
     </message>
     <message>
         <source>News</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiedotteet</translation>
     </message>
 </context>
 <context>
     <name>ObservationPage</name>
     <message>
         <source>Observation</source>
-        <translation type="unfinished"></translation>
+        <translation>Uusi havainto</translation>
     </message>
     <message>
         <source>Observer</source>
-        <translation type="unfinished"></translation>
+        <translation>Havainnoija</translation>
     </message>
     <message>
         <source>Hide observer</source>
-        <translation type="unfinished"></translation>
+        <translation>Salaa havainnoija</translation>
     </message>
     <message>
         <source>Observation Time</source>
-        <translation type="unfinished"></translation>
+        <translation>Havaintoaika</translation>
     </message>
     <message>
         <source>Date</source>
-        <translation type="unfinished"></translation>
+        <translation>Päivämäärä</translation>
     </message>
     <message>
         <source>Time</source>
-        <translation type="unfinished"></translation>
+        <translation>Kellonaika</translation>
     </message>
     <message>
         <source>Location</source>
-        <translation type="unfinished"></translation>
+        <translation>Sijainti</translation>
     </message>
     <message>
         <source>Coarse location</source>
-        <translation type="unfinished"></translation>
+        <translation>Karkeista</translation>
     </message>
     <message>
         <source>Position</source>
-        <translation type="unfinished"></translation>
+        <translation>Paikka</translation>
     </message>
     <message>
         <source>From Map</source>
-        <translation type="unfinished"></translation>
+        <translation>Kartalta</translation>
     </message>
     <message>
         <source>From Favorites</source>
-        <translation type="unfinished"></translation>
+        <translation>Tallennetuista paikoista</translation>
     </message>
     <message>
         <source>Place description</source>
-        <translation type="unfinished"></translation>
+        <translation>Paikan lisätiedot</translation>
     </message>
     <message>
         <source>Observations</source>
-        <translation type="unfinished"></translation>
+        <translation>Havainnot</translation>
     </message>
     <message>
         <source>Species: </source>
-        <translation type="unfinished"></translation>
+        <translation>Laji: </translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Tyhjä</translation>
     </message>
     <message>
         <source>Amount </source>
-        <translation type="unfinished"></translation>
+        <translation>Määrä </translation>
     </message>
 </context>
 <context>
     <name>TaxoPage</name>
     <message>
         <source>Taxo Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Lajihaku</translation>
     </message>
 </context>
 <context>
     <name>UnitPage</name>
     <message>
         <source>Unit information</source>
-        <translation type="unfinished"></translation>
+        <translation>Havaintoyksikkö</translation>
     </message>
     <message>
         <source>Species: </source>
-        <translation type="unfinished"></translation>
+        <translation>Laji: </translation>
     </message>
     <message>
         <source>Amount </source>
-        <translation type="unfinished"></translation>
+        <translation>Määrä </translation>
     </message>
     <message>
         <source>Notes</source>
-        <translation type="unfinished"></translation>
+        <translation>Lisätiedot</translation>
     </message>
 </context>
 <context>
     <name>UserPage</name>
     <message>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Päivitä</translation>
     </message>
     <message>
         <source>Logout</source>
-        <translation type="unfinished"></translation>
+        <translation>Kirjaudu ulos</translation>
     </message>
     <message>
         <source>User name</source>
-        <translation type="unfinished"></translation>
+        <translation>Käyttäjän nimi</translation>
     </message>
     <message>
         <source>User ID</source>
-        <translation type="unfinished"></translation>
+        <translation>Käyttäjän ID</translation>
     </message>
     <message>
         <source>Person Token</source>
-        <translation type="unfinished"></translation>
+        <translation>Person token</translation>
     </message>
 </context>
 </TS>

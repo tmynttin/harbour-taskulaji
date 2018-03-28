@@ -92,7 +92,7 @@ Page {
 
             Button {
                 id: center_button
-                text: "Center"
+                text: qsTr("Center")
                 opacity: 1.0
                 onClicked: {
                     kartta.center = positionSource.position.coordinate
@@ -101,14 +101,14 @@ Page {
 
             Button {
                 id: back_button
-                text: "Back"
+                text: qsTr("Back")
                 opacity: 1.0
                 onClicked: pageStack.pop()
             }
 
             Button {
                 id: accept_button
-                text: "Accept"
+                text: qsTr("Accept")
                 onClicked: {
                     var geometry = {
                                     "type": "Point",

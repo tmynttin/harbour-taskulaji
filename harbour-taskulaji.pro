@@ -26,7 +26,8 @@ DISTFILES += \
     translations/*.ts \
     harbour-taskulaji.desktop \
     qml/harbour-taskulaji.qml \
-    qml/components/UnitPage.qml
+    qml/components/UnitPage.qml \
+    translations/harbour-taskulaji-fi_FI.qm
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128
 
@@ -34,8 +35,14 @@ SAILFISHAPP_ICONS = 86x86 108x108 128x128
 # following CONFIG line
 CONFIG += sailfishapp_i18n
 
-# German translation is enabled as an example. If you aren't
-# planning to localize your app, remember to comment out the
-# following TRANSLATIONS line. And also do not forget to
 # modify the localized app name in the the .desktop file.
-TRANSLATIONS += translations/harbour-taskulaji-de.ts
+TRANSLATIONS += translations/harbour-taskulaji-fi_SE.ts \
+                translations/harbour-taskulaji-fi_FI.ts
+
+lupdate_only{
+    SOURCES = \
+        qml/*.qml \
+        qml/components/*.qml \
+        qml/cover/*.qml \
+        qml/pages/*.qml
+}

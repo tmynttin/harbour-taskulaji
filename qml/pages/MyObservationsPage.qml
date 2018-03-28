@@ -21,7 +21,7 @@ Page {
             id: pullDownMenu
 
             MenuItem {
-                text: "Refresh"
+                text: qsTr("Refresh")
                 onClicked: {
                     obs_column.get_obs()
                 }
@@ -35,7 +35,7 @@ Page {
 
             header: PageHeader {
                 id: page_header
-                title: "My Observations"
+                title: qsTr("My Observations")
             }
 
             model: ListModel {
@@ -113,8 +113,14 @@ Page {
                     var o_date = single_obs.gatheringEvent.dateBegin
                     var time_string = o_date + " " + o_time
                     var time = Date.fromLocaleString(Qt.locale(), time_string, "yyyy-MM-dd hh:mm:ss")
+                    var taxons = ""
+                    var units = single_obs.gatherings[0].units
+                    for (var j in units) {
+                        taxons += units[j].identifications[0].taxon + "\n"
+                    }
+
                     model.append({ 'location': single_obs.gatherings[0].municipality,
-                                     'taxon': String(single_obs.gatherings[0].units[0].identifications[0].taxon),
+                                     'taxon': taxons,
                                      'time': time,
                                      'section': Format.formatDate(time, Formatter.TimepointSectionRelative)})
                 }

@@ -32,7 +32,7 @@ Page {
             spacing: Theme.paddingLarge
 
             MenuItem {
-                text: "Login"
+                text: qsTr("Login")
                 onClicked: {
                     openLoginDialog();
                 }
@@ -52,25 +52,25 @@ Page {
 
             ListElement {
                 page: "ObservationPage.qml"
-                title: "Observation"
+                title: qsTr("Observation")
                 iconSource: "image://theme/icon-m-right"
             }
 
             ListElement {
                 page: "MyObservationsPage.qml"
-                title: "My Observations"
+                title: qsTr("My Observations")
                 iconSource: "image://theme/icon-m-right"
             }
 
             ListElement {
                 page: "NewsPage.qml"
-                title: "News"
+                title: qsTr("News")
                 iconSource: "image://theme/icon-m-right"
             }
 
             ListElement {
                 page: "UserPage.qml"
-                title: "User Info"
+                title: qsTr("User Info")
                 iconSource: "image://theme/icon-m-right"
             }
         }

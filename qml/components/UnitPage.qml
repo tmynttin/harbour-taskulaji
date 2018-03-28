@@ -22,7 +22,7 @@ Dialog {
             width: parent.width
             spacing: Theme.paddingSmall
 
-            DialogHeader { title: "Unit information" }
+            DialogHeader { title: qsTr("Unit information") }
 
             ValueButton {
                 id: species_button
@@ -36,7 +36,7 @@ Dialog {
                     })
                 }
 
-                label: "Species: "
+                label: qsTr("Species: ")
                 value: unit_model.taxo_name ? unit_model.taxo_name : "None"
                 width: parent.width
                 onClicked: openTaxoDialog()
@@ -47,7 +47,7 @@ Dialog {
                 width: parent.width
                 text: unit_model.amount
                 inputMethodHints: Qt.ImhFormattedNumbersOnly
-                label: "Amount "
+                label: qsTr("Amount ")
                 placeholderText: label //"Amount e.g. '5m2f' or '7'"
                 EnterKey.iconSource: "image://theme/icon-m-enter-accept"
                 EnterKey.onClicked: {unit_model.amount = text}
@@ -57,7 +57,7 @@ Dialog {
             TextField {
                 id: unit_notes
                 width: parent.width
-                label: "Notes"
+                label: qsTr("Notes")
                 text: unit_model.notes
                 placeholderText: label
                 EnterKey.iconSource: "image://theme/icon-m-enter-accept"

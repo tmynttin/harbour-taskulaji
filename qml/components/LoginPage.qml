@@ -20,13 +20,13 @@ Dialog {
             width: parent.width
 
             DialogHeader {
-                title: "Login"
+                title: qsTr("Login")
             }
 
             TextField {
                 id: token_field
                 text: ""
-                label: "Person Token"
+                label: qsTr("Person Token")
                 placeholderText: label
                 width: parent.width
             }

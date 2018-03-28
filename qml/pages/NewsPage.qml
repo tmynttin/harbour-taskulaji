@@ -20,7 +20,7 @@ Page {
             id: pullDownMenu
 
             MenuItem {
-                text: "Refresh"
+                text: qsTr("Refresh")
                 onClicked: {
                     news_column.get_news()
                 }
@@ -34,7 +34,7 @@ Page {
 
             header: PageHeader {
                 id: page_header
-                title: "News"
+                title: qsTr("News")
             }
 
             model: ListModel {

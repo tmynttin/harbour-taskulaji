@@ -17,14 +17,14 @@ Page {
             id: pullDownMenu
 
             MenuItem {
-                text: "Refresh"
+                text: qsTr("Refresh")
                 onClicked: {
                     user_data = Db.dbGetUser();
                 }
             }
 
             MenuItem {
-                text: "Logout"
+                text: qsTr("Logout")
                 onClicked: {
                     Db.dbDeleteUser();
                     user_data = {"person_token": "", "person_id": "", "name": ""};
@@ -40,21 +40,21 @@ Page {
             TextField {
                 width: parent.width
                 readOnly: true
-                label: "User name"
+                label: qsTr("User name")
                 text: user_data.name
             }
 
             TextField {
                 width: parent.width
                 readOnly: true
-                label: "User ID"
+                label: qsTr("User ID")
                 text: user_data.person_id
             }
 
             TextArea {
                 width: parent.width
                 readOnly: false
-                label: "Person Token"
+                label: qsTr("Person Token")
                 text: user_data.person_token
                 selectionMode: TextInput.SelectWords
             }

@@ -96,17 +96,17 @@ Dialog {
             width: parent.width
             spacing: Theme.paddingSmall
 
-            DialogHeader { title: "Observation" }
+            DialogHeader { title: qsTr("Observation") }
 
-            SectionHeader { text: "Observer"}
+            SectionHeader { text: qsTr("Observer")}
 
             TextSwitch {
                 id: hide_user
-                text: "Hide observer"
+                text: qsTr("Hide observer")
                 checked: false
             }
 
-            SectionHeader { text: "Observation Time" }
+            SectionHeader { text: qsTr("Observation Time") }
 
             ValueButton {
                 id: date_button
@@ -122,7 +122,7 @@ Dialog {
                     })
                 }
 
-                label: "Date"
+                label: qsTr("Date")
                 value: selectedDate.toDateString()
                 width: parent.width
                 onClicked: openDateDialog()
@@ -144,21 +144,21 @@ Dialog {
                     })
                 }
 
-                label: "Time"
+                label: qsTr("Time")
                 value: selectedTime.toTimeString()
                 width: parent.width
                 onClicked: openTimeDialog()
             }
 
             SectionHeader {
-                text: "Location"
+                text: qsTr("Location")
             }
 
             TextSwitch {
                 property string sec_lev: "none"
 
                 id: secure_level
-                text: "Coarse location"
+                text: qsTr("Coarse location")
                 checked: false
 
                 onCheckedChanged: {
@@ -174,7 +174,7 @@ Dialog {
             ComboBox {
                 id: position_combo_box
                 width: parent.width
-                label: selectedCoordinate ? String(selectedCoordinate) : "Position"
+                label: selectedCoordinate ? String(selectedCoordinate) : qsTr("Position")
                 currentIndex: 0
 
                 menu: ContextMenu {
@@ -183,13 +183,13 @@ Dialog {
                             var dialog = pageStack.push("../components/MapPage.qml", {})
 
                         }
-                        text: "From Map"
+                        text: qsTr("From Map")
                         onClicked: {
                             openMapDialog()
 
                         }
                     }
-                    MenuItem { text: "From Favorites" }
+                    MenuItem { text: qsTr("From Favorites") }
                 }
             }
 
@@ -225,13 +225,13 @@ Dialog {
             TextArea {
                 id: place_description
                 width: parent.width
-                label: "Place description"
+                label: qsTr("Place description")
                 placeholderText: label
                 EnterKey.iconSource: "image://theme/icon-m-enter-accept"
             }
 
             SectionHeader {
-                text: "Observations"
+                text: qsTr("Observations")
             }
 
             ListModel {
@@ -269,8 +269,8 @@ Dialog {
                                 })
                             }
 
-                            label: "Species: "
-                            value: taxo_name ? taxo_name : "None"
+                            label: qsTr("Species: ")
+                            value: taxo_name ? taxo_name : qsTr("None")
                             width: parent.width - unit_options.width - Theme.paddingLarge
                             onClicked: openTaxoDialog()
                         }
@@ -301,7 +301,7 @@ Dialog {
                         width: parent.width
                         text: amount
                         inputMethodHints: Qt.ImhFormattedNumbersOnly
-                        label: "Amount "
+                        label: qsTr("Amount ")
                         placeholderText: label //"Amount e.g. '5m2f' or '7'"
                         EnterKey.iconSource: "image://theme/icon-m-enter-accept"
                         EnterKey.onClicked: {amount = text}

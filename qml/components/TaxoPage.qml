@@ -16,7 +16,7 @@ Dialog {
         width: taxo_page.width
 
         PageHeader {
-            title: "Taxo Search"
+            title: qsTr("Taxo Search")
         }
 
         SearchField {
