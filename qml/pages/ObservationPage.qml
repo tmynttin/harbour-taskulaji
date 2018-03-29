@@ -171,25 +171,35 @@ Dialog {
                 }
             }
 
-            ComboBox {
-                id: position_combo_box
+            Row {
+                id: buttons
+                spacing: Theme.paddingLarge
                 width: parent.width
-                label: selectedCoordinate ? String(selectedCoordinate) : qsTr("Position")
-                currentIndex: 0
+                anchors.left: parent.left
+                anchors.leftMargin: Theme.paddingLarge
 
-                menu: ContextMenu {
-                    MenuItem {
-                        function openMapDialog() {
-                            var dialog = pageStack.push("../components/MapPage.qml", {})
-
-                        }
-                        text: qsTr("From Map")
-                        onClicked: {
-                            openMapDialog()
-
-                        }
+                IconButton {
+                    id: position_button
+                    icon.source: "image://theme/icon-l-gps"
+                    onClicked: {
+                        openMapDialog()
                     }
-                    MenuItem { text: qsTr("From Favorites") }
+                    function openMapDialog() {
+                        var dialog = pageStack.push("../components/MapPage.qml", {})
+
+                    }
+                }
+
+                Item {
+                    anchors.left: position_button.right
+                    anchors.leftMargin: Theme.paddingLarge
+                    anchors.verticalCenter: position_button.verticalCenter
+
+                    Label {
+                        id: coordinate_label
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: selectedCoordinate ? String(selectedCoordinate) : qsTr("Position")
+                    }
                 }
             }
 
