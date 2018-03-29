@@ -87,7 +87,7 @@ Page {
                 Label {
                     id: obs_taxon
                     text: taxon
-                    font.pixelSize: Theme.fontSizeSmall
+                    font.pixelSize: Theme.fontSizeExtraSmall
                     wrapMode: Text.WordWrap
                     width: parent.width
                     anchors.top: obs_time.bottom
@@ -116,7 +116,7 @@ Page {
                     var taxons = ""
                     var units = single_obs.gatherings[0].units
                     for (var j in units) {
-                        taxons += units[j].identifications[0].taxon + "\n"
+                        taxons += units[j].identifications[0].taxon + ", " + units[j].count + "\n"
                     }
 
                     model.append({ 'location': single_obs.gatherings[0].municipality,
