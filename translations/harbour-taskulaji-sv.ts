@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="fi_SE">
+<TS version="2.1" language="sv">
 <context>
     <name>CoverPage</name>
     <message>
         <source>Taskulaji</source>
-        <translation type="unfinished"></translation>
+        <translation>Taskulaji</translation>
     </message>
 </context>
 <context>
     <name>ErrorPage</name>
     <message>
         <source>Error message</source>
-        <translation type="unfinished"></translation>
+        <translation>Felmeddelande</translation>
     </message>
 </context>
 <context>
@@ -46,21 +46,6 @@
     </message>
     <message>
         <source>Person Token</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>MapPage</name>
-    <message>
-        <source>Center</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Back</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Accept</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -122,14 +107,6 @@
     </message>
     <message>
         <source>Position</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>From Map</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>From Favorites</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

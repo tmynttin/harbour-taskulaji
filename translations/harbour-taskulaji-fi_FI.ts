@@ -50,21 +50,6 @@
     </message>
 </context>
 <context>
-    <name>MapPage</name>
-    <message>
-        <source>Center</source>
-        <translation>Keskitä</translation>
-    </message>
-    <message>
-        <source>Back</source>
-        <translation>Peruuta</translation>
-    </message>
-    <message>
-        <source>Accept</source>
-        <translation>Hyväksy</translation>
-    </message>
-</context>
-<context>
     <name>MyObservationsPage</name>
     <message>
         <source>Refresh</source>
@@ -123,14 +108,6 @@
     <message>
         <source>Position</source>
         <translation>Paikka</translation>
-    </message>
-    <message>
-        <source>From Map</source>
-        <translation>Kartalta</translation>
-    </message>
-    <message>
-        <source>From Favorites</source>
-        <translation>Tallennetuista paikoista</translation>
     </message>
     <message>
         <source>Place description</source>

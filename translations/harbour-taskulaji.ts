@@ -50,21 +50,6 @@
     </message>
 </context>
 <context>
-    <name>MapPage</name>
-    <message>
-        <source>Center</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Back</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Accept</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>MyObservationsPage</name>
     <message>
         <source>Refresh</source>
@@ -122,14 +107,6 @@
     </message>
     <message>
         <source>Position</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>From Map</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>From Favorites</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

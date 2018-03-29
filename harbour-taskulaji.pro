@@ -36,7 +36,7 @@ SAILFISHAPP_ICONS = 86x86 108x108 128x128
 CONFIG += sailfishapp_i18n
 
 # modify the localized app name in the the .desktop file.
-TRANSLATIONS += translations/harbour-taskulaji-fi_SE.ts \
+TRANSLATIONS += translations/harbour-taskulaji-sv.ts \
                 translations/harbour-taskulaji-fi_FI.ts
 
 lupdate_only{
