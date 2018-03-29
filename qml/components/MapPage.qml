@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtGraphicalEffects 1.0
 import Sailfish.Silica 1.0
 import QtLocation 5.0
 import QtPositioning 5.3
@@ -33,20 +34,40 @@ Page {
         name: "osm"
     }
 
-    Rectangle {
+    Item {
         id: pos_item
-        width: 30
-        height: 30
-        color: 'red'
         anchors.centerIn: parent.Center
+
+        Image {
+            id: person
+            source: "image://theme/icon-m-people"
+            anchors.bottom: parent.bottom
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+
+        ColorOverlay {
+            anchors.fill: person
+            source: person
+            color: 'red'
+        }
     }
 
-    Rectangle {
+    Item {
         id: marker_item
-        width: 30
-        height: 30
-        color: 'blue'
         anchors.centerIn: parent.Center
+
+        Image {
+            id: target
+            source: "image://theme/icon-m-location"
+            anchors.bottom: parent.bottom
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+
+        ColorOverlay {
+            anchors.fill: target
+            source: target
+            color: 'blue'
+        }
     }
 
     Column {
@@ -57,7 +78,7 @@ Page {
         Map {
             id: kartta
             width: parent.width
-            height: map_page.height * 0.6
+            height: map_page.height * 0.8
             plugin: mapPlugin
             center: positionSource.position.coordinate
             zoomLevel: 14
@@ -88,27 +109,27 @@ Page {
             text: String(marker.coordinate)
         }
 
-        ButtonLayout {
+        Row {
+            id: buttons
+            spacing: Theme.paddingLarge
+            anchors.horizontalCenter: parent.horizontalCenter
 
-            Button {
+            IconButton {
+                id: back_button
+                icon.source: "image://theme/icon-m-back"
+                onClicked: pageStack.pop()
+            }
+
+            IconButton {
                 id: center_button
-                text: qsTr("Center")
-                opacity: 1.0
+                icon.source: "image://theme/icon-m-location"
                 onClicked: {
                     kartta.center = positionSource.position.coordinate
                 }
             }
-
-            Button {
-                id: back_button
-                text: qsTr("Back")
-                opacity: 1.0
-                onClicked: pageStack.pop()
-            }
-
-            Button {
+            IconButton {
                 id: accept_button
-                text: qsTr("Accept")
+                icon.source: "image://theme/icon-m-acknowledge"
                 onClicked: {
                     var geometry = {
                                     "type": "Point",
@@ -123,7 +144,6 @@ Page {
                     pageStack.pop();
                 }
             }
-
         }
     }
 }
