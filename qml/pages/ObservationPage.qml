@@ -74,6 +74,7 @@ Dialog {
     }
 
     function pass_func() {
+        console.log("Send successful")
         return
     }
 
@@ -172,33 +173,37 @@ Dialog {
             }
 
             Row {
-                id: buttons
+                id: map_buttons
                 spacing: Theme.paddingLarge
                 width: parent.width
                 anchors.left: parent.left
                 anchors.leftMargin: Theme.paddingLarge
 
+                function openMapDialog() {
+                    var dialog = pageStack.push("../components/MapPage.qml", {})
+
+                }
+
                 IconButton {
                     id: position_button
-                    icon.source: "image://theme/icon-l-gps"
+                    icon.source: "image://theme/icon-m-gps"
                     onClicked: {
-                        openMapDialog()
-                    }
-                    function openMapDialog() {
-                        var dialog = pageStack.push("../components/MapPage.qml", {})
-
+                        map_buttons.openMapDialog()
                     }
                 }
 
-                Item {
-                    anchors.left: position_button.right
+                BackgroundItem {
                     anchors.leftMargin: Theme.paddingLarge
                     anchors.verticalCenter: position_button.verticalCenter
+                    onClicked: {
+                        map_buttons.openMapDialog()
+                    }
 
                     Label {
                         id: coordinate_label
                         anchors.verticalCenter: parent.verticalCenter
                         text: selectedCoordinate ? String(selectedCoordinate) : qsTr("Position")
+                        color: Theme.highlightColor
                     }
                 }
             }
