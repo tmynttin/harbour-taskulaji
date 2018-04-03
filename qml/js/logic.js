@@ -38,7 +38,6 @@ function processRequest(callback, e) {
             catch (e) {
                 error_message = xhr.responseText;
             }
-            response_ready = true
             page_stack.push(Qt.resolvedUrl("../components/ErrorPage.qml"), {message: error_message})
             console.log(JSON.parse(xhr.responseText).error.message)
         }
