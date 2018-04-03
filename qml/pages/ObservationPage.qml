@@ -64,6 +64,8 @@ Dialog {
             identification.taxon = unit.taxo_name
             unit_doc.identifications.push(identification)
             unit_doc.notes = unit.notes
+            unit_doc.recordBasis = Doc.recordBasis[unit.record_basis]
+            unit_doc.taxonConfidence = Doc.taxonConfidence[unit.taxon_confidence]
 
             obs.gatherings[0].units.push(unit_doc)
         }
@@ -75,7 +77,6 @@ Dialog {
 
     function pass_func() {
         console.log("Send successful")
-        return
     }
 
     PositionSource {
@@ -256,6 +257,8 @@ Dialog {
                     taxo_id: ""
                     amount: ""
                     notes: ""
+                    taxon_confidence: "Sure"
+                    record_basis: "MY.recordBasisHumanObservation"
                 }
             }
 
@@ -335,7 +338,7 @@ Dialog {
                     id: unit_adder
                     icon.source: "image://theme/icon-l-add"
                     onClicked: {
-                        unit_model.append({taxo_name: "", taxo_id: "", amount: "", notes: ""})
+                        unit_model.append({taxo_name: "", taxo_id: "", amount: "", notes: "", taxon_confidence: "Sure", record_basis: "Seen"})
                     }
                 }
 

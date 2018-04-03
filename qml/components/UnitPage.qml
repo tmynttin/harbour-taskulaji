@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import "../js/logic.js" as Logic
+import "../js/document.js" as Doc
 
 Dialog {
     id: unit_page
@@ -68,7 +69,51 @@ Dialog {
                 onFocusChanged: {unit_model.notes = text}
             }
 
+            ComboBox {
+                id: taxon_confidence_combobox
+                width: parent.width
+                label: qsTr("Taxon confidence")
+                currentIndex: 1
+                menu: ContextMenu {
+                    Repeater {
+                        function build_model() {
+                            var ret = []
+                            for (var key in Doc.taxonConfidence) {
+                                ret.push(key)
+                            }
+                            return ret
+                        }
+                        model: build_model()
+                        MenuItem {
+                            id: taxon_confidence_item
+                            text: modelData
+                            onClicked: {
+                                unit_model.taxon_confidence = taxon_confidence_item.text
+                            }
+                        }
+                    }
+                }
+            }
 
+            ComboBox {
+                id: record_basis_combobox
+                width: parent.width
+                label: qsTr("Record basis")
+                currentIndex: 1
+                menu: ContextMenu {
+                    Repeater {
+                        id: record_basis_list
+                        model: Doc.recordBasis
+                        MenuItem {
+                            id: record_basis_item
+                            text: modelData
+                            onClicked: {
+                                unit_model.record_basis = record_basis_item.text
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

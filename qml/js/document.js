@@ -16,6 +16,18 @@ var secureLevel = {
     //"NoShow": "MX.secureLevelNoShow"
 }
 
+//var recordBasis = {
+//    "Seen": "MY.recordBasisHumanObservationSeen",
+//    "Heard": "MY.recordBasisHumanObservationHeard"
+//}
+
+var recordBasis = [
+            "MY.recordBasisPreservedSpecimen",
+            "MY.recordBasisHumanObservation",
+            "MY.recordBasisHumanObservationPhoto",
+            "MY.recordBasisHumanObservationHandled"
+        ]
+
 var taxonConfidence = {
     "Sure": "MY.taxonConfidenceSure",
     "Unsure": "MY.taxonConfidenceUnsure",
@@ -52,7 +64,7 @@ function Gathering() {
 }
 
 function Unit() {
-    this.recordBasis = "MY.recordBasisHumanObservation"
+    this.recordBasis = recordBasis.Seen
     this.identifications = []
     this.count = ""
     this.taxonConfidence = taxonConfidence.Sure
