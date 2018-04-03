@@ -16,11 +16,6 @@ var secureLevel = {
     //"NoShow": "MX.secureLevelNoShow"
 }
 
-//var recordBasis = {
-//    "Seen": "MY.recordBasisHumanObservationSeen",
-//    "Heard": "MY.recordBasisHumanObservationHeard"
-//}
-
 var recordBasis = [
             "MY.recordBasisPreservedSpecimen",
             "MY.recordBasisHumanObservation",
