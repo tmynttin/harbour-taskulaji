@@ -155,6 +155,14 @@
         <source>Notes</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Taxon confidence</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Record basis</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UserPage</name>
