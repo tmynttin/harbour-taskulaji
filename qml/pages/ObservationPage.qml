@@ -51,6 +51,8 @@ Dialog {
         obs.gatherings[0].dateBegin = Qt.formatDate(date_button.selectedDate, "yyyy-MM-dd")
         obs.gatherings[0].geometry.coordinates = selectedCoordinate
         obs.gatherings[0].municipality = location_label.text
+        obs.gatherings[0].locality = locality.text
+        obs.gatherings[0].localityDescription = locality_description.text
 
         // Fill unit information
         for (var j = 0; j < unit_model.count; j++) {
@@ -238,10 +240,18 @@ Dialog {
                 }
             }
 
-            TextArea {
-                id: place_description
+            TextField {
+                id: locality
                 width: parent.width
-                label: qsTr("Place description")
+                label: qsTr("Locality names")
+                placeholderText: label
+                EnterKey.iconSource: "image://theme/icon-m-enter-accept"
+            }
+
+            TextField {
+                id: locality_description
+                width: parent.width
+                label: qsTr("Locality description")
                 placeholderText: label
                 EnterKey.iconSource: "image://theme/icon-m-enter-accept"
             }

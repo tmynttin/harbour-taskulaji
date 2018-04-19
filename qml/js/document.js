@@ -54,6 +54,8 @@ function Gathering() {
       "coordinates": []
     }
     this.municipality = ""
+    this.locality = ""
+    this.localityDescription = ""
     this.dateBegin = ""
     this.units = []
 }
