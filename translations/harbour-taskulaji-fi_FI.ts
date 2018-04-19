@@ -110,10 +110,6 @@
         <translation>Paikka</translation>
     </message>
     <message>
-        <source>Place description</source>
-        <translation>Paikan lisätiedot</translation>
-    </message>
-    <message>
         <source>Observations</source>
         <translation>Havainnot</translation>
     </message>
@@ -128,6 +124,14 @@
     <message>
         <source>Amount </source>
         <translation>Määrä </translation>
+    </message>
+    <message>
+        <source>Locality names</source>
+        <translation>Paikannimet</translation>
+    </message>
+    <message>
+        <source>Locality description</source>
+        <translation>Paikan vapaamuotoinen kuvaus</translation>
     </message>
 </context>
 <context>

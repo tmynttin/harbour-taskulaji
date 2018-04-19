@@ -110,10 +110,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Place description</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Observations</source>
         <translation type="unfinished"></translation>
     </message>
@@ -127,6 +123,14 @@
     </message>
     <message>
         <source>Amount </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Locality names</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Locality description</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
