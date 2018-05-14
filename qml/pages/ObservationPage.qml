@@ -62,7 +62,6 @@ Dialog {
 
             unit_doc.count = unit.amount
             var identification = new Doc.Identification()
-            identification.taxonID = unit.taxo_id
             identification.taxon = unit.taxo_name
             unit_doc.identifications.push(identification)
             unit_doc.notes = unit.notes
