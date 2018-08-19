@@ -41,10 +41,10 @@ Dialog {
         obs.secureLevel = Doc.secureLevel[secure_level.sec_lev]
 
         // Fill gathering event information
-        obs.gatheringEvent.dateBegin = Qt.formatDate(date_button.selectedDate, "yyyy-MM-dd")
+        obs.gatheringEvent.dateBegin = Qt.formatDate(date_button.selectedDate, "yyyy-MM-dd") + "T" + time_button.value
         obs.gatheringEvent.leg.push(user_data.person_id)
         obs.gatheringEvent.legUserID.push(user_data.person_id)
-        obs.gatheringEvent.timeStart = time_button.value
+        //obs.gatheringEvent.timeStart = time_button.value
         obs.gatheringEvent.legPublic = !hide_user.checked
 
         // Fill gathering information
@@ -148,7 +148,8 @@ Dialog {
                 }
 
                 label: qsTr("Time")
-                value: selectedTime.toTimeString()
+                //value: selectedTime.toTimeString()
+                value: selectedTime.toLocaleString(Qt.locale(), "HH:mm")
                 width: parent.width
                 onClicked: openTimeDialog()
             }

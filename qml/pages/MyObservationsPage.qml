@@ -109,10 +109,8 @@ Page {
 
                 for (var i in response_obs) {
                     var single_obs = response_obs[i]
-                    var o_time = single_obs.gatheringEvent.timeStart
                     var o_date = single_obs.gatheringEvent.dateBegin
-                    var time_string = o_date + " " + o_time
-                    var time = Date.fromLocaleString(Qt.locale(), time_string, "yyyy-MM-dd hh:mm:ss")
+                    var time = parse_date_time(o_date)
                     var taxons = ""
                     var units = single_obs.gatherings[0].units
                     for (var j in units) {
@@ -125,6 +123,14 @@ Page {
                                      'section': Format.formatDate(time, Formatter.TimepointSectionRelative)})
                 }
                 run_timer = false
+            }
+
+            function parse_date_time(p_date) {
+                var parsed_value = Date.fromLocaleString(Qt.locale(), p_date, "yyyy-MM-dd'T'hh:mm")
+                if (parsed_value.toString() === "Invalid Date") {
+                    parsed_value = Date.fromLocaleString(Qt.locale(), p_date, "yyyy-MM-dd")
+                }
+                return parsed_value
             }
         }
     }
