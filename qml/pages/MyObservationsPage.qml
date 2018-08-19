@@ -69,9 +69,13 @@ Page {
 
                 Label {
                     function timestamp() {
-                        var txt = Format.formatDate(time, Formatter.Timepoint)
+                        var time_part = ''
+                        if (time.getHours() !== 0 || time.getMinutes() !== 0) {
+                            time_part = Format.formatDate(time, Formatter.TimeValue)
+                        }
+                        var date_part = Format.formatDate(time, Formatter.DateMedium)
                         var elapsed = Format.formatDate(time, Formatter.DurationElapsed)
-                        return txt + (elapsed ? ' (' + elapsed + ')' : '')
+                        return ((time_part !== '') ? time_part + ', '  : '') + date_part + (elapsed ? ' (' + elapsed + ')' : '')
                     }
                     id: obs_time
                     text: timestamp()
@@ -114,7 +118,12 @@ Page {
                     var taxons = ""
                     var units = single_obs.gatherings[0].units
                     for (var j in units) {
-                        taxons += units[j].identifications[0].taxon + ", " + units[j].count + "\n"
+                        var count = ""
+                        if (units[j].count) {
+                            count = ", " + units[j].count
+                        }
+
+                        taxons += units[j].identifications[0].taxon + count + "\n"
                     }
 
                     model.append({ 'location': single_obs.gatherings[0].municipality,
