@@ -83,15 +83,6 @@ Page {
                         topMargin: Theme.paddingSmall
                     }
                 }
-
-                Label {
-                    id: news_content
-                    text: content
-                    font.pixelSize: Theme.fontSizeSmall
-                    wrapMode: Text.WordWrap
-                    width: parent.width
-                    anchors.top: news_time.bottom
-                }
             }
 
             Component.onCompleted: {
@@ -111,7 +102,6 @@ Page {
                     var single_news = response_news[i];
                     var time = new Date(parseInt(single_news.posted));
                     model.append({ 'title': String(single_news.title),
-                                   'content': String(single_news.content),
                                    'time': time,
                                    'section': Format.formatDate(time, Formatter.TimepointSectionRelative)});
                 }
