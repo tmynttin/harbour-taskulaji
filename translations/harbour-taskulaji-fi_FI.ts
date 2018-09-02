@@ -18,14 +18,6 @@
 <context>
     <name>FirstPage</name>
     <message>
-        <source>Login</source>
-        <translation>Kirjaudu</translation>
-    </message>
-    <message>
-        <source>Observation</source>
-        <translation>Uusi havainto</translation>
-    </message>
-    <message>
         <source>My Observations</source>
         <translation>Omat havainnot</translation>
     </message>
@@ -36,6 +28,10 @@
     <message>
         <source>User Info</source>
         <translation>Profiili</translation>
+    </message>
+    <message>
+        <source>New Observation</source>
+        <translation>Uusi havainto</translation>
     </message>
 </context>
 <context>
@@ -189,6 +185,10 @@
     <message>
         <source>Person Token</source>
         <translation>Person token</translation>
+    </message>
+    <message>
+        <source>Login</source>
+        <translation>Kirjaudu</translation>
     </message>
 </context>
 </TS>

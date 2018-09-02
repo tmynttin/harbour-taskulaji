@@ -7,19 +7,9 @@ import "../js/logic.js" as Logic
 Page {
     id: mainPage
 
-    property string person_token: ""
-
     Component.onCompleted: {
         Db.dbInit();
         Logic.page_stack = pageStack
-    }
-
-    function saveUserData(response) {
-        var pId = response.id;
-        var pName = response.fullName;
-        console.log("Name: " + pName + ", ID: " + pId);
-        Db.dbCreateUser(person_token, pId, pName);
-        Logic.get_person_token();
     }
 
     SilicaFlickable {
@@ -32,18 +22,8 @@ Page {
             spacing: Theme.paddingLarge
 
             MenuItem {
-                text: qsTr("Login")
-                onClicked: {
-                    openLoginDialog();
-                }
-
-                function openLoginDialog() {
-                    var dialog = pageStack.push("../components/LoginPage.qml", {})
-                    dialog.accepted.connect(function() {
-                        person_token = dialog.person_token
-                        Logic.api_qet(saveUserData, "person/" + person_token);
-                    })
-                }
+                text: qsTr("New Observation")
+                onClicked: pageStack.push(Qt.resolvedUrl("ObservationPage.qml"))
             }
         }
 
@@ -52,7 +32,7 @@ Page {
 
             ListElement {
                 page: "ObservationPage.qml"
-                title: qsTr("Observation")
+                title: qsTr("New Observation")
                 iconSource: "image://theme/icon-m-right"
             }
 

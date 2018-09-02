@@ -7,8 +7,22 @@ import "../js/database.js" as Db
 Page {
     id: newsPage
     property var user_data
+    property string person_token: ""
 
-    Component.onCompleted: {user_data = Db.dbGetUser();}
+    Component.onCompleted: {
+        user_data = Db.dbGetUser()
+        person_token = user_data.person_token ? user_data.person_token : ""
+    }
+
+    function saveUserData(response) {
+        var pId = response.id
+        var pName = response.fullName
+        console.log("Name: " + pName + ", ID: " + pId)
+        Db.dbCreateUser(person_token, pId, pName)
+        Logic.get_person_token()
+        user_data = Db.dbGetUser()
+        person_token = user_data.person_token
+    }
 
     SilicaFlickable {
         anchors.fill: parent
@@ -29,6 +43,24 @@ Page {
                     Db.dbDeleteUser();
                     user_data = {"person_token": "", "person_id": "", "name": ""};
                     Logic.get_person_token();
+                    person_token = ""
+                }
+                visible: (person_token !== "")
+            }
+
+            MenuItem {
+                text: qsTr("Login")
+                onClicked: {
+                    openLoginDialog();
+                }
+                visible: (person_token === "")
+
+                function openLoginDialog() {
+                    var dialog = pageStack.push("../components/LoginPage.qml", {})
+                    dialog.accepted.connect(function() {
+                        person_token = dialog.person_token
+                        Logic.api_qet(saveUserData, "person/" + person_token);
+                    })
                 }
             }
         }
@@ -41,21 +73,21 @@ Page {
                 width: parent.width
                 readOnly: true
                 label: qsTr("User name")
-                text: user_data.name
+                text: user_data.name ? user_data.name : ""
             }
 
             TextField {
                 width: parent.width
                 readOnly: true
                 label: qsTr("User ID")
-                text: user_data.person_id
+                text: user_data.person_id ? user_data.person_id : ""
             }
 
             TextArea {
                 width: parent.width
                 readOnly: false
                 label: qsTr("Person Token")
-                text: user_data.person_token
+                text: user_data.person_token ? user_data.person_token : ""
                 selectionMode: TextInput.SelectWords
             }
         }
