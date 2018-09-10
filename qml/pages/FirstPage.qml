@@ -6,10 +6,15 @@ import "../js/logic.js" as Logic
 
 Page {
     id: mainPage
+    property var logged_in
 
     Component.onCompleted: {
         Db.dbInit();
         Logic.page_stack = pageStack
+    }
+
+    onStatusChanged: {
+        logged_in = (Logic.person_token !== "")
     }
 
     SilicaFlickable {
@@ -27,63 +32,96 @@ Page {
             }
         }
 
-        ListModel {
-            id: pagesModel
+        Column {
+            id: menu
+            width: parent.width
+            spacing: Theme.paddingSmall
 
-            ListElement {
-                page: "ObservationPage.qml"
-                title: qsTr("New Observation")
-                iconSource: "image://theme/icon-m-right"
-            }
-
-            ListElement {
-                page: "MyObservationsPage.qml"
-                title: qsTr("My Observations")
-                iconSource: "image://theme/icon-m-right"
-            }
-
-            ListElement {
-                page: "NewsPage.qml"
-                title: qsTr("News")
-                iconSource: "image://theme/icon-m-right"
-            }
-
-            ListElement {
-                page: "UserPage.qml"
-                title: qsTr("User Info")
-                iconSource: "image://theme/icon-m-right"
-            }
-        }
-
-        SilicaListView {
-            id: listView
-            anchors.fill: parent
-            model: pagesModel
-            header: PageHeader { title: "Laji.fi" }
-            spacing: Theme.paddingLarge
-
-            delegate: BackgroundItem {
-                width: listView.width
+            BackgroundItem {
+                width: parent.width
+                id: new_observation
+                visible: logged_in
 
                 Label {
-                    id: list_label
-                    text: model.title
-                    color: highlighted ? Theme.highlightColor : Theme.primaryColor
+                    text: qsTr("New Observation")
                     anchors.verticalCenter: parent.verticalCenter
-                    anchors.right: list_image.left
+                    anchors.right: new_observation_image.left
                     x: Theme.horizontalPageMargin
                 }
 
                 Image {
-                    id: list_image
-                    source: model.iconSource
+                    id: new_observation_image
+                    source: "image://theme/icon-m-right"
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
                 }
 
-                onClicked: pageStack.push(Qt.resolvedUrl(page))
+                onClicked: pageStack.push(Qt.resolvedUrl("ObservationPage.qml"))
             }
-            VerticalScrollDecorator {}
+
+            BackgroundItem {
+                width: parent.width
+                id: my_observations
+                visible: logged_in
+
+                Label {
+                    text: qsTr("My Observations")
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.right: my_observations_image.left
+                    x: Theme.horizontalPageMargin
+                }
+
+                Image {
+                    id: my_observations_image
+                    source: "image://theme/icon-m-right"
+                    anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                onClicked: pageStack.push(Qt.resolvedUrl("MyObservationsPage.qml"))
+            }
+
+            BackgroundItem {
+                width: parent.width
+                id: news
+
+                Label {
+                    text: qsTr("News")
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.right: news_image.left
+                    x: Theme.horizontalPageMargin
+                }
+
+                Image {
+                    id: news_image
+                    source: "image://theme/icon-m-right"
+                    anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                onClicked: pageStack.push(Qt.resolvedUrl("NewsPage.qml"))
+            }
+
+            BackgroundItem {
+                width: parent.width
+                id: user_page
+
+                Label {
+                    text: qsTr("User Info")
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.right: user_page_image.left
+                    x: Theme.horizontalPageMargin
+                }
+
+                Image {
+                    id: user_page_image
+                    source: "image://theme/icon-m-right"
+                    anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                onClicked: pageStack.push(Qt.resolvedUrl("UserPage.qml"))
+            }
         }
     }
 }
