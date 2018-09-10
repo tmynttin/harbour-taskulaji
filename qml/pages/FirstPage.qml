@@ -35,7 +35,11 @@ Page {
         Column {
             id: menu
             width: parent.width
-            spacing: Theme.paddingSmall
+            spacing: Theme.paddingLarge
+
+            PageHeader {
+                title: qsTr("Taskulaji")
+            }
 
             BackgroundItem {
                 width: parent.width
