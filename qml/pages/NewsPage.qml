@@ -13,10 +13,12 @@ Page {
          running: run_timer
     }
 
-    SilicaFlickable {
+    SilicaListView {
+        id: news_column
+        spacing: Theme.paddingMedium
         anchors.fill: parent
 
-        PullDownMenu {
+        pullDownMenu: PullDownMenu {
             id: pullDownMenu
 
             MenuItem {
@@ -27,86 +29,91 @@ Page {
             }
         }
 
-        SilicaListView {
-            id: news_column
-            spacing: Theme.paddingMedium
-            anchors.fill: parent
+        header: PageHeader {
+            id: page_header
+            title: qsTr("News")
+        }
 
-            header: PageHeader {
-                id: page_header
-                title: qsTr("News")
+        model: ListModel {
+        }
+
+        section {
+            property: 'section'
+
+            delegate: SectionHeader {
+                text: section
+                height: Theme.itemSizeExtraSmall
             }
+        }
 
-            model: ListModel {
-            }
+        VerticalScrollDecorator {}
 
-            section {
-                property: 'section'
+        delegate: Item {
+            x: Theme.horizontalPageMargin
+            width: parent.width - 2*Theme.horizontalPageMargin
+            height: childrenRect.height
 
-                delegate: SectionHeader {
-                    text: section
-                    height: Theme.itemSizeExtraSmall
-                }
-            }
+            BackgroundItem {
 
-            VerticalScrollDecorator {}
-
-            delegate: Item {
-                x: Theme.horizontalPageMargin
-                width: parent.width - 2*Theme.horizontalPageMargin
-                height: childrenRect.height
-
-                Label {
-                    id: news_title
-                    text: title
-                    font.pixelSize: Theme.fontSizeMedium
-                    wrapMode: Text.WordWrap
-                    width: parent.width
-                    anchors.topMargin: Theme.paddingMedium
-                    color: Theme.highlightColor
-                }
-
-                Label {
-                    function timestamp() {
-                        var txt = Format.formatDate(time, Formatter.Timepoint)
-                        var elapsed = Format.formatDate(time, Formatter.DurationElapsed)
-                        return txt + (elapsed ? ' (' + elapsed + ')' : '')
-                    }
-
-                    id: news_time
-                    text: timestamp()
-                    font.pixelSize: Theme.fontSizeExtraSmall
-                    font.italic: true
-                    color: Theme.secondaryHighlightColor
-                    anchors {
-                        top: news_title.bottom
-                        topMargin: Theme.paddingSmall
+                onClicked: {
+                    if(externalURL) {
+                        pageStack.push("../components/WebPage.qml", {go_to_url: externalURL})
                     }
                 }
-            }
 
-            Component.onCompleted: {
-                get_news()
+                Column {
 
-            }
+                    Label {
+                        id: news_title
+                        text: title
+                        font.pixelSize: Theme.fontSizeMedium
+                        //wrapMode: Text.WordWrap
+                        elide: "ElideRight"
+                        width: parent.width
+                        anchors.topMargin: Theme.paddingMedium
+                        color: Theme.highlightColor
+                    }
 
-            function get_news() {
-                Logic.api_qet(print_news, "news");
-                run_timer = true;
-            }
+                    Label {
+                        function timestamp() {
+                            var txt = Format.formatDate(time, Formatter.Timepoint)
+                            var elapsed = Format.formatDate(time, Formatter.DurationElapsed)
+                            return txt + (elapsed ? ' (' + elapsed + ')' : '')
+                        }
 
-            function print_news(response) {
-                var response_news = response.results;
-
-                for (var i in response_news) {
-                    var single_news = response_news[i];
-                    var time = new Date(parseInt(single_news.posted));
-                    model.append({ 'title': String(single_news.title),
-                                   'time': time,
-                                   'section': Format.formatDate(time, Formatter.TimepointSectionRelative)});
+                        id: news_time
+                        text: timestamp()
+                        font.pixelSize: Theme.fontSizeExtraSmall
+                        font.italic: true
+                        color: Theme.secondaryHighlightColor
+                    }
                 }
-                run_timer = false;
             }
+        }
+
+        Component.onCompleted: {
+            get_news()
+
+        }
+
+        function get_news() {
+            Logic.api_qet(print_news, "news");
+            run_timer = true;
+        }
+
+        function print_news(response) {
+            var response_news = response.results;
+
+            for (var i in response_news) {
+                var single_news = response_news[i]
+                var time = new Date(parseInt(single_news.posted))
+                var url = single_news.externalURL
+                model.append({ 'title': String(single_news.title),
+                               'time': time,
+                               'section': Format.formatDate(time, Formatter.TimepointSectionRelative),
+                               'externalURL': url})
+            }
+            run_timer = false
         }
     }
 }

@@ -27,7 +27,8 @@ DISTFILES += \
     harbour-taskulaji.desktop \
     qml/harbour-taskulaji.qml \
     qml/components/UnitPage.qml \
-    translations/harbour-taskulaji-fi_FI.qm
+    translations/harbour-taskulaji-fi_FI.qm \
+    qml/components/WebPage.qml
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128
 
