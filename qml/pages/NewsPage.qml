@@ -18,17 +18,6 @@ Page {
         spacing: Theme.paddingMedium
         anchors.fill: parent
 
-        pullDownMenu: PullDownMenu {
-            id: pullDownMenu
-
-            MenuItem {
-                text: qsTr("Refresh")
-                onClicked: {
-                    news_column.get_news()
-                }
-            }
-        }
-
         header: PageHeader {
             id: page_header
             title: qsTr("News")
