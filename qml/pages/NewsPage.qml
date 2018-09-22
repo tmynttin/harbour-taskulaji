@@ -6,6 +6,7 @@ import "../js/logic.js" as Logic
 Page {
     id: newsPage
     property bool run_timer: false
+    property real page: 0
 
     BusyIndicator {
          size: BusyIndicatorSize.Large
@@ -18,12 +19,37 @@ Page {
         spacing: Theme.paddingMedium
         anchors.fill: parent
 
+        PullDownMenu {
+            id: pullDownMenu
+
+            MenuItem {
+                text: qsTr("Refresh")
+                onClicked: {
+                    page = 0
+                    news_list_model.clear()
+                    news_column.get_news()
+                }
+            }
+        }
+
+        PushUpMenu {
+
+            MenuItem {
+                text: qsTr("More")
+                onClicked: {
+                    news_column.get_news()
+                }
+            }
+
+        }
+
         header: PageHeader {
             id: page_header
             title: qsTr("News")
         }
 
         model: ListModel {
+            id: news_list_model
         }
 
         section {
@@ -37,45 +63,43 @@ Page {
 
         VerticalScrollDecorator {}
 
-        delegate: Item {
-            x: Theme.horizontalPageMargin
-            width: parent.width - 2*Theme.horizontalPageMargin
-            height: childrenRect.height
+        delegate: BackgroundItem {
+            id: news_item
+            height: news_title.height + news_time.height + Theme.paddingMedium
+            onClicked: {
+                if(externalURL) {
+                    pageStack.push("../components/WebPage.qml", {go_to_url: externalURL})
+                }
+            }
 
-            BackgroundItem {
+            Column {
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * x
 
-                onClicked: {
-                    if(externalURL) {
-                        pageStack.push("../components/WebPage.qml", {go_to_url: externalURL})
-                    }
+                Label {
+                    id: news_title
+                    text: title
+                    font.pixelSize: Theme.fontSizeMedium
+                    wrapMode: Text.WordWrap
+                    maximumLineCount: 3
+                    elide: "ElideRight"
+                    width: parent.width
+                    anchors.topMargin: Theme.paddingMedium
+                    color: Theme.highlightColor
                 }
 
-                Column {
-
-                    Label {
-                        id: news_title
-                        text: title
-                        font.pixelSize: Theme.fontSizeMedium
-                        //wrapMode: Text.WordWrap
-                        elide: "ElideRight"
-                        width: parent.width
-                        anchors.topMargin: Theme.paddingMedium
-                        color: Theme.highlightColor
+                Label {
+                    function timestamp() {
+                        var txt = Format.formatDate(time, Formatter.Timepoint)
+                        var elapsed = Format.formatDate(time, Formatter.DurationElapsed)
+                        return txt + (elapsed ? ' (' + elapsed + ')' : '')
                     }
 
-                    Label {
-                        function timestamp() {
-                            var txt = Format.formatDate(time, Formatter.Timepoint)
-                            var elapsed = Format.formatDate(time, Formatter.DurationElapsed)
-                            return txt + (elapsed ? ' (' + elapsed + ')' : '')
-                        }
-
-                        id: news_time
-                        text: timestamp()
-                        font.pixelSize: Theme.fontSizeExtraSmall
-                        font.italic: true
-                        color: Theme.secondaryHighlightColor
-                    }
+                    id: news_time
+                    text: timestamp()
+                    font.pixelSize: Theme.fontSizeExtraSmall
+                    font.italic: true
+                    color: Theme.secondaryHighlightColor
                 }
             }
         }
@@ -85,9 +109,11 @@ Page {
 
         }
 
+
         function get_news() {
-            Logic.api_qet(print_news, "news");
-            run_timer = true;
+            page += 1
+            Logic.api_qet(print_news, "news", {"page":page})
+            run_timer = true
         }
 
         function print_news(response) {
