@@ -35,6 +35,10 @@ PkgConfigBR:
 Requires:
   - sailfishsilica-qt5 >= 0.10.9
   - libsailfishapp-launcher
+  - qt5-plugin-geoservices-osm #>= 5.2.0
+  - qt5-qtlocation >= 5.2.0
+  - qt5-qtdeclarative-import-location >= 5.2.0
+  - qt5-qtdeclarative-import-positioning >= 5.2.0
 
 # All installed files
 Files:
