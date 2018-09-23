@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1">
+<TS version="2.1" language="en_FI">
 <context>
     <name>CoverPage</name>
     <message>
@@ -18,14 +18,6 @@
 <context>
     <name>FirstPage</name>
     <message>
-        <source>Login</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Observation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>My Observations</source>
         <translation type="unfinished"></translation>
     </message>
@@ -35,6 +27,14 @@
     </message>
     <message>
         <source>User Info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Observation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Taskulaji</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -59,15 +59,23 @@
         <source>My Observations</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>More</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>NewsPage</name>
     <message>
-        <source>Refresh</source>
+        <source>News</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>News</source>
+        <source>More</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -188,6 +196,10 @@
     </message>
     <message>
         <source>Person Token</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Login</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

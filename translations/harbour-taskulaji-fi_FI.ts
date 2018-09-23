@@ -33,6 +33,10 @@
         <source>New Observation</source>
         <translation>Uusi havainto</translation>
     </message>
+    <message>
+        <source>Taskulaji</source>
+        <translation>Taskulaji</translation>
+    </message>
 </context>
 <context>
     <name>LoginPage</name>
@@ -55,16 +59,24 @@
         <source>My Observations</source>
         <translation>Omat havainnot</translation>
     </message>
+    <message>
+        <source>More</source>
+        <translation>Lisää</translation>
+    </message>
 </context>
 <context>
     <name>NewsPage</name>
     <message>
-        <source>Refresh</source>
-        <translation>Päivitä</translation>
-    </message>
-    <message>
         <source>News</source>
         <translation>Tiedotteet</translation>
+    </message>
+    <message>
+        <source>More</source>
+        <translation>Lisää</translation>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation>Päivitä</translation>
     </message>
 </context>
 <context>
