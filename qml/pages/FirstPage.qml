@@ -23,7 +23,7 @@ Page {
 
         PullDownMenu {
             id: pull_down
-            visible: true
+            visible: logged_in
             spacing: Theme.paddingLarge
 
             MenuItem {
