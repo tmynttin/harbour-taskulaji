@@ -23,6 +23,10 @@ Source0:    %{name}-%{version}.tar.bz2
 Source100:  harbour-taskulaji.yaml
 Requires:   sailfishsilica-qt5 >= 0.10.9
 Requires:   libsailfishapp-launcher
+Requires:   qt5-plugin-geoservices-osm >= 5.2.0
+Requires:   qt5-qtlocation >= 5.2.0
+Requires:   qt5-qtdeclarative-import-location >= 5.2.0
+Requires:   qt5-qtdeclarative-import-positioning >= 5.2.0
 BuildRequires:  pkgconfig(sailfishapp) >= 1.0.3
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Qml)
