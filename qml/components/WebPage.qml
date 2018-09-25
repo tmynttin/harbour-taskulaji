@@ -3,6 +3,7 @@ import Sailfish.Silica 1.0
 
 Page {
     property string go_to_url
+    allowedOrientations: Orientation.All
 
      SilicaWebView {
          id: webView
@@ -13,7 +14,7 @@ Page {
              right: parent.right
              bottom: urlField.top
          }
-         url: go_to_url
+         url: go_to_url         
      }
 
      TextField {
