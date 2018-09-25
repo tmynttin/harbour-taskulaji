@@ -67,8 +67,11 @@ Page {
             id: news_item
             height: news_title.height + news_time.height + Theme.paddingMedium
             onClicked: {
-                if(externalURL) {
+                if(external) {
                     pageStack.push("../components/WebPage.qml", {go_to_url: externalURL})
+                }
+                else {
+                    pageStack.push("../components/TextPage.qml", {page_title: title, page_content: content})
                 }
             }
 
@@ -112,7 +115,7 @@ Page {
 
         function get_news() {
             page += 1
-            Logic.api_qet(print_news, "news", {"page":page})
+            Logic.api_qet(print_news, "news", {"page":page, "lang":"en,fi,sv"})
             run_timer = true
         }
 
@@ -126,7 +129,9 @@ Page {
                 model.append({ 'title': String(single_news.title),
                                'time': time,
                                'section': Format.formatDate(time, Formatter.TimepointSectionRelative),
-                               'externalURL': url})
+                               'externalURL': url,
+                               'content': String(single_news.content),
+                               'external': Boolean(single_news.external)})
             }
             run_timer = false
         }
