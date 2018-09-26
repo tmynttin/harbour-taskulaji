@@ -352,9 +352,9 @@ Dialog {
             }
 
             Row {
+                x: Theme.horizontalPageMargin
                 width: childrenRect.width
                 height: childrenRect.height + 2 * Theme.paddingLarge
-                anchors.left: parent.left
                 spacing: Theme.paddingLarge
 
                 IconButton {
