@@ -120,30 +120,35 @@ Page {
             run_timer = true
         }
 
-        function print_obs(response) {
-            var response_obs = response.results
+        function print_obs(status, response) {
+            if (status === 200) {
+                var response_obs = response.results
 
-            for (var i in response_obs) {
-                var single_obs = response_obs[i]
-                var o_date = single_obs.gatheringEvent.dateBegin
-                var time = parse_date_time(o_date)
-                var taxons = ""
-                var units = single_obs.gatherings[0].units
-                for (var j in units) {
-                    var count = ""
-                    if (units[j].count) {
-                        count = ", " + units[j].count
+                for (var i in response_obs) {
+                    var single_obs = response_obs[i]
+                    var o_date = single_obs.gatheringEvent.dateBegin
+                    var time = parse_date_time(o_date)
+                    var taxons = ""
+                    var units = single_obs.gatherings[0].units
+                    for (var j in units) {
+                        var count = ""
+                        if (units[j].count) {
+                            count = ", " + units[j].count
+                        }
+
+                        taxons += units[j].identifications[0].taxon + count + "\n"
                     }
 
-                    taxons += units[j].identifications[0].taxon + count + "\n"
+                    model.append({ 'location': single_obs.gatherings[0].municipality,
+                                     'taxon': taxons,
+                                     'time': time,
+                                     'section': Format.formatDate(time, Formatter.TimepointSectionRelative)})
                 }
-
-                model.append({ 'location': single_obs.gatherings[0].municipality,
-                                 'taxon': taxons,
-                                 'time': time,
-                                 'section': Format.formatDate(time, Formatter.TimepointSectionRelative)})
+                run_timer = false
             }
-            run_timer = false
+            else {
+                pageStack.push(Qt.resolvedUrl("../components/ErrorPage.qml"), {message: response})
+            }
         }
 
         function parse_date_time(p_date) {

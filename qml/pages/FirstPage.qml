@@ -111,7 +111,7 @@ Page {
                 id: user_page
 
                 Label {
-                    text: qsTr("User Info")
+                    text: qsTr("Profile")
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.right: user_page_image.left
                     x: Theme.horizontalPageMargin

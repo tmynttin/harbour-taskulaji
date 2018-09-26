@@ -119,21 +119,26 @@ Page {
             run_timer = true
         }
 
-        function print_news(response) {
-            var response_news = response.results;
+        function print_news(status, response) {
+            if (status === 200) {
+                var response_news = response.results;
 
-            for (var i in response_news) {
-                var single_news = response_news[i]
-                var time = new Date(parseInt(single_news.posted))
-                var url = single_news.externalURL
-                model.append({ 'title': String(single_news.title),
-                               'time': time,
-                               'section': Format.formatDate(time, Formatter.TimepointSectionRelative),
-                               'externalURL': url,
-                               'content': String(single_news.content),
-                               'external': Boolean(single_news.external)})
+                for (var i in response_news) {
+                    var single_news = response_news[i]
+                    var time = new Date(parseInt(single_news.posted))
+                    var url = single_news.externalURL
+                    model.append({ 'title': String(single_news.title),
+                                   'time': time,
+                                   'section': Format.formatDate(time, Formatter.TimepointSectionRelative),
+                                   'externalURL': url,
+                                   'content': String(single_news.content),
+                                   'external': Boolean(single_news.external)})
+                }
+                run_timer = false
             }
-            run_timer = false
+            else {
+                pageStack.push(Qt.resolvedUrl("../components/ErrorPage.qml"), {message: response})
+            }
         }
     }
 }

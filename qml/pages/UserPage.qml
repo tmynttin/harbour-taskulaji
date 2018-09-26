@@ -12,16 +12,46 @@ Page {
     Component.onCompleted: {
         user_data = Db.dbGetUser()
         person_token = user_data.person_token ? user_data.person_token : ""
+        checkPersonToken()
     }
 
-    function saveUserData(response) {
-        var pId = response.id
-        var pName = response.fullName
-        console.log("Name: " + pName + ", ID: " + pId)
-        Db.dbCreateUser(person_token, pId, pName)
-        Logic.get_person_token()
+    function checkPersonToken() {
         user_data = Db.dbGetUser()
         person_token = user_data.person_token
+        if (person_token != "") {
+            Logic.api_qet(handlePersonResponse, "person/" + person_token)
+        }
+    }
+
+    function handlePersonResponse(status, response) {
+        console.log(response)
+        if (status === 400) {
+            console.log("Invalid token detected")
+            clearUserData()
+            pageStack.push("../components/ErrorPage.qml", {message: "Invalid token. Ensure your person token is valid."})
+        }
+    }
+
+    function clearUserData() {
+        Db.dbDeleteUser();
+        user_data = {"person_token": "", "person_id": "", "name": ""};
+        Logic.get_person_token();
+        person_token = ""
+    }
+
+    function saveUserData(status, response) {
+        if (status === 200) {
+            var pId = response.id
+            var pName = response.fullName
+            console.log("Name: " + pName + ", ID: " + pId)
+            Db.dbCreateUser(person_token, pId, pName)
+            Logic.get_person_token()
+            user_data = Db.dbGetUser()
+            person_token = user_data.person_token
+        }
+        else {
+            pageStack.push(Qt.resolvedUrl("../components/ErrorPage.qml"), {message: response})
+        }
     }
 
     SilicaFlickable {
@@ -40,10 +70,7 @@ Page {
             MenuItem {
                 text: qsTr("Logout")
                 onClicked: {
-                    Db.dbDeleteUser();
-                    user_data = {"person_token": "", "person_id": "", "name": ""};
-                    Logic.get_person_token();
-                    person_token = ""
+                    clearUserData()
                 }
                 visible: (person_token !== "")
             }

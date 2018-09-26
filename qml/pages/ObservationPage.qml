@@ -13,16 +13,18 @@ Dialog {
 
     property var locale: Qt.locale()
     property var currentDate: new Date()
-    property var selectedCoordinate
+    property var selectedCoordinate: null
     property var country
     property var municipation
-    property var selectedTaxo: {"name": "", "id": ""}
     property var obs
     property var user_data
+    canAccept: (selectedCoordinate !== null) && (unit_model.get(0).taxo_name)
 
-    onAccepted: {
-        build_document()
-        send_data()
+    onDone: {
+        if (result == DialogResult.Accepted) {
+            build_document()
+            send_data()
+        }
     }
 
     function get_municipality(geometry) {
@@ -76,8 +78,13 @@ Dialog {
         Logic.api_post(pass_func, "documents", obs)
     }
 
-    function pass_func() {
-        console.log("Send successful")
+    function pass_func(status, response) {
+        if (status === 200) {
+            console.log("Send successful")
+        }
+        else {
+            pageStack.push("../components/ErrorPage.qml", {message: response})
+        }
     }
 
     PositionSource {
@@ -221,20 +228,25 @@ Dialog {
                     width: parent.width
                     text:  ""
 
-                    function update_location_label(response) {
-                        console.log("Updating label")
+                    function update_location_label(status, response) {
+                        if (status === 200) {
+                            console.log("Updating label")
 
-                        console.log(JSON.stringify(response))
-                        var response_locations = response.results;
+                            console.log(JSON.stringify(response))
+                            var response_locations = response.results;
 
-                        for (var i in response_locations) {
-                            var location = response_locations[i];
-                            console.log("Location type: " + location.types[0])
-                            if (location.types[0] === "municipality") {
-                                console.log(location.formatted_address)
-                                location_label.text = location.formatted_address
-                                return
+                            for (var i in response_locations) {
+                                var location = response_locations[i];
+                                console.log("Location type: " + location.types[0])
+                                if (location.types[0] === "municipality") {
+                                    console.log(location.formatted_address)
+                                    location_label.text = location.formatted_address
+                                    return
+                                }
                             }
+                        }
+                        else {
+                            pageStack.push("../components/ErrorPage.qml", {message: response})
                         }
                     }
                 }

@@ -81,10 +81,15 @@ Dialog {
             }
         }
 
-        function update_list(response) {
-            for (var i in response) {
-                model.append({ 'id': String(response[i].key),
-                                 'name': String(response[i].value)});
+        function update_list(status, response) {
+            if (status === 200) {
+                for (var i in response) {
+                    model.append({ 'id': String(response[i].key),
+                                     'name': String(response[i].value)});
+                }
+            }
+            else {
+                pageStack.push(Qt.resolvedUrl("../components/ErrorPage.qml"), {message: response})
             }
         }
     }

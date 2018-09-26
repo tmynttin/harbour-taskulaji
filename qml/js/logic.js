@@ -4,6 +4,7 @@
 
 var api_url = "https://apitest.laji.fi/v0/";
 var access_token = "Q1cVCk7I8sc2PCqIbhMHt1rib2FyZwJF9OhUXmxIIAy6R0bSeKEMWgtq47ecYVYo";
+
 var person_token
 var xhr = new XMLHttpRequest();
 var request_count = 0;
@@ -26,21 +27,21 @@ function processRequest(callback, e) {
     console.log(xhr.status)
 
     if (xhr.readyState === 4) {
-        if (xhr.status === 200) {
+        //if (xhr.status === 200) {
             var response = JSON.parse(xhr.responseText);
-            callback(response);
-        }
-        else {
-            var error_message
-            try{
-                error_message = JSON.parse(xhr.responseText).error.message
-            }
-            catch (e) {
-                error_message = xhr.responseText;
-            }
-            page_stack.push(Qt.resolvedUrl("../components/ErrorPage.qml"), {message: error_message})
-            console.log(JSON.parse(xhr.responseText).error.message)
-        }
+            callback(xhr.status, response);
+        //}
+//        else {
+//            var error_message
+//            try{
+//                error_message = JSON.parse(xhr.responseText).error.message
+//            }
+//            catch (e) {
+//                error_message = xhr.responseText;
+//            }
+//            page_stack.push(Qt.resolvedUrl("../components/ErrorPage.qml"), {message: error_message})
+//            console.log(JSON.parse(xhr.responseText).error.message)
+//        }
     }
 }
 
