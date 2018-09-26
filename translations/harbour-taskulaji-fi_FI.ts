@@ -26,16 +26,16 @@
         <translation>Tiedotteet</translation>
     </message>
     <message>
-        <source>User Info</source>
-        <translation>Profiili</translation>
-    </message>
-    <message>
         <source>New Observation</source>
         <translation>Uusi havainto</translation>
     </message>
     <message>
         <source>Taskulaji</source>
         <translation>Taskulaji</translation>
+    </message>
+    <message>
+        <source>Profile</source>
+        <translation>Profiili</translation>
     </message>
 </context>
 <context>

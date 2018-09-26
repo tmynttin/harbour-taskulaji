@@ -26,16 +26,16 @@
         <translation>Nyheter</translation>
     </message>
     <message>
-        <source>User Info</source>
-        <translation>Profil</translation>
-    </message>
-    <message>
         <source>New Observation</source>
         <translation>Ny observation</translation>
     </message>
     <message>
         <source>Taskulaji</source>
         <translation>Taskulaji</translation>
+    </message>
+    <message>
+        <source>Profile</source>
+        <translation>Profil</translation>
     </message>
 </context>
 <context>

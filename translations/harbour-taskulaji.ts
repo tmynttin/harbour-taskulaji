@@ -26,15 +26,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>User Info</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>New Observation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Taskulaji</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Profile</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
