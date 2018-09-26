@@ -27,21 +27,14 @@ function processRequest(callback, e) {
     console.log(xhr.status)
 
     if (xhr.readyState === 4) {
-        //if (xhr.status === 200) {
-            var response = JSON.parse(xhr.responseText);
-            callback(xhr.status, response);
-        //}
-//        else {
-//            var error_message
-//            try{
-//                error_message = JSON.parse(xhr.responseText).error.message
-//            }
-//            catch (e) {
-//                error_message = xhr.responseText;
-//            }
-//            page_stack.push(Qt.resolvedUrl("../components/ErrorPage.qml"), {message: error_message})
-//            console.log(JSON.parse(xhr.responseText).error.message)
-//        }
+        var response
+        try {
+            response = JSON.parse(xhr.responseText);
+        }
+        catch (e) {
+            response = xhr.responseText
+        }
+        callback(xhr.status, response);
     }
 }
 

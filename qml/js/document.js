@@ -66,6 +66,9 @@ function Unit() {
     this.count = ""
     this.taxonConfidence = taxonConfidence.Sure
     this.notes = ""
+    this.unitFact = {
+        "autocompleteSelectedTaxonID": ""
+    }
 }
 
 function Identification() {

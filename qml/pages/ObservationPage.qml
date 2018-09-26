@@ -69,6 +69,7 @@ Dialog {
             unit_doc.notes = unit.notes
             unit_doc.recordBasis = Doc.recordBasis[unit.record_basis]
             unit_doc.taxonConfidence = Doc.taxonConfidence[unit.taxon_confidence]
+            unit_doc.unitFact.autocompleteSelectedTaxonID = unit.taxo_id
 
             obs.gatherings[0].units.push(unit_doc)
         }
