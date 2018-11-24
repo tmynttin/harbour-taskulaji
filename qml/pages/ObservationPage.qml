@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.2
 import Sailfish.Silica 1.0
 import QtPositioning 5.3
 import "../components"
@@ -183,31 +183,27 @@ Dialog {
                 }
             }
 
-            Row {
-                id: map_buttons
-                spacing: Theme.paddingLarge
-                width: parent.width
-                anchors.left: parent.left
+            BackgroundItem {
                 anchors.leftMargin: Theme.paddingLarge
+                anchors.verticalCenter: position_button.verticalCenter
+                onClicked: {
+                    openMapDialog()
+                }
 
                 function openMapDialog() {
                     var dialog = pageStack.push("../components/MapPage.qml", {})
-
                 }
 
-                IconButton {
-                    id: position_button
-                    icon.source: "image://theme/icon-m-gps"
-                    onClicked: {
-                        map_buttons.openMapDialog()
-                    }
-                }
-
-                BackgroundItem {
+                Row {
+                    id: map_buttons
+                    spacing: Theme.paddingLarge
+                    width: parent.width
+                    anchors.left: parent.left
                     anchors.leftMargin: Theme.paddingLarge
-                    anchors.verticalCenter: position_button.verticalCenter
-                    onClicked: {
-                        map_buttons.openMapDialog()
+
+                    Image {
+                        id: position_button
+                        source: "image://theme/icon-m-gps"
                     }
 
                     Label {
