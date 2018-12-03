@@ -4,8 +4,29 @@ import Sailfish.Silica 1.0
 CoverBackground {
     Label {
         id: cover_label
-        anchors.centerIn: parent
+        //anchors.centerIn: parent
+        anchors {
+            top: cover_image.bottom
+            horizontalCenter: parent.horizontalCenter
+        }
+
         text: qsTr("Taskulaji")
+    }
+
+    Image {
+        id: cover_image
+
+        anchors {
+            //bottom : parent.bottom
+            left: parent.left
+            right: parent.right
+            top: parent.top
+        }
+        horizontalAlignment: Image.AlignLeft
+        verticalAlignment: Image.AlignTop
+        fillMode: Image.PreserveAspectFit
+
+        source: "../images/korppi.svg"
     }
 
     CoverActionList {
