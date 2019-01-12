@@ -20,7 +20,9 @@ var recordBasis = [
             "MY.recordBasisPreservedSpecimen",
             "MY.recordBasisHumanObservation",
             "MY.recordBasisHumanObservationPhoto",
-            "MY.recordBasisHumanObservationHandled"
+            "MY.recordBasisHumanObservationHandled",
+            "MY.recordBasisHumanObservationAudio",
+            "MY.recordBasisHumanObservationIndirect"
         ]
 
 var taxonConfidence = {
