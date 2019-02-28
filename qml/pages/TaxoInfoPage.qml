@@ -6,7 +6,6 @@ Page {
     id: taxo_info_page
 
     property string taxo_id: ""
-    property string page_title: ""
     property string description: ""
     property var taxo_information
     property var taxo_description
@@ -21,12 +20,13 @@ Page {
     }
 
     onTaxo_informationChanged: {
-        page_title = taxo_information.scientificName
+        page_header.title = taxo_information.vernacularName.toCa
+        page_header.description = taxo_information.scientificName
         description_timer.start()
     }
 
     onTaxo_descriptionChanged: {
-        description = taxo_description[0]? taxo_description[0].groups[0].variables[0].content : ""
+        image_timer.start()
     }
 
     //Timer to allow first http get to complete
@@ -39,6 +39,14 @@ Page {
     }
 
     Timer {
+        id: image_timer
+        interval: 10
+        running: false
+        repeat: false
+        onTriggered: get_images()
+    }
+
+    Timer {
         id: search_push_timer
         interval: 1000
         running: true
@@ -47,9 +55,9 @@ Page {
     }
 
     BusyIndicator {
-         size: BusyIndicatorSize.Large
-         anchors.centerIn: parent
-         running: run_timer
+        size: BusyIndicatorSize.Large
+        anchors.centerIn: parent
+        running: run_timer
     }
 
     SilicaFlickable {
@@ -78,36 +86,51 @@ Page {
             id: taxo_column
             width: taxo_info_page.width
             height: childrenRect.height
+            spacing: Theme.paddingLarge
 
             VerticalScrollDecorator {}
 
             PageHeader {
-                                id: page_header
-                                title: taxo_infomation ? taxo_information.vernacularName : ""
-                                description: taxo_information ? taxo_information.scientificName : ""
-                            }
+                id: page_header
+                title: ""
+                description: ""
+            }
 
             SilicaGridView {
                 id: image_grid
                 width: parent.width
-                anchors.top: page_header.bottom
                 height: childrenRect.height
+                cellWidth: width/5
+                cellHeight: width/5
 
-                Image {
-                    id: taxo_image
-                    antialiasing: true
-                    //anchors.top: taxo_content.bottom
-                    source: "https://image.laji.fi/MM.248968/JR56644_thumb.jpg"
-                    cache: false
-                    fillMode: Image.PreserveAspectFit
+                model: ListModel {
+                    id: image_grid_model
+                }
+
+                delegate: BackgroundItem {
+
+                    Image {
+                        id: taxo_image
+                        fillMode: Image.TileVertically
+                        antialiasing: true
+                        source: thumbImage
+                        cache: false
+                    }
+
+                    onClicked: {
+                        openImagePage()
+                    }
+
+                    function openImagePage() {
+                        pageStack.push("ImagePage.qml", {fullImage: fullImage})
+                    }
                 }
             }
 
             SilicaListView {
                 id: taxo_content
                 width: parent.width
-                anchors.top: image_grid.bottom
-                height: childrenRect.height// - page_header.height
+                height: childrenRect.height
 
                 model: ListModel {
                     id: description_list_model
@@ -149,15 +172,9 @@ Page {
                         anchors.top: taxo_description_title.bottom
                     }
                 }
+            }
         }
     }
-
-
-
-
-    }
-
-
 
     function get_taxo_information() {
         Logic.api_qet(set_taxo_information, "taxa/" + taxo_id, {"lang":"fi"})
@@ -167,7 +184,6 @@ Page {
     function set_taxo_information(status, response){
         if (status === 200) {
             taxo_information = response
-            console.log("Got response: " + JSON.stringify(response))
             run_timer = false
         }
         else {
@@ -197,10 +213,39 @@ Page {
                         var variable_content = variable.content
 
                         taxo_content.model.append({ 'title': variable_title,
-                                         'content': variable_content,
-                                         'section': group_title
-                                     })
+                                                      'content': variable_content,
+                                                      'section': group_title
+                                                  })
                     }
+                }
+            }
+
+            run_timer = false
+        }
+        else {
+            pageStack.push(Qt.resolvedUrl("../components/ErrorPage.qml"), {message: response})
+        }
+    }
+
+    function get_images() {
+        Logic.api_qet(set_images, "taxa/" + taxo_id + "/media", {})
+        run_timer = true
+    }
+
+    function set_images(status, response) {
+        if (status === 200) {
+            image_grid.model.clear()
+
+            if (response.length > 0) {
+
+                for (var i in response) {
+                    var media_data = response[i]
+                    var thumb = media_data.thumbnailURL
+                    var full = media_data.fullURL
+
+                    image_grid.model.append({ 'thumbImage': thumb,
+                                                'fullImage': full,
+                                            })
                 }
             }
 
