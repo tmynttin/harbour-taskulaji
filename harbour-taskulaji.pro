@@ -30,7 +30,8 @@ DISTFILES += \
     translations/harbour-taskulaji-fi_FI.qm \
     qml/components/WebPage.qml \
     translations/harbour-taskulaji-sv.qm \
-    qml/components/TextPage.qml
+    qml/components/TextPage.qml \
+    qml/pages/TaxoInfoPage.qml
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128
 

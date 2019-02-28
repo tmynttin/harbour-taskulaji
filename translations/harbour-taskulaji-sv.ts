@@ -37,6 +37,10 @@
         <source>Profile</source>
         <translation>Profil</translation>
     </message>
+    <message>
+        <source>Taxonomy Information</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LoginPage</name>
@@ -140,6 +144,13 @@
     <message>
         <source>Locality description</source>
         <translation>Beskrivning av ort</translation>
+    </message>
+</context>
+<context>
+    <name>TaxoInfoPage</name>
+    <message>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
