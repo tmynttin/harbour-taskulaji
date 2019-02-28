@@ -40,7 +40,7 @@ Page {
 
     Timer {
         id: search_push_timer
-        interval: 500
+        interval: 1000
         running: true
         repeat: false
         onTriggered: search_menu_item.openTaxoDialog()
@@ -54,6 +54,8 @@ Page {
 
     SilicaFlickable {
         id: taxo_info_container
+        anchors.fill: parent
+        contentHeight: taxo_column.height
 
         PullDownMenu {
             id: pullDownMenu
@@ -73,21 +75,39 @@ Page {
         }
 
         Column {
+            id: taxo_column
+            width: taxo_info_page.width
+            height: childrenRect.height
+
+            VerticalScrollDecorator {}
+
+            PageHeader {
+                                id: page_header
+                                title: taxo_infomation ? taxo_information.vernacularName : ""
+                                description: taxo_information ? taxo_information.scientificName : ""
+                            }
+
+            SilicaGridView {
+                id: image_grid
+                width: parent.width
+                anchors.top: page_header.bottom
+                height: childrenRect.height
+
+                Image {
+                    id: taxo_image
+                    antialiasing: true
+                    //anchors.top: taxo_content.bottom
+                    source: "https://image.laji.fi/MM.248968/JR56644_thumb.jpg"
+                    cache: false
+                    fillMode: Image.PreserveAspectFit
+                }
+            }
+
             SilicaListView {
                 id: taxo_content
-                anchors.fill: parent
-                //contentHeight: parent.height
-                contentWidth: parent.width
-
-
-
-                header: PageHeader {
-                    id: page_header
-                    title: taxo_info_page.taxo_infomation ? taxo_info_page.taxo_information.vernacularName : ""
-                    description: taxo_information ? taxo_information.scientificName : ""
-                }
-
-
+                width: parent.width
+                anchors.top: image_grid.bottom
+                height: childrenRect.height// - page_header.height
 
                 model: ListModel {
                     id: description_list_model
@@ -101,8 +121,6 @@ Page {
                         height: Theme.itemSizeExtraSmall
                     }
                 }
-
-                VerticalScrollDecorator {}
 
 
 
@@ -136,14 +154,7 @@ Page {
 
 
 
-//        Image {
-//            id: taxo_image
-//            antialiasing: true
-//            //anchors.top: taxo_content.bottom
-//            source: "https://image.laji.fi/MM.248968/JR56644_thumb.jpg"
-//            cache: false
-//            fillMode: Image.PreserveAspectFit
-//        }
+
     }
 
 
@@ -156,7 +167,7 @@ Page {
     function set_taxo_information(status, response){
         if (status === 200) {
             taxo_information = response
-            console.log("Got response: " + response.scientificName)
+            console.log("Got response: " + JSON.stringify(response))
             run_timer = false
         }
         else {
