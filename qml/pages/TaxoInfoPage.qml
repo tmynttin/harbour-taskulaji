@@ -20,7 +20,7 @@ Page {
     }
 
     onTaxo_informationChanged: {
-        page_header.title = taxo_information.vernacularName.toCa
+        page_header.title = taxo_information.vernacularName
         page_header.description = taxo_information.scientificName
         description_timer.start()
     }
@@ -46,14 +46,6 @@ Page {
         onTriggered: get_images()
     }
 
-    Timer {
-        id: search_push_timer
-        interval: 1000
-        running: true
-        repeat: false
-        onTriggered: search_menu_item.openTaxoDialog()
-    }
-
     BusyIndicator {
         size: BusyIndicatorSize.Large
         anchors.centerIn: parent
@@ -65,22 +57,22 @@ Page {
         anchors.fill: parent
         contentHeight: taxo_column.height
 
-        PullDownMenu {
-            id: pullDownMenu
+//        PullDownMenu {
+//            id: pullDownMenu
 
-            MenuItem {
-                id: search_menu_item
-                text: qsTr("Search")
-                onClicked: openTaxoDialog()
+//            MenuItem {
+//                id: search_menu_item
+//                text: qsTr("Search")
+//                onClicked: openTaxoDialog()
 
-                function openTaxoDialog() {
-                    var dialog = pageStack.push("../components/TaxoPage.qml", {})
-                    dialog.accepted.connect(function() {
-                        taxo_id = dialog.selected_taxo.id
-                    })
-                }
-            }
-        }
+//                function openTaxoDialog() {
+//                    var dialog = pageStack.push("../components/TaxoPage.qml", {})
+//                    dialog.accepted.connect(function() {
+//                        taxo_id = dialog.selected_taxo.id
+//                    })
+//                }
+//            }
+//        }
 
         Column {
             id: taxo_column

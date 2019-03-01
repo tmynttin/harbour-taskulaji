@@ -8,6 +8,7 @@ Dialog {
     property bool keepSearchFieldFocus
     property string activeView: "list"
     property var selected_taxo
+    property bool info_search: false
 
     onSearchStringChanged: result_list.get_taxons()
 
@@ -66,7 +67,12 @@ Dialog {
 
             onClicked: {
                 selected_taxo = {"name": model.name, "id": model.id}
-                accept()
+                if(info_search) {
+                    pageStack.push("../pages/TaxoInfoPage.qml", {taxo_id : selected_taxo.id})
+                }
+                else{
+                    accept()
+                }
             }
         }
 

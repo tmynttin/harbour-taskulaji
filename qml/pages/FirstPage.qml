@@ -103,7 +103,7 @@ Page {
                     anchors.verticalCenter: parent.verticalCenter
                 }
 
-                onClicked: pageStack.push(Qt.resolvedUrl("TaxoInfoPage.qml"))
+                onClicked: pageStack.push("../components/TaxoPage.qml", {info_search : true})
             }
 
             BackgroundItem {
