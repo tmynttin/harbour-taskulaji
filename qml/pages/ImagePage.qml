@@ -5,9 +5,14 @@ Page {
 
     property string fullImage: ""
 
-    Image {
-        id: image_item
-        source: fullImage
+    PinchArea {
+
     }
 
+    Image {
+        id: image_item
+        width: parent.width
+        fillMode: Image.PreserveAspectFit
+        source: fullImage
+    }
 }
