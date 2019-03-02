@@ -28,7 +28,7 @@ Page {
         if (status === 400) {
             console.log("Invalid token detected")
             clearUserData()
-            pageStack.push("../components/ErrorPage.qml", {message: "Invalid token. Ensure your person token is valid."})
+            pageStack.push("ErrorPage.qml", {message: "Invalid token. Ensure your person token is valid."})
         }
     }
 
@@ -50,7 +50,7 @@ Page {
             person_token = user_data.person_token
         }
         else {
-            pageStack.push(Qt.resolvedUrl("../components/ErrorPage.qml"), {message: response})
+            pageStack.push("ErrorPage.qml", {message: response})
         }
     }
 
@@ -83,7 +83,7 @@ Page {
                 visible: (person_token === "")
 
                 function openLoginDialog() {
-                    var dialog = pageStack.push("../components/LoginPage.qml", {})
+                    var dialog = pageStack.push("LoginPage.qml", {})
                     dialog.accepted.connect(function() {
                         person_token = dialog.person_token
                         Logic.api_qet(saveUserData, "person/" + person_token);

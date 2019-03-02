@@ -90,7 +90,7 @@ Page {
                 id: taxo_info_page
 
                 Label {
-                    text: qsTr("Taxonomy Information")
+                    text: qsTr("Encyclopedia")
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.right: taxo_image.left
                     x: Theme.horizontalPageMargin
@@ -103,7 +103,7 @@ Page {
                     anchors.verticalCenter: parent.verticalCenter
                 }
 
-                onClicked: pageStack.push("../components/TaxoPage.qml", {info_search : true})
+                onClicked: pageStack.push("TaxoSearchPage.qml", {info_search : true})
             }
 
             BackgroundItem {
