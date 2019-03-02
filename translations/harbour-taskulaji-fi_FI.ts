@@ -38,8 +38,8 @@
         <translation>Profiili</translation>
     </message>
     <message>
-        <source>Taxonomy Information</source>
-        <translation type="unfinished"></translation>
+        <source>Encyclopedia</source>
+        <translation>Lajitietoa</translation>
     </message>
 </context>
 <context>
@@ -149,12 +149,16 @@
 <context>
     <name>TaxoInfoPage</name>
     <message>
-        <source>Search</source>
-        <translation type="unfinished"></translation>
+        <source>Parents</source>
+        <translation>Ylätaksonit</translation>
+    </message>
+    <message>
+        <source>Children</source>
+        <translation>Alataksonit</translation>
     </message>
 </context>
 <context>
-    <name>TaxoPage</name>
+    <name>TaxoSearchPage</name>
     <message>
         <source>Taxo Search</source>
         <translation>Lajihaku</translation>

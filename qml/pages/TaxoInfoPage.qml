@@ -9,11 +9,9 @@ Page {
     property string description: ""
     property var taxo_information
     property var taxo_description
+    property var parents_data
+    property var children_data
     property bool run_timer: false
-
-    Component.onCompleted: {
-        search_push_timer.start()
-    }
 
     onTaxo_idChanged: {
         get_taxo_information()
@@ -26,21 +24,47 @@ Page {
     }
 
     onTaxo_descriptionChanged: {
+        parents_timer.start()
+    }
+
+    onParents_dataChanged: {
+        children_timer.start()
+    }
+
+    onChildren_dataChanged: {
         image_timer.start()
     }
+
+
 
     //Timer to allow first http get to complete
     Timer {
         id: description_timer
-        interval: 10
+        interval: 100
         running: false
         repeat: false
         onTriggered: get_taxo_description()
     }
 
     Timer {
+        id: parents_timer
+        interval: 100
+        running: false
+        repeat: false
+        onTriggered: get_parents()
+    }
+
+    Timer {
+        id: children_timer
+        interval: 100
+        running: false
+        repeat: false
+        onTriggered: get_children()
+    }
+
+    Timer {
         id: image_timer
-        interval: 10
+        interval: 100
         running: false
         repeat: false
         onTriggered: get_images()
@@ -56,23 +80,6 @@ Page {
         id: taxo_info_container
         anchors.fill: parent
         contentHeight: taxo_column.height
-
-//        PullDownMenu {
-//            id: pullDownMenu
-
-//            MenuItem {
-//                id: search_menu_item
-//                text: qsTr("Search")
-//                onClicked: openTaxoDialog()
-
-//                function openTaxoDialog() {
-//                    var dialog = pageStack.push("../components/TaxoPage.qml", {})
-//                    dialog.accepted.connect(function() {
-//                        taxo_id = dialog.selected_taxo.id
-//                    })
-//                }
-//            }
-//        }
 
         Column {
             id: taxo_column
@@ -158,10 +165,103 @@ Page {
                     Label {
                         id: taxo_description
                         text: content
+                        textFormat: Text.RichText
                         font.pixelSize: Theme.fontSizeExtraSmall
                         wrapMode: Text.WordWrap
                         width: parent.width
                         anchors.top: taxo_description_title.bottom
+                    }
+                }
+            }
+
+            SectionHeader {
+                text: qsTr("Parents")
+            }
+
+            SilicaListView {
+                id: parent_list
+                width: parent.width
+                height: childrenRect.height
+
+                model: ListModel {
+                    id: parent_list_model
+                }
+
+                delegate: BackgroundItem{
+                    Item {
+                        x: Theme.horizontalPageMargin
+                        width: parent.width - 2*Theme.horizontalPageMargin
+                        height: childrenRect.height
+
+                        Label {
+                            id: parent_vernacular_name
+                            text: vernacularName
+                            font.pixelSize: Theme.fontSizeMedium
+                            wrapMode: Text.WordWrap
+                            width: parent.width
+                            anchors.topMargin: Theme.paddingMedium
+                            color: Theme.highlightColor
+                        }
+
+                        Label {
+                            id: parent_scientific_name
+                            text: scientificName
+                            textFormat: Text.RichText
+                            font.pixelSize: Theme.fontSizeExtraSmall
+                            wrapMode: Text.WordWrap
+                            width: parent.width
+                            anchors.top: parent_vernacular_name.bottom
+                        }
+                    }
+
+                    onClicked: {
+                        taxo_id = parent_taxo_id
+                    }
+                }
+            }
+
+            SectionHeader {
+                text: qsTr("Children")
+            }
+
+            SilicaListView {
+                id: children_list
+                width: parent.width
+                height: childrenRect.height
+
+                model: ListModel {
+                    id: children_list_model
+                }
+
+                delegate: BackgroundItem{
+                    Item {
+                        x: Theme.horizontalPageMargin
+                        width: parent.width - 2*Theme.horizontalPageMargin
+                        height: childrenRect.height
+
+                        Label {
+                            id: child_vernacular_name
+                            text: vernacularName
+                            font.pixelSize: Theme.fontSizeMedium
+                            wrapMode: Text.WordWrap
+                            width: parent.width
+                            anchors.topMargin: Theme.paddingMedium
+                            color: Theme.highlightColor
+                        }
+
+                        Label {
+                            id: child_scientific_name
+                            text: scientificName
+                            textFormat: Text.RichText
+                            font.pixelSize: Theme.fontSizeExtraSmall
+                            wrapMode: Text.WordWrap
+                            width: parent.width
+                            anchors.top: child_vernacular_name.bottom
+                        }
+                    }
+
+                    onClicked: {
+                        taxo_id = child_taxo_id
                     }
                 }
             }
@@ -179,7 +279,7 @@ Page {
             run_timer = false
         }
         else {
-            pageStack.push(Qt.resolvedUrl("../components/ErrorPage.qml"), {message: response})
+            pageStack.push("ErrorPage.qml", {message: response})
         }
     }
 
@@ -215,7 +315,71 @@ Page {
             run_timer = false
         }
         else {
-            pageStack.push(Qt.resolvedUrl("../components/ErrorPage.qml"), {message: response})
+            pageStack.push("ErrorPage.qml", {message: response})
+        }
+    }
+
+    function get_parents() {
+        Logic.api_qet(set_parents, "taxa/" + taxo_id + "/parents", {})
+        run_timer = true
+    }
+
+    function set_parents(status, response) {
+        if (status === 200) {
+            parent_list.model.clear()
+            parents_data = response
+
+            if (response.length > 0) {
+
+                for (var i in response) {
+                    var parent_data = response[i]
+                    var parent_vernacularName = parent_data.vernacularName
+                    var parent_scientificName = parent_data.scientificName
+                    var parent_taxo_id = parent_data.id
+
+                    parent_list.model.append({ 'vernacularName': parent_vernacularName,
+                                                 'scientificName': parent_scientificName,
+                                                 'parent_taxo_id': parent_taxo_id
+                                             })
+                }
+            }
+
+            run_timer = false
+        }
+        else {
+            pageStack.push("ErrorPage.qml", {message: response})
+        }
+    }
+
+    function get_children() {
+        Logic.api_qet(set_children, "taxa/" + taxo_id + "/children", {})
+        run_timer = true
+    }
+
+    function set_children(status, response) {
+        if (status === 200) {
+            children_list.model.clear()
+            children_data = response
+
+            if (response.length > 0) {
+
+                for (var i in response) {
+                    var child = response[i]
+                    var child_vernacularName = child.vernacularName
+                    var child_scientificName = child.scientificName
+                    var child_taxo_id = child.id
+
+                    children_list.model.append({ 'vernacularName': child_vernacularName,
+                                                 'scientificName': child_scientificName,
+                                                 'child_taxo_id': child_taxo_id
+                                             })
+                }
+            }
+
+            run_timer = false
+        }
+        else {
+            pageStack.push("ErrorPage.qml", {message: response})
         }
     }
 
@@ -244,7 +408,9 @@ Page {
             run_timer = false
         }
         else {
-            pageStack.push(Qt.resolvedUrl("../components/ErrorPage.qml"), {message: response})
+            pageStack.push("ErrorPage.qml", {message: response})
         }
     }
+
+
 }

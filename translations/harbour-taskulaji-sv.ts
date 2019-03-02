@@ -38,7 +38,7 @@
         <translation>Profil</translation>
     </message>
     <message>
-        <source>Taxonomy Information</source>
+        <source>Encyclopedia</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -149,15 +149,19 @@
 <context>
     <name>TaxoInfoPage</name>
     <message>
-        <source>Search</source>
+        <source>Parents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Children</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>TaxoPage</name>
+    <name>TaxoSearchPage</name>
     <message>
         <source>Taxo Search</source>
-        <translation>Art sökning</translation>
+        <translation type="unfinished">Art sökning</translation>
     </message>
 </context>
 <context>

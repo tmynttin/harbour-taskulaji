@@ -74,6 +74,11 @@ Dialog {
                     accept()
                 }
             }
+
+            onPressAndHold: {
+                selected_taxo = {"name": model.name, "id": model.id}
+                pageStack.push("../pages/TaxoInfoPage.qml", {taxo_id : selected_taxo.id})
+            }
         }
 
         VerticalScrollDecorator {}
@@ -95,7 +100,7 @@ Dialog {
                 }
             }
             else {
-                pageStack.push(Qt.resolvedUrl("../components/ErrorPage.qml"), {message: response})
+                pageStack.push("ErrorPage.qml", {message: response})
             }
         }
     }

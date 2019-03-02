@@ -5,8 +5,10 @@ Page {
 
     property string fullImage: ""
 
-    PinchArea {
-
+    BusyIndicator {
+        size: BusyIndicatorSize.Large
+        anchors.centerIn: parent
+        running: image_item.status != Image.Ready
     }
 
     Image {
