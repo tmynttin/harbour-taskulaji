@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import "../components"
 import "../js/logic.js" as Logic
 
 Page {
@@ -18,8 +19,8 @@ Page {
     }
 
     onTaxo_informationChanged: {
-        page_header.title = taxo_information.vernacularName
-        page_header.description = taxo_information.scientificName
+        page_header.title = taxo_information.scientificName
+        page_header.description = taxo_information.vernacularName? taxo_information.vernacularName : ""
         description_timer.start()
     }
 
@@ -188,31 +189,8 @@ Page {
                 }
 
                 delegate: BackgroundItem{
-                    Item {
-                        x: Theme.horizontalPageMargin
-                        width: parent.width - 2*Theme.horizontalPageMargin
-                        height: childrenRect.height
 
-                        Label {
-                            id: parent_vernacular_name
-                            text: vernacularName
-                            font.pixelSize: Theme.fontSizeMedium
-                            wrapMode: Text.WordWrap
-                            width: parent.width
-                            anchors.topMargin: Theme.paddingMedium
-                            color: Theme.highlightColor
-                        }
-
-                        Label {
-                            id: parent_scientific_name
-                            text: scientificName
-                            textFormat: Text.RichText
-                            font.pixelSize: Theme.fontSizeExtraSmall
-                            wrapMode: Text.WordWrap
-                            width: parent.width
-                            anchors.top: parent_vernacular_name.bottom
-                        }
-                    }
+                    TaxoListDelegate {}
 
                     onClicked: {
                         taxo_id = parent_taxo_id
@@ -234,31 +212,8 @@ Page {
                 }
 
                 delegate: BackgroundItem{
-                    Item {
-                        x: Theme.horizontalPageMargin
-                        width: parent.width - 2*Theme.horizontalPageMargin
-                        height: childrenRect.height
 
-                        Label {
-                            id: child_vernacular_name
-                            text: vernacularName
-                            font.pixelSize: Theme.fontSizeMedium
-                            wrapMode: Text.WordWrap
-                            width: parent.width
-                            anchors.topMargin: Theme.paddingMedium
-                            color: Theme.highlightColor
-                        }
-
-                        Label {
-                            id: child_scientific_name
-                            text: scientificName
-                            textFormat: Text.RichText
-                            font.pixelSize: Theme.fontSizeExtraSmall
-                            wrapMode: Text.WordWrap
-                            width: parent.width
-                            anchors.top: child_vernacular_name.bottom
-                        }
-                    }
+                    TaxoListDelegate{}
 
                     onClicked: {
                         taxo_id = child_taxo_id

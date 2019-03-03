@@ -32,7 +32,8 @@ DISTFILES += \
     qml/pages/ImagePage.qml \
     qml/pages/TextPage.qml \
     qml/pages/UnitPage.qml \
-    qml/pages/WebPage.qml
+    qml/pages/WebPage.qml \
+    qml/components/TaxoListDelegate.qml
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128
 
