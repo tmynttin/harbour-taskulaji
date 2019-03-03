@@ -1,7 +1,6 @@
 import QtQuick 2.2
 import Sailfish.Silica 1.0
 import QtPositioning 5.3
-import "../components"
 import "../js/logic.js" as Logic
 import "../js/document.js" as Doc
 import "../js/database.js" as DB
@@ -84,7 +83,7 @@ Dialog {
             console.log("Send successful")
         }
         else {
-            pageStack.push("../components/ErrorPage.qml", {message: response})
+            pageStack.push("ErrorPage.qml", {message: response})
         }
     }
 
@@ -191,7 +190,7 @@ Dialog {
                 }
 
                 function openMapDialog() {
-                    var dialog = pageStack.push("../components/MapPage.qml", {})
+                    var dialog = pageStack.push("MapPage.qml", {})
                 }
 
                 Row {
@@ -243,7 +242,7 @@ Dialog {
                             }
                         }
                         else {
-                            pageStack.push("../components/ErrorPage.qml", {message: response})
+                            pageStack.push("ErrorPage.qml", {message: response})
                         }
                     }
                 }
@@ -298,7 +297,7 @@ Dialog {
                             id: species_button
 
                             function openTaxoDialog() {
-                                var dialog = pageStack.push("../components/TaxoPage.qml", {})
+                                var dialog = pageStack.push("TaxoSearchPage.qml", {})
                                 dialog.accepted.connect(function() {
                                     taxo_name = dialog.selected_taxo.name
                                     taxo_id = dialog.selected_taxo.id
@@ -322,7 +321,7 @@ Dialog {
                             }
 
                             function openUnitDialog() {
-                                var dialog = pageStack.push("../components/UnitPage.qml", {
+                                var dialog = pageStack.push("UnitPage.qml", {
                                                 unit_model: model
                                              })
 

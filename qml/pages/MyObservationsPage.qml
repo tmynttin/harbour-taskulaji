@@ -147,7 +147,7 @@ Page {
                 run_timer = false
             }
             else {
-                pageStack.push(Qt.resolvedUrl("../components/ErrorPage.qml"), {message: response})
+                pageStack.push(Qt.resolvedUrl("ErrorPage.qml"), {message: response})
             }
         }
 

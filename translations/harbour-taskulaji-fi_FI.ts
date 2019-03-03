@@ -37,6 +37,10 @@
         <source>Profile</source>
         <translation>Profiili</translation>
     </message>
+    <message>
+        <source>Encyclopedia</source>
+        <translation>Lajitietoa</translation>
+    </message>
 </context>
 <context>
     <name>LoginPage</name>
@@ -143,7 +147,18 @@
     </message>
 </context>
 <context>
-    <name>TaxoPage</name>
+    <name>TaxoInfoPage</name>
+    <message>
+        <source>Parents</source>
+        <translation>Ylätaksonit</translation>
+    </message>
+    <message>
+        <source>Children</source>
+        <translation>Alataksonit</translation>
+    </message>
+</context>
+<context>
+    <name>TaxoSearchPage</name>
     <message>
         <source>Taxo Search</source>
         <translation>Lajihaku</translation>

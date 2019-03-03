@@ -68,10 +68,10 @@ Page {
             height: news_title.height + news_time.height + Theme.paddingMedium
             onClicked: {
                 if(external) {
-                    pageStack.push("../components/WebPage.qml", {go_to_url: externalURL})
+                    pageStack.push("WebPage.qml", {go_to_url: externalURL})
                 }
                 else {
-                    pageStack.push("../components/TextPage.qml", {page_title: title, page_content: content})
+                    pageStack.push("TextPage.qml", {page_title: title, page_content: content})
                 }
             }
 
@@ -137,7 +137,7 @@ Page {
                 run_timer = false
             }
             else {
-                pageStack.push(Qt.resolvedUrl("../components/ErrorPage.qml"), {message: response})
+                pageStack.push("ErrorPage.qml", {message: response})
             }
         }
     }

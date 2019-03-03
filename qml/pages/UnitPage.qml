@@ -29,7 +29,7 @@ Dialog {
                 id: species_button
 
                 function openTaxoDialog() {
-                    var dialog = pageStack.push("../components/TaxoPage.qml", {})
+                    var dialog = pageStack.push("TaxoSearchPage.qml", {})
                     dialog.accepted.connect(function() {
                         unit_model.taxo_name = dialog.selected_taxo.name
                         unit_model.taxo_id = dialog.selected_taxo.id

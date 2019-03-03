@@ -87,6 +87,27 @@ Page {
 
             BackgroundItem {
                 width: parent.width
+                id: taxo_info_page
+
+                Label {
+                    text: qsTr("Encyclopedia")
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.right: taxo_image.left
+                    x: Theme.horizontalPageMargin
+                }
+
+                Image {
+                    id: taxo_image
+                    source: "image://theme/icon-m-right"
+                    anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                onClicked: pageStack.push("TaxoSearchPage.qml", {info_search : true})
+            }
+
+            BackgroundItem {
+                width: parent.width
                 id: news
 
                 Label {
