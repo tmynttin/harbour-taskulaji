@@ -111,10 +111,12 @@ Page {
 
                     Image {
                         id: taxo_image
-                        fillMode: Image.TileVertically
+                        fillMode: Image.PreserveAspectCrop
                         antialiasing: true
                         source: thumbImage
                         cache: false
+                        width: image_grid.cellWidth
+                        height: image_grid.cellHeight
                     }
 
                     onClicked: {
