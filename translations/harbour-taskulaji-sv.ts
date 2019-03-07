@@ -9,6 +9,17 @@
     </message>
 </context>
 <context>
+    <name>DistributionMapPage</name>
+    <message>
+        <source>All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Month</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ErrorPage</name>
     <message>
         <source>Error message</source>
@@ -154,6 +165,10 @@
     </message>
     <message>
         <source>Children</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Map</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

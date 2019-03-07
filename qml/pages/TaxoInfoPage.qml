@@ -82,6 +82,16 @@ Page {
         anchors.fill: parent
         contentHeight: taxo_column.height
 
+        PullDownMenu {
+
+            MenuItem {
+                text: qsTr("Map")
+                onClicked: pageStack.push("DistributionMapPage.qml", {
+                                              taxo_id: taxo_id
+                                           })
+            }
+        }
+
         Column {
             id: taxo_column
             width: taxo_info_page.width
@@ -108,6 +118,8 @@ Page {
                 }
 
                 delegate: BackgroundItem {
+
+                    id: image_delegate
 
                     Image {
                         id: taxo_image
