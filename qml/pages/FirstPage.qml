@@ -28,7 +28,7 @@ Page {
 
             MenuItem {
                 text: qsTr("New Observation")
-                onClicked: pageStack.push(Qt.resolvedUrl("ObservationPage.qml"))
+                onClicked: pageStack.push("ObservationPage.qml")
             }
         }
 
