@@ -34,7 +34,8 @@ DISTFILES += \
     qml/pages/UnitPage.qml \
     qml/pages/WebPage.qml \
     qml/components/TaxoListDelegate.qml \
-    qml/pages/DistributionMapPage.qml
+    qml/pages/DistributionMapPage.qml \
+    qml/components/MapWidget.qml
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128
 

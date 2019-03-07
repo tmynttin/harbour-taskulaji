@@ -11,10 +11,6 @@
 <context>
     <name>DistributionMapPage</name>
     <message>
-        <source>All</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Month</source>
         <translation type="unfinished"></translation>
     </message>

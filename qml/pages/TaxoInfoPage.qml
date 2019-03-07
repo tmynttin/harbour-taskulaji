@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import QtLocation 5.0
 import "../components"
 import "../js/logic.js" as Logic
 
@@ -88,7 +89,7 @@ Page {
                 text: qsTr("Map")
                 onClicked: pageStack.push("DistributionMapPage.qml", {
                                               taxo_id: taxo_id
-                                           })
+                                          })
             }
         }
 
@@ -106,38 +107,56 @@ Page {
                 description: ""
             }
 
-            SilicaGridView {
-                id: image_grid
+            Item {
                 width: parent.width
-                height: childrenRect.height
-                cellWidth: width/5
-                cellHeight: width/5
+                height: width * 0.8
 
-                model: ListModel {
-                    id: image_grid_model
+                MapWidget {
+                    id: map_widget
+                    taxo_id: taxo_info_page.taxo_id
+                    width: parent.width / 2
+                    height: parent.height
+                    anchors.top: parent.top
                 }
 
-                delegate: BackgroundItem {
+                SilicaGridView {
+                    id: image_grid
+                    anchors.left: map_widget.right
+                    anchors.top: parent.top
+                    width: parent.width / 2
+                    height: parent.height * 0.8
+                    //height: childrenRect.height
+                    cellWidth: width/3
+                    cellHeight: width/3
 
-                    id: image_delegate
+                    model: ListModel {
+                        id: image_grid_model
 
-                    Image {
-                        id: taxo_image
-                        fillMode: Image.PreserveAspectCrop
-                        antialiasing: true
-                        source: thumbImage
-                        cache: false
-                        width: image_grid.cellWidth
-                        height: image_grid.cellHeight
                     }
 
-                    onClicked: {
-                        openImagePage()
+                    delegate: BackgroundItem {
+
+                        id: image_delegate
+
+                        Image {
+                            id: taxo_image
+                            fillMode: Image.PreserveAspectCrop
+                            antialiasing: true
+                            source: thumbImage
+                            cache: false
+                            width: image_grid.cellWidth
+                            height: image_grid.cellHeight
+                        }
+
+                        onClicked: {
+                            openImagePage()
+                        }
+
+                        function openImagePage() {
+                            pageStack.push("ImagePage.qml", {fullImage: fullImage})
+                        }
                     }
 
-                    function openImagePage() {
-                        pageStack.push("ImagePage.qml", {fullImage: fullImage})
-                    }
                 }
             }
 
@@ -339,9 +358,9 @@ Page {
                     var child_taxo_id = child.id
 
                     children_list.model.append({ 'vernacularName': child_vernacularName,
-                                                 'scientificName': child_scientificName,
-                                                 'child_taxo_id': child_taxo_id
-                                             })
+                                                   'scientificName': child_scientificName,
+                                                   'child_taxo_id': child_taxo_id
+                                               })
                 }
             }
 

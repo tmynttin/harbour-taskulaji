@@ -27,8 +27,6 @@ Page {
         onTriggered: get_distribution(current_page)
     }
 
-
-
     Plugin {
         id: mapPlugin
         name: "osm"
@@ -58,8 +56,8 @@ Page {
                 delegate: MapRectangle {
                     id: distribution_delegate
                     color: 'green'
-                    opacity: get_opacity()//Math.log(countti) / Math.log(max_count)
-                    visible: kuu == month_slider.sliderValue || month_slider.sliderValue == 0
+                    opacity: get_opacity()
+                    visible: kuu == month_slider.sliderValue
                     border.width: 1
                     topLeft {
                         latitude: latti+0.5
@@ -84,11 +82,11 @@ Page {
         Slider {
             id: month_slider
             width: parent.width
-            minimumValue: 0
+            minimumValue: 1
             maximumValue: 12
-            value: 0
+            value: 1
             stepSize: 1
-            valueText: value == 0 ? qsTr("All") : value
+            valueText: value
             label: qsTr("Month")
 
             BusyIndicator {
@@ -97,19 +95,17 @@ Page {
                 running: run_timer
             }
         }
-
-
     }
 
     function get_distribution(page)
     {
         Logic.api_qet(draw_distribution, "warehouse/query/aggregate",
                       {"aggregateBy": "gathering.conversions.wgs84Grid05.lat,gathering.conversions.wgs84Grid05.lon,gathering.conversions.month",
-                          "taxonId":taxo_id,
-                          "pageSize":"1000",
-                          "page":current_page,
-                          "time":"-7300/0",
-                            "area":"finland"})
+                       "taxonId":taxo_id,
+                       "pageSize":"1000",
+                       "page":current_page,
+                       "time":"-7300/0",
+                       "area":"finland"})
         run_timer = true
     }
 

@@ -11,12 +11,8 @@
 <context>
     <name>DistributionMapPage</name>
     <message>
-        <source>All</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Month</source>
-        <translation type="unfinished"></translation>
+        <translation>Kuukausi</translation>
     </message>
 </context>
 <context>
@@ -169,7 +165,7 @@
     </message>
     <message>
         <source>Map</source>
-        <translation type="unfinished"></translation>
+        <translation>Kartta</translation>
     </message>
 </context>
 <context>

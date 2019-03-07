@@ -11,12 +11,8 @@
 <context>
     <name>DistributionMapPage</name>
     <message>
-        <source>All</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Month</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Månad</translation>
     </message>
 </context>
 <context>
@@ -50,7 +46,7 @@
     </message>
     <message>
         <source>Encyclopedia</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Encyklopedi</translation>
     </message>
 </context>
 <context>
