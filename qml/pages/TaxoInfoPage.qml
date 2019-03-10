@@ -15,62 +15,16 @@ Page {
     property var children_data
     property bool run_timer: false
 
-    onTaxo_idChanged: {
+    Component.objectName:  {
         get_taxo_information()
-    }
-
-    onTaxo_informationChanged: {
-        page_header.title = taxo_information.scientificName
-        page_header.description = taxo_information.vernacularName? taxo_information.vernacularName : ""
-        description_timer.start()
-    }
-
-    onTaxo_descriptionChanged: {
-        parents_timer.start()
-    }
-
-    onParents_dataChanged: {
-        children_timer.start()
-    }
-
-    onChildren_dataChanged: {
-        image_timer.start()
+        get_taxo_description()
+        get_parents()
+        get_children()
+        get_images()
+        map_widget.taxo_id = taxo_id
     }
 
 
-
-    //Timer to allow first http get to complete
-    Timer {
-        id: description_timer
-        interval: 100
-        running: false
-        repeat: false
-        onTriggered: get_taxo_description()
-    }
-
-    Timer {
-        id: parents_timer
-        interval: 100
-        running: false
-        repeat: false
-        onTriggered: get_parents()
-    }
-
-    Timer {
-        id: children_timer
-        interval: 100
-        running: false
-        repeat: false
-        onTriggered: get_children()
-    }
-
-    Timer {
-        id: image_timer
-        interval: 100
-        running: false
-        repeat: false
-        onTriggered: get_images()
-    }
 
     BusyIndicator {
         size: BusyIndicatorSize.Large
@@ -103,8 +57,8 @@ Page {
 
             PageHeader {
                 id: page_header
-                title: ""
-                description: ""
+                title: taxo_information ? taxo_information.scientificName : ""
+                description: taxo_information ? taxo_information.vernacularName : ""
             }
 
             Item {
@@ -125,7 +79,6 @@ Page {
                     anchors.top: parent.top
                     width: parent.width / 2
                     height: parent.height * 0.8
-                    //height: childrenRect.height
                     cellWidth: width/3
                     cellHeight: width/3
 
@@ -178,8 +131,6 @@ Page {
                     }
                 }
 
-
-
                 delegate: Item {
                     x: Theme.horizontalPageMargin
                     width: parent.width - 2*Theme.horizontalPageMargin
@@ -194,7 +145,6 @@ Page {
                         anchors.topMargin: Theme.paddingMedium
                         color: Theme.highlightColor
                     }
-
 
                     Label {
                         id: taxo_description
@@ -308,7 +258,7 @@ Page {
     }
 
     function get_parents() {
-        Logic.api_qet(set_parents, "taxa/" + taxo_id + "/parents", {})
+        Logic.api_qet(set_parents, "taxa/" + taxo_id + "/parents", {"lang":"fi"})
         run_timer = true
     }
 
@@ -340,7 +290,7 @@ Page {
     }
 
     function get_children() {
-        Logic.api_qet(set_children, "taxa/" + taxo_id + "/children", {})
+        Logic.api_qet(set_children, "taxa/" + taxo_id + "/children", {"lang":"fi"})
         run_timer = true
     }
 

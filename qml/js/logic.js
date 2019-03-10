@@ -6,7 +6,6 @@ var api_url = "https://apitest.laji.fi/v0/";
 var access_token = "Q1cVCk7I8sc2PCqIbhMHt1rib2FyZwJF9OhUXmxIIAy6R0bSeKEMWgtq47ecYVYo";
 
 var person_token
-var xhr = new XMLHttpRequest();
 var request_count = 0;
 var db;
 var page_stack;
@@ -22,7 +21,7 @@ function get_person_token() {
     }
 }
 
-function processRequest(callback, e) {
+function processRequest(xhr, callback, e) {
     console.log(xhr.readyState)
     console.log(xhr.status)
 
@@ -39,6 +38,7 @@ function processRequest(callback, e) {
 }
 
 function api_qet(callback, end_point, params) {
+    var xhr = new XMLHttpRequest();
     request_count += 1;
     console.log("request_count: " + request_count)
     params = params || {}
@@ -51,13 +51,14 @@ function api_qet(callback, end_point, params) {
 
     var request = api_url + end_point + "?access_token=" + access_token + "&personToken=" + person_token + parameters
     console.log(request)
-    xhr.onreadystatechange = function() {processRequest(callback);};
+    xhr.onreadystatechange = function() {processRequest(xhr, callback);};
 
     xhr.open('GET', request, true);
     xhr.send();
 }
 
 function api_post(callback, end_point, send_data, params) {
+    var xhr = new XMLHttpRequest();
     params = params || {};
     //var end_point = ep;
     var parameters = "";
@@ -69,7 +70,7 @@ function api_post(callback, end_point, send_data, params) {
     send_data = JSON.stringify(send_data)
     console.log(send_data)
 
-    xhr.onreadystatechange = function() {processRequest(callback);};
+    xhr.onreadystatechange = function() {processRequest(xhr, callback);};
 
     xhr.open('POST', request, true);
     xhr.setRequestHeader("Content-Type", "application/json");

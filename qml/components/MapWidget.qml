@@ -17,15 +17,15 @@ Item {
     property real zoom_level: 5.5
 
     Component.onCompleted: {
-        kartta.zoomLevel = zoom_level
+        var ratio_comp = Math.sqrt(1920^2 + 1080^2)
+        var ratio = Math.sqrt(Screen.height^2 + Screen.width^2)
+        kartta.zoomLevel = zoom_level * Math.sqrt(ratio_comp / ratio)
+        get_distribution(current_page)
     }
 
-    Timer {
-        id: distribution_timer
-        running: true
-        repeat: false
-        interval: 1000
-        onTriggered: get_distribution(current_page)
+    onTaxo_idChanged: {
+        current_page = 1
+        get_distribution(current_page)
     }
 
     Rectangle {
@@ -56,7 +56,7 @@ Item {
             delegate: MapRectangle {
                 id: distribution_delegate
                 color: 'green'
-                opacity: get_opacity()//Math.log(countti) / Math.log(max_count)
+                opacity: get_opacity()
                 border.width: 1
                 topLeft {
                     latitude: latti+0.5
@@ -93,6 +93,7 @@ Item {
     function draw_distribution(status, response) {
         if (status === 200) {
             console.log(JSON.stringify(response.total))
+            map_model.clear()
 
             max_count = 0
             last_page = response.lastPage

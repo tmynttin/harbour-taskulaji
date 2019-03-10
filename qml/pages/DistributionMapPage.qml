@@ -14,17 +14,13 @@ Page {
     property int max_count
     property int current_page: 1
     property int last_page: 1
+    property real zoom_level: 6.0
 
     Component.onCompleted: {
-        kartta.zoomLevel = 6.0
-    }
-
-    Timer {
-        id: distribution_timer
-        running: true
-        repeat: false
-        interval: 10
-        onTriggered: get_distribution(current_page)
+        var ratio_comp = Math.sqrt(1920^2 + 1080^2)
+        var ratio = Math.sqrt(Screen.height^2 + Screen.width^2)
+        kartta.zoomLevel = zoom_level * Math.sqrt(ratio_comp / ratio)
+        get_distribution(current_page)
     }
 
     Plugin {
@@ -133,7 +129,7 @@ Page {
             current_page++
 
             if (current_page <= last_page) {
-                distribution_timer.start()
+                get_distribution()
             }
             else {
                 run_timer = false
