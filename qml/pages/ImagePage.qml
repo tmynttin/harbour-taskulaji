@@ -29,7 +29,7 @@ Page {
                 Rectangle {
                     id: placeholder
                     width: parent.width
-                    height: width / 2
+                    height: width
                     opacity: 0
                     visible: image_item.status !== Image.Ready
 
@@ -45,19 +45,22 @@ Page {
 
             Label {
                 x: Theme.paddingLarge
+                font.pixelSize: Theme.fontSizeLarge
+                color: Theme.highlightColor
                 text: image_model.scientificName
             }
 
             Label {
                 x: Theme.paddingLarge
-                color: Theme.highlightColor
+                font.pixelSize: Theme.fontSizeMedium
+                color: Theme.secondaryHighlightColor
                 text: image_model.vernacularName
             }
 
             Label {
                 x: Theme.paddingLarge
-                font: Theme.fontSizeNormal
-                color: Theme.highlightColor
+                font.pixelSize: Theme.fontSizeTiny
+                color: Theme.secondaryHighlightColor
                 text: qsTr("Author: ") + image_model.author
             }
         }

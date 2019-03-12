@@ -77,9 +77,10 @@ Page {
                     anchors.left: map_widget.right
                     anchors.top: parent.top
                     width: parent.width / 2
-                    height: parent.height * 0.8
+                    height: parent.height
                     cellWidth: width/3
                     cellHeight: width/3
+                    clip: true
 
                     model: ListModel {
                         id: image_grid_model
@@ -373,8 +374,6 @@ Page {
     function set_warehouse_images(status, response) {
         if (status === 200) {
 
-            console.log(JSON.stringify(response))
-
             if (response.results.length > 0) {
 
                 for (var i in response.results) {
@@ -400,6 +399,4 @@ Page {
             pageStack.push("ErrorPage.qml", {message: response})
         }
     }
-
-
 }
