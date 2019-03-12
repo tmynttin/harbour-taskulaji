@@ -15,13 +15,12 @@ Page {
     property var children_data
     property bool run_timer: false
 
-    Component.objectName:  {
-        get_taxo_information()
-        get_taxo_description()
-        get_parents()
-        get_children()
-        get_images()
-        map_widget.taxo_id = taxo_id
+    Component.onCompleted: {
+        load_page()
+    }
+
+    onTaxo_idChanged: {
+        load_page()
     }
 
 
@@ -57,8 +56,8 @@ Page {
 
             PageHeader {
                 id: page_header
-                title: taxo_information ? taxo_information.scientificName : ""
-                description: taxo_information ? taxo_information.vernacularName : ""
+                title: taxo_information.scientificName ? taxo_information.scientificName : ""
+                description: taxo_information.vernacularName ? taxo_information.vernacularName : ""
             }
 
             Item {
@@ -95,7 +94,7 @@ Page {
                             id: taxo_image
                             fillMode: Image.PreserveAspectCrop
                             antialiasing: true
-                            source: thumbImage
+                            source: thumbURL
                             cache: false
                             width: image_grid.cellWidth
                             height: image_grid.cellHeight
@@ -106,7 +105,7 @@ Page {
                         }
 
                         function openImagePage() {
-                            pageStack.push("ImagePage.qml", {fullImage: fullImage})
+                            pageStack.push("ImagePage.qml", {image_model: model})
                         }
                     }
 
@@ -204,6 +203,16 @@ Page {
                 }
             }
         }
+    }
+
+    function load_page() {
+        get_taxo_information()
+        get_taxo_description()
+        get_parents()
+        get_children()
+        get_images()
+        get_warehouse_images()
+        map_widget.taxo_id = taxo_id
     }
 
     function get_taxo_information() {
@@ -322,7 +331,7 @@ Page {
     }
 
     function get_images() {
-        Logic.api_qet(set_images, "taxa/" + taxo_id + "/media", {})
+        Logic.api_qet(set_images, "taxa/" + taxo_id + "/media", {"lang":"fi"})
         run_timer = true
     }
 
@@ -336,9 +345,51 @@ Page {
                     var media_data = response[i]
                     var thumb = media_data.thumbnailURL
                     var full = media_data.fullURL
+                    var author = media_data.author
+                    var vernacularName = media_data.taxon.vernacularName
+                    var scientificName = media_data.taxon.scientificName
 
-                    image_grid.model.append({ 'thumbImage': thumb,
-                                                'fullImage': full,
+                    image_grid.model.append({ 'thumbURL': thumb,
+                                                'fullURL': full,
+                                                'author': author,
+                                                'vernacularName': vernacularName,
+                                                'scientificName': scientificName
+                                            })
+                }
+            }
+
+            run_timer = false
+        }
+        else {
+            pageStack.push("ErrorPage.qml", {message: response})
+        }
+    }
+
+    function get_warehouse_images() {
+        Logic.api_qet(set_warehouse_images, "warehouse/query/unitMedia/list", {"taxonId":taxo_id, "reliable":true})
+        run_timer = true
+    }
+
+    function set_warehouse_images(status, response) {
+        if (status === 200) {
+
+            console.log(JSON.stringify(response))
+
+            if (response.results.length > 0) {
+
+                for (var i in response.results) {
+                    var media_data = response.results[i]
+                    var thumb = media_data.media.thumbnailURL
+                    var full = media_data.media.fullURL
+                    var author = media_data.media.author
+                    var vernacularName = media_data.unit.linkings.taxon.vernacularName.fi
+                    var scientificName = media_data.unit.linkings.taxon.scientificName
+
+                    image_grid.model.append({ 'thumbURL': thumb,
+                                                'fullURL': full,
+                                                'author': author,
+                                                'vernacularName': vernacularName,
+                                                'scientificName': scientificName
                                             })
                 }
             }

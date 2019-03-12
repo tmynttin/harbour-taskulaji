@@ -10,7 +10,7 @@ Item {
     id: distribution_map_page
 
     property string taxo_id
-    property bool run_timer: false
+    property bool run_timer: true
     property int max_count
     property int current_page: 1
     property int last_page: 1
@@ -28,9 +28,16 @@ Item {
         get_distribution(current_page)
     }
 
+    BusyIndicator {
+        size: BusyIndicatorSize.Large
+        anchors.centerIn: parent
+        running: run_timer
+    }
+
     Rectangle {
         width: parent.width
         height: parent.height
+        visible: !run_timer
 
     Plugin {
         id: mapPlugin
@@ -80,6 +87,7 @@ Item {
     }
     function get_distribution(page)
     {
+        run_timer = true
         Logic.api_qet(draw_distribution, "warehouse/query/aggregate",
                       {"aggregateBy": "gathering.conversions.wgs84Grid05.lat,gathering.conversions.wgs84Grid05.lon",
                           "taxonId":taxo_id,
@@ -87,7 +95,6 @@ Item {
                           "page":current_page,
                           "time":"-7300/0",
                           "area":"finland"})
-        run_timer = true
     }
 
     function draw_distribution(status, response) {

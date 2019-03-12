@@ -50,6 +50,13 @@
     </message>
 </context>
 <context>
+    <name>ImagePage</name>
+    <message>
+        <source>Author: </source>
+        <translation>Tekijä: </translation>
+    </message>
+</context>
+<context>
     <name>LoginPage</name>
     <message>
         <source>Login</source>

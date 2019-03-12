@@ -86,7 +86,6 @@ Dialog {
         Component.onCompleted: {searchField.forceActiveFocus()}
 
         function get_taxons() {
-            model.clear();
             if (searchString.length > 2) {
                 Logic.api_qet(update_list, "autocomplete/taxon", {'q':searchString, 'matchType':'partial,exact'});
             }
@@ -94,6 +93,7 @@ Dialog {
 
         function update_list(status, response) {
             if (status === 200) {
+                model.clear()
                 for (var i in response) {
                     model.append({ 'id': String(response[i].key),
                                      'name': String(response[i].value)});
