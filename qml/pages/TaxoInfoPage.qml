@@ -15,10 +15,6 @@ Page {
     property var children_data
     property bool run_timer: false
 
-    Component.onCompleted: {
-        load_page()
-    }
-
     onTaxo_idChanged: {
         load_page()
     }
@@ -375,6 +371,8 @@ Page {
         if (status === 200) {
 
             if (response.results.length > 0) {
+
+                console.log(JSON.stringify(response.results))
 
                 for (var i in response.results) {
                     var media_data = response.results[i]

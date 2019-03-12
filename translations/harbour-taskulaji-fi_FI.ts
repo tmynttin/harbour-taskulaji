@@ -53,7 +53,7 @@
     <name>ImagePage</name>
     <message>
         <source>Author: </source>
-        <translation>Tekijä: </translation>
+        <translation>Kuva: </translation>
     </message>
 </context>
 <context>
