@@ -16,6 +16,21 @@
     </message>
 </context>
 <context>
+    <name>DocumentInfoPage</name>
+    <message>
+        <source>Gathering</source>
+        <translation>Havaintotapahtuma</translation>
+    </message>
+    <message>
+        <source>Units</source>
+        <translation>Havainnot</translation>
+    </message>
+    <message>
+        <source>Document</source>
+        <translation>Dokumentti</translation>
+    </message>
+</context>
+<context>
     <name>ErrorPage</name>
     <message>
         <source>Error message</source>
@@ -24,10 +39,6 @@
 </context>
 <context>
     <name>FirstPage</name>
-    <message>
-        <source>My Observations</source>
-        <translation>Omat havainnot</translation>
-    </message>
     <message>
         <source>News</source>
         <translation>Tiedotteet</translation>
@@ -47,6 +58,10 @@
     <message>
         <source>Encyclopedia</source>
         <translation>Lajitietoa</translation>
+    </message>
+    <message>
+        <source>Observations</source>
+        <translation>Havainnot</translation>
     </message>
 </context>
 <context>
@@ -95,6 +110,33 @@
     <message>
         <source>Refresh</source>
         <translation>Päivitä</translation>
+    </message>
+</context>
+<context>
+    <name>ObservationMapSettingPage</name>
+    <message>
+        <source>Start date</source>
+        <translation>Alkupäivä</translation>
+    </message>
+    <message>
+        <source>End date</source>
+        <translation>Loppupäivä</translation>
+    </message>
+    <message>
+        <source>Only own observations</source>
+        <translation>Vain omat havainnot</translation>
+    </message>
+    <message>
+        <source>Observation search settings</source>
+        <translation>Havaintohakuasetukset</translation>
+    </message>
+    <message>
+        <source>Taxon: </source>
+        <translation>Taksoni: </translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation>Kaikki</translation>
     </message>
 </context>
 <context>

@@ -14,12 +14,10 @@ Item {
     property int max_count
     property int current_page: 1
     property int last_page: 1
-    property real zoom_level: 5.5
+    property real zoom_level: 3.5
 
     Component.onCompleted: {
-        var ratio_comp = Math.sqrt(1920^2 + 1080^2)
-        var ratio = Math.sqrt(Screen.height^2 + Screen.width^2)
-        kartta.zoomLevel = zoom_level * Math.sqrt(ratio_comp / ratio)
+        kartta.zoomLevel = zoom_level + Screen.height / 960
         get_distribution(current_page)
     }
 
@@ -53,6 +51,7 @@ Item {
             latitude: 65.5
             longitude: 26
         }
+        gesture.enabled: false
 
         MapItemView {
 

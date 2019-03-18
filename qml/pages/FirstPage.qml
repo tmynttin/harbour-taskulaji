@@ -60,16 +60,15 @@ Page {
                     anchors.verticalCenter: parent.verticalCenter
                 }
 
-                onClicked: pageStack.push(Qt.resolvedUrl("ObservationPage.qml"))
+                onClicked: pageStack.push("ObservationPage.qml")
             }
 
             BackgroundItem {
                 width: parent.width
                 id: my_observations
-                visible: logged_in
 
                 Label {
-                    text: qsTr("My Observations")
+                    text: qsTr("Observations")
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.right: my_observations_image.left
                     x: Theme.horizontalPageMargin
@@ -82,7 +81,7 @@ Page {
                     anchors.verticalCenter: parent.verticalCenter
                 }
 
-                onClicked: pageStack.push(Qt.resolvedUrl("MyObservationsPage.qml"))
+                onClicked: pageStack.push("ObservationMapPage.qml")
             }
 
             BackgroundItem {
@@ -124,7 +123,7 @@ Page {
                     anchors.verticalCenter: parent.verticalCenter
                 }
 
-                onClicked: pageStack.push(Qt.resolvedUrl("NewsPage.qml"))
+                onClicked: pageStack.push("NewsPage.qml")
             }
 
             BackgroundItem {
@@ -145,8 +144,10 @@ Page {
                     anchors.verticalCenter: parent.verticalCenter
                 }
 
-                onClicked: pageStack.push(Qt.resolvedUrl("UserPage.qml"))
+                onClicked: pageStack.push("UserPage.qml")
             }
+
+
         }
     }
 }

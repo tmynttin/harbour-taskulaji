@@ -14,12 +14,10 @@ Page {
     property int max_count
     property int current_page: 1
     property int last_page: 1
-    property real zoom_level: 6.0
+    property real zoom_level: 4.2
 
     Component.onCompleted: {
-        var ratio_comp = Math.sqrt(1920^2 + 1080^2)
-        var ratio = Math.sqrt(Screen.height^2 + Screen.width^2)
-        kartta.zoomLevel = zoom_level * Math.sqrt(ratio_comp / ratio)
+        kartta.zoomLevel = zoom_level + Screen.height / 960
         get_distribution(current_page)
     }
 
@@ -39,9 +37,17 @@ Page {
             height: distribution_map_page.height * 0.75
             plugin: mapPlugin
             center {
-                latitude: 65
+                latitude: 65.5
                 longitude: 26
             }
+            onZoomLevelChanged: {
+                console.log(kartta.center)
+                var centerPoint = kartta.toScreenPosition(kartta.center)
+                var topLeftCoordinate = kartta.toCoordinate(Qt.point(0,0))
+                var bottomRightCoordinate = kartta.toCoordinate(Qt.point(kartta.width,kartta.height))
+                console.log(topLeftCoordinate + ", " + bottomRightCoordinate)
+            }
+
 
             MapItemView {
 
@@ -84,6 +90,18 @@ Page {
             stepSize: 1
             valueText: value
             label: qsTr("Month")
+
+            Timer {
+                id: month_timer
+                running: true
+                interval: 100
+                repeat: true
+                onTriggered: month_slider.value = month_slider.value % 12 + 1
+            }
+
+            onClicked: {
+                month_timer.stop()
+            }
 
             BusyIndicator {
                 size: BusyIndicatorSize.Large

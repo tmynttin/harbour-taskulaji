@@ -10,7 +10,14 @@ Dialog {
     property var selected_taxo
     property bool info_search: false
 
-    onSearchStringChanged: result_list.get_taxons()
+    onSearchStringChanged: search_timer.restart()
+
+    Timer {
+        id: search_timer
+        running: false
+        interval: 500
+        onTriggered: result_list.get_taxons()
+    }
 
     Column {
         id: headerContainer

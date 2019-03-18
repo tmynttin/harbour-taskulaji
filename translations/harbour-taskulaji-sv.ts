@@ -16,6 +16,21 @@
     </message>
 </context>
 <context>
+    <name>DocumentInfoPage</name>
+    <message>
+        <source>Gathering</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Units</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ErrorPage</name>
     <message>
         <source>Error message</source>
@@ -24,10 +39,6 @@
 </context>
 <context>
     <name>FirstPage</name>
-    <message>
-        <source>My Observations</source>
-        <translation>Egna observationer</translation>
-    </message>
     <message>
         <source>News</source>
         <translation>Nyheter</translation>
@@ -47,6 +58,10 @@
     <message>
         <source>Encyclopedia</source>
         <translation type="unfinished">Encyklopedi</translation>
+    </message>
+    <message>
+        <source>Observations</source>
+        <translation type="unfinished">Observationer</translation>
     </message>
 </context>
 <context>
@@ -95,6 +110,33 @@
     <message>
         <source>Refresh</source>
         <translation>Updatera</translation>
+    </message>
+</context>
+<context>
+    <name>ObservationMapSettingPage</name>
+    <message>
+        <source>Start date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>End date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only own observations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Observation search settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Taxon: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
