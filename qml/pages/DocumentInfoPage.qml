@@ -81,9 +81,7 @@ Page {
                 id: unit_list
                 width: parent.width
                 height: childrenRect.height
-
-
-                VerticalScrollDecorator {}
+                spacing: Theme.paddingLarge
 
                 model: ListModel {
                     id: document_model
@@ -123,6 +121,40 @@ Page {
                         width: parent.width
                         color: Theme.secondaryHighlightColor
                     }
+
+                    SilicaGridView {
+                        id: image_grid
+                        width: parent.width
+                        height: childrenRect.height
+                        cellWidth: width/5
+                        cellHeight: width/5
+
+                        model: images
+
+                        delegate: BackgroundItem {
+
+                            id: image_delegate
+
+                            Image {
+                                id: observation_image
+                                fillMode: Image.PreserveAspectCrop
+                                antialiasing: true
+                                source: thumbURL
+                                cache: false
+                                width: image_grid.cellWidth
+                                height: image_grid.cellHeight
+                            }
+
+                            onClicked: {
+                                openImagePage()
+                            }
+
+                            function openImagePage() {
+                                pageStack.push("ImagePage.qml", {image_model: model})
+                            }
+                        }
+
+                    }
                 }
             }
         }
@@ -144,10 +176,8 @@ Page {
                 observer = response.document.gatherings[0].team[0]
             }
             date = new Date(response.document.gatherings[0].eventDate.begin)
-            municipality = response.document.gatherings[0].interpretations.municipalityDisplayname
+            municipality = response.document.gatherings[0].interpretations.municipalityDisplayname ? response.document.gatherings[0].interpretations.municipalityDisplayname : ""
             var units = response.document.gatherings[0].units
-
-            console.log(JSON.stringify(units))
 
 
             for (var i in units) {
@@ -156,13 +186,19 @@ Page {
                 var scientificName = unit.linkings.taxon.scientificName
 
                 var vernacularName = unit.linkings.taxon.vernacularName ? unit.linkings.taxon.vernacularName.fi : ""
-                var notes = unit.notes
-                console.log(scientificName)
+                var notes = unit.notes ? unit.notes : ""
+                var images = []
+
+                for (var j in unit.media) {
+                    images.push({'fullURL': unit.media[j].fullURL,
+                                  'thumbURL': unit.media[j].thumbnailURL})
+                }
 
                 document_model.append({ 'taxo_id': taxo_id,
                                           'scientificName': scientificName,
                                           'vernacularName': vernacularName,
-                                          'notes': notes
+                                          'notes': notes,
+                                          'images': images
                                       })
             }
             run_timer = false

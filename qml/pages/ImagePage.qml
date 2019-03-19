@@ -47,21 +47,21 @@ Page {
                 x: Theme.paddingLarge
                 font.pixelSize: Theme.fontSizeLarge
                 color: Theme.highlightColor
-                text: image_model.scientificName
+                text: image_model.scientificName ? image_model.scientificName : ""
             }
 
             Label {
                 x: Theme.paddingLarge
                 font.pixelSize: Theme.fontSizeMedium
                 color: Theme.secondaryHighlightColor
-                text: image_model.vernacularName
+                text: image_model.vernacularName ? image_model.vernacularName : ""
             }
 
             Label {
                 x: Theme.paddingLarge
                 font.pixelSize: Theme.fontSizeTiny
                 color: Theme.secondaryHighlightColor
-                text: qsTr("Author: ") + image_model.author
+                text: image_model.author ? (qsTr("Author: ") + image_model.author) : ""
             }
         }
     }

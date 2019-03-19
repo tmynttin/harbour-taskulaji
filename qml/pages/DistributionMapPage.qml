@@ -40,14 +40,6 @@ Page {
                 latitude: 65.5
                 longitude: 26
             }
-            onZoomLevelChanged: {
-                console.log(kartta.center)
-                var centerPoint = kartta.toScreenPosition(kartta.center)
-                var topLeftCoordinate = kartta.toCoordinate(Qt.point(0,0))
-                var bottomRightCoordinate = kartta.toCoordinate(Qt.point(kartta.width,kartta.height))
-                console.log(topLeftCoordinate + ", " + bottomRightCoordinate)
-            }
-
 
             MapItemView {
 
@@ -94,7 +86,7 @@ Page {
             Timer {
                 id: month_timer
                 running: true
-                interval: 100
+                interval: 1000
                 repeat: true
                 onTriggered: month_slider.value = month_slider.value % 12 + 1
             }
