@@ -3,7 +3,7 @@ import Sailfish.Silica 1.0
 import "../js/logic.js" as Logic
 import "../js/document.js" as Doc
 
-Dialog {
+Page {
     id: unit_page
     property var unit_model
 
@@ -23,7 +23,7 @@ Dialog {
             width: parent.width
             spacing: Theme.paddingSmall
 
-            DialogHeader { title: qsTr("Unit information") }
+            PageHeader { title: qsTr("Unit information") }
 
             ValueButton {
                 id: species_button
@@ -51,8 +51,10 @@ Dialog {
                 label: qsTr("Amount ")
                 placeholderText: label //"Amount e.g. '5m2f' or '7'"
                 EnterKey.iconSource: "image://theme/icon-m-enter-accept"
-                EnterKey.onClicked: {unit_model.amount = text}
-                onFocusChanged: {unit_model.amount = text}
+
+                onTextChanged: {
+                    unit_model.amount = text
+                }
             }
 
             TextField {
@@ -62,33 +64,36 @@ Dialog {
                 text: unit_model.notes
                 placeholderText: label
                 EnterKey.iconSource: "image://theme/icon-m-enter-accept"
-                EnterKey.onClicked: {
+
+                onTextChanged: {
                     unit_model.notes = text
-                    focus = false
                 }
-                onFocusChanged: {unit_model.notes = text}
             }
 
             ComboBox {
                 id: taxon_confidence_combobox
+                property var taxon_confidence_model: Doc.taxonConfidence
+
+                Component.onCompleted: {
+                    for (var i in taxon_confidence_model) {
+                        console.log("checking " + taxon_confidence_model[i].property)
+                        if (taxon_confidence_model[i].property === unit_model.taxon_confidence) {
+                            currentIndex = i
+                            console.log("setting currentIndex to " + i)
+                        }
+                    }
+                }
+
                 width: parent.width
                 label: qsTr("Taxon confidence")
-                currentIndex: 1
                 menu: ContextMenu {
                     Repeater {
-                        function build_model() {
-                            var ret = []
-                            for (var key in Doc.taxonConfidence) {
-                                ret.push(key)
-                            }
-                            return ret
-                        }
-                        model: build_model()
+                        model: taxon_confidence_combobox.taxon_confidence_model
                         MenuItem {
                             id: taxon_confidence_item
-                            text: modelData
+                            text: modelData.label.fi
                             onClicked: {
-                                unit_model.taxon_confidence = taxon_confidence_item.text
+                                unit_model.taxon_confidence = modelData.property
                             }
                         }
                     }
@@ -96,19 +101,31 @@ Dialog {
             }
 
             ComboBox {
+
+                property var record_basis_model: Doc.recordBasis
+
+                Component.onCompleted: {
+                    for (var i in record_basis_model) {
+                        console.log("checking " + record_basis_model[i].property)
+                        if (record_basis_model[i].property === unit_model.record_basis) {
+                            currentIndex = i
+                            console.log("setting currentIndex to " + i)
+                        }
+                    }
+                }
+
                 id: record_basis_combobox
                 width: parent.width
                 label: qsTr("Record basis")
-                currentIndex: 1
                 menu: ContextMenu {
                     Repeater {
                         id: record_basis_list
-                        model: Doc.recordBasis
+                        model: record_basis_combobox.record_basis_model
                         MenuItem {
                             id: record_basis_item
-                            text: modelData
+                            text: modelData.label.fi
                             onClicked: {
-                                unit_model.record_basis = record_basis_item.text
+                                unit_model.record_basis = modelData.property
                             }
                         }
                     }

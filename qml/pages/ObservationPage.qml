@@ -66,8 +66,8 @@ Dialog {
             identification.taxon = unit.taxo_name
             unit_doc.identifications.push(identification)
             unit_doc.notes = unit.notes
-            unit_doc.recordBasis = Doc.recordBasis[unit.record_basis]
-            unit_doc.taxonConfidence = Doc.taxonConfidence[unit.taxon_confidence]
+            unit_doc.recordBasis = unit.record_basis
+            unit_doc.taxonConfidence = unit.taxon_confidence
             unit_doc.unitFact.autocompleteSelectedTaxonID = unit.taxo_id
 
             obs.gatherings[0].units.push(unit_doc)
@@ -275,7 +275,7 @@ Dialog {
                     taxo_id: ""
                     amount: ""
                     notes: ""
-                    taxon_confidence: "Sure"
+                    taxon_confidence: "MY.taxonConfidenceSure"
                     record_basis: "MY.recordBasisHumanObservation"
                 }
             }
@@ -321,13 +321,9 @@ Dialog {
                             }
 
                             function openUnitDialog() {
-                                var dialog = pageStack.push("UnitPage.qml", {
+                                pageStack.push("UnitPage.qml", {
                                                 unit_model: model
                                              })
-
-                                dialog.accepted.connect(function() {
-                                    model = dialog.unit_model
-                                })
                             }
                         }
                     }
@@ -340,8 +336,7 @@ Dialog {
                         label: qsTr("Amount ")
                         placeholderText: label //"Amount e.g. '5m2f' or '7'"
                         EnterKey.iconSource: "image://theme/icon-m-enter-accept"
-                        EnterKey.onClicked: {amount = text}
-                        onFocusChanged: {amount = text}
+                        onTextChanged: {amount = text}
                     }
                 }
             }
@@ -356,7 +351,12 @@ Dialog {
                     id: unit_adder
                     icon.source: "image://theme/icon-l-add"
                     onClicked: {
-                        unit_model.append({taxo_name: "", taxo_id: "", amount: "", notes: "", taxon_confidence: "Sure", record_basis: "Seen"})
+                        unit_model.append({taxo_name: "",
+                                              taxo_id: "",
+                                              amount: "",
+                                              notes: "",
+                                              taxon_confidence: "MY.taxonConfidenceSure",
+                                              record_basis: "MY.recordBasisHumanObservation"})
                     }
                 }
 
