@@ -74,7 +74,9 @@ Page {
                         MouseArea {
                             anchors.fill: marker_image
                             onClicked: {
-                                pageStack.push('DocumentInfoPage.qml', {documentId:documentId})
+                                pageStack.push('DocumentInfoPage.qml',
+                                               {documentId: documentId,
+                                                   gatheringId: gatheringId})
                             }
                         }
                     }
@@ -172,14 +174,18 @@ Page {
             last_page = response.lastPage
 
             for (var i in response.results) {
+
                 var result = response.results[i]
                 var centerLatitude = parseFloat(result.gathering.conversions.wgs84CenterPoint.lat)
                 var centerLongitude = parseFloat(result.gathering.conversions.wgs84CenterPoint.lon)
-                var documentId = result.document.documentId
+
+                var gatheringId = result.gathering.gatheringId.split("/").pop()
+                var documentId = (gatheringId.split("#"))[0]
 
                 map_model.append({ 'latti': centerLatitude,
                                      'lontti': centerLongitude,
-                                     'documentId': documentId
+                                     'documentId': documentId,
+                                     'gatheringId': gatheringId
                                  })
             }
             current_page++

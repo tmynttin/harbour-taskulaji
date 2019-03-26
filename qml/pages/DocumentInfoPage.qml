@@ -5,12 +5,15 @@ import "../js/logic.js" as Logic
 Page {
     id: document_info_page
     property var documentId
+    property var gatheringId
     property bool run_timer
     property string observer: ""
     property var date
     property string municipality: ""
 
-    onDocumentIdChanged: {
+    onGatheringIdChanged: {
+        console.log(documentId)
+        console.log(gatheringId)
         get_document()
     }
 
@@ -172,12 +175,20 @@ Page {
     function write_document(status, response) {
         if (status === 200) {
 
-            if (response.document.gatherings[0].team) {
-                observer = response.document.gatherings[0].team[0]
+            var gathering_index = 0
+
+            for (var gathering in response.document.gatherings) {
+                if (response.document.gatherings[gathering].gatheringId.split("/").pop() === gatheringId) {
+                    gathering_index = gathering
+                }
             }
-            date = new Date(response.document.gatherings[0].eventDate.begin)
-            municipality = response.document.gatherings[0].interpretations.municipalityDisplayname ? response.document.gatherings[0].interpretations.municipalityDisplayname : ""
-            var units = response.document.gatherings[0].units
+
+            if (response.document.gatherings[gathering_index].team) {
+                observer = response.document.gatherings[gathering_index].team[0]
+            }
+            date = new Date(response.document.gatherings[gathering_index].eventDate.begin)
+            municipality = response.document.gatherings[gathering_index].interpretations.municipalityDisplayname ? response.document.gatherings[gathering_index].interpretations.municipalityDisplayname : ""
+            var units = response.document.gatherings[gathering_index].units
 
 
             for (var i in units) {
