@@ -6,6 +6,7 @@ import "../js/document.js" as Doc
 Page {
     id: unit_page
     property var unit_model
+    property int model_index
 
     Component.onCompleted: {
         console.log("Species: " + unit_model.taxo_name)
@@ -15,6 +16,17 @@ Page {
         anchors.fill: parent
         contentHeight: column.height
         contentWidth: parent.width
+
+        PullDownMenu {
+
+            MenuItem {
+                text: qsTr("Delete unit")
+                onClicked: {
+                    pageStack.previousPage(pageStack.currentPage).unit_model.remove(model_index)
+                    pageStack.pop()
+                }
+            }
+        }
 
         VerticalScrollDecorator {}
 
@@ -38,7 +50,7 @@ Page {
                 }
 
                 label: qsTr("Species: ")
-                value: unit_model.taxo_name ? unit_model.taxo_name : "None"
+                value: unit_model ? (unit_model.taxo_name ? unit_model.taxo_name : "None") : ""
                 width: parent.width
                 onClicked: openTaxoDialog()
             }
@@ -46,7 +58,7 @@ Page {
             TextField {
                 id: amount_field
                 width: parent.width
-                text: unit_model.amount
+                text: unit_model ? unit_model.amount : ""
                 inputMethodHints: Qt.ImhFormattedNumbersOnly
                 label: qsTr("Amount ")
                 placeholderText: label //"Amount e.g. '5m2f' or '7'"
@@ -61,7 +73,7 @@ Page {
                 id: unit_notes
                 width: parent.width
                 label: qsTr("Notes")
-                text: unit_model.notes
+                text: unit_model ? unit_model.notes : ""
                 placeholderText: label
                 EnterKey.iconSource: "image://theme/icon-m-enter-accept"
 

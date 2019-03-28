@@ -250,6 +250,10 @@
         <source>Record basis</source>
         <translation>Rekords typ</translation>
     </message>
+    <message>
+        <source>Delete unit</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UserPage</name>

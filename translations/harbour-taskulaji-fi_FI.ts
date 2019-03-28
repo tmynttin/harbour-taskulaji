@@ -250,6 +250,10 @@
         <source>Record basis</source>
         <translation>Havainnointitapa</translation>
     </message>
+    <message>
+        <source>Delete unit</source>
+        <translation>Poista havaintoyksikkö</translation>
+    </message>
 </context>
 <context>
     <name>UserPage</name>

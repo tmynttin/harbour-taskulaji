@@ -17,6 +17,18 @@ Dialog {
     property var municipation
     property var obs
     property var user_data
+    property var unit_model: ListModel {
+        //id: unit_model
+        ListElement {
+            taxo_name: ""
+            taxo_id: ""
+            amount: ""
+            notes: ""
+            taxon_confidence: "MY.taxonConfidenceSure"
+            record_basis: "MY.recordBasisHumanObservation"
+        }
+    }
+
     canAccept: (selectedCoordinate !== null) && (unit_model.get(0).taxo_name)
 
     onDone: {
@@ -95,6 +107,7 @@ Dialog {
     }
 
     SilicaFlickable {
+        id: observation_flickable
         anchors.fill: parent
         contentHeight: column.height
         contentWidth: parent.width
@@ -268,18 +281,6 @@ Dialog {
                 text: qsTr("Observations")
             }
 
-            ListModel {
-                id: unit_model
-                ListElement {
-                    taxo_name: ""
-                    taxo_id: ""
-                    amount: ""
-                    notes: ""
-                    taxon_confidence: "MY.taxonConfidenceSure"
-                    record_basis: "MY.recordBasisHumanObservation"
-                }
-            }
-
             Repeater {
                 id: unit_repeater
                 model: unit_model
@@ -301,7 +302,6 @@ Dialog {
                                 dialog.accepted.connect(function() {
                                     taxo_name = dialog.selected_taxo.name
                                     taxo_id = dialog.selected_taxo.id
-                                    amount_field.forceActiveFocus()
                                 })
                             }
 
@@ -322,7 +322,8 @@ Dialog {
 
                             function openUnitDialog() {
                                 pageStack.push("UnitPage.qml", {
-                                                unit_model: model
+                                                unit_model: model,
+                                                   model_index: index
                                              })
                             }
                         }
