@@ -10,6 +10,7 @@ Page {
     property string observer: ""
     property var date
     property string municipality: ""
+    property string locality: ""
 
     onGatheringIdChanged: {
         console.log(documentId)
@@ -41,39 +42,29 @@ Page {
                 text: qsTr("Gathering")
             }
 
-            Item {
+            Label {
+                id: date_label
                 x: Theme.paddingLarge
                 width: parent.width - 2*Theme.paddingLarge
-                height: childrenRect.height
-
-                Label {
-                    id: date_label
-                    text: date.toDateString()
-                    color: Theme.highlightColor
-                }
+                text: date.toDateString()
+                color: Theme.highlightColor
             }
 
-            Item {
+            Label {
+                id: municipality_label
                 x: Theme.paddingLarge
                 width: parent.width - 2*Theme.paddingLarge
-                height: childrenRect.height
-                Label {
-                    id: municipality_label
-                    text: municipality
-                    color: Theme.highlightColor
-                }
+                text: municipality + (locality ? ", " + locality : "")
+                color: Theme.highlightColor
             }
 
-            Item {
+            Label {
+                id: observer_label
                 x: Theme.paddingLarge
                 width: parent.width - 2*Theme.paddingLarge
-                height: childrenRect.height
-                Label {
-                    id: observer_label
-                    text: observer
-                    color: Theme.secondaryHighlightColor
-                    font.pixelSize: Theme.fontSizeSmall
-                }
+                text: observer
+                color: Theme.secondaryHighlightColor
+                font.pixelSize: Theme.fontSizeSmall
             }
 
             SectionHeader {
@@ -105,13 +96,22 @@ Page {
                         MouseArea {
                             anchors.fill: parent
                             onClicked: {
+                                if (taxo_id) {
                                 pageStack.push("TaxoInfoPage.qml", {taxo_id: taxo_id})
+                                }
                             }
                         }
                     }
 
                     Label {
                         text: vernacularName
+                        font.pixelSize: Theme.fontSizeSmall
+                        wrapMode: Text.WordWrap
+                        width: parent.width
+                    }
+
+                    Label {
+                        text: abundance
                         font.pixelSize: Theme.fontSizeSmall
                         wrapMode: Text.WordWrap
                         width: parent.width
@@ -156,7 +156,6 @@ Page {
                                 pageStack.push("ImagePage.qml", {image_model: model})
                             }
                         }
-
                     }
                 }
             }
@@ -183,31 +182,51 @@ Page {
                 }
             }
 
-            if (response.document.gatherings[gathering_index].team) {
-                observer = response.document.gatherings[gathering_index].team[0]
+            var this_gathering = response.document.gatherings[gathering_index]
+
+            console.log(JSON.stringify(response.document.gatherings[gathering_index]))
+
+            if (this_gathering.team) {
+                observer = this_gathering.team[0]
             }
-            date = new Date(response.document.gatherings[gathering_index].eventDate.begin)
-            municipality = response.document.gatherings[gathering_index].interpretations.municipalityDisplayname ? response.document.gatherings[gathering_index].interpretations.municipalityDisplayname : ""
+            date = new Date(this_gathering.eventDate.begin)
+            municipality = this_gathering.interpretations.municipalityDisplayname ? this_gathering.interpretations.municipalityDisplayname : ""
+            locality = this_gathering.locality ? this_gathering.locality : ""
+
             var units = response.document.gatherings[gathering_index].units
 
 
             for (var i in units) {
-                var unit = units[i]
-                var taxo_id = (unit.linkings.taxon.id).split("/").pop()
-                var scientificName = unit.linkings.taxon.scientificName
+                var taxo_id = ""
+                var scientificName = ""
+                var vernacularName = ""
+                var abundanceString = ""
+                var notes = ""
 
-                var vernacularName = unit.linkings.taxon.vernacularName ? unit.linkings.taxon.vernacularName.fi : ""
-                var notes = unit.notes ? unit.notes : ""
+                var unit = units[i]
+                if (unit.linkings) {
+                    taxo_id = (unit.linkings.taxon.id).split("/").pop()
+                    scientificName = unit.linkings.taxon.scientificName
+
+                    vernacularName = unit.linkings.taxon.vernacularName ? unit.linkings.taxon.vernacularName.fi : ""
+                }
+                else {
+                    vernacularName = unit.taxonVerbatim
+                }
+                abundanceString = unit.abundanceString
+
+                notes = unit.notes ? unit.notes : ""
                 var images = []
 
                 for (var j in unit.media) {
                     images.push({'fullURL': unit.media[j].fullURL,
-                                  'thumbURL': unit.media[j].thumbnailURL})
+                                    'thumbURL': unit.media[j].thumbnailURL})
                 }
 
                 document_model.append({ 'taxo_id': taxo_id,
                                           'scientificName': scientificName,
                                           'vernacularName': vernacularName,
+                                          'abundance': abundanceString,
                                           'notes': notes,
                                           'images': images
                                       })

@@ -180,7 +180,8 @@ Page {
                 var centerLongitude = parseFloat(result.gathering.conversions.wgs84CenterPoint.lon)
 
                 var gatheringId = result.gathering.gatheringId.split("/").pop()
-                var documentId = (gatheringId.split("#"))[0]
+                var documentId = result.document.documentId
+                //var documentId = (result.gathering.gatheringId.split("#"))[0]
 
                 map_model.append({ 'latti': centerLatitude,
                                      'lontti': centerLongitude,
