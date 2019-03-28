@@ -81,79 +81,91 @@ Page {
                     id: document_model
                 }
 
-                delegate: Column {
-                    x: Theme.horizontalPageMargin
-                    width: parent.width - 2*Theme.horizontalPageMargin
+                delegate: Item {
+                    width: parent.width
                     height: childrenRect.height
 
-                    Label {
-                        text: scientificName
-                        font.pixelSize: Theme.fontSizeMedium
-                        wrapMode: Text.WordWrap
-                        width: parent.width
-                        color: Theme.highlightColor
-
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: {
-                                if (taxo_id) {
+                    MouseArea {
+                        anchors.fill: unit_column
+                        onClicked: {
+                            if (taxo_id) {
                                 pageStack.push("TaxoInfoPage.qml", {taxo_id: taxo_id})
-                                }
                             }
                         }
                     }
 
-                    Label {
-                        text: vernacularName
-                        font.pixelSize: Theme.fontSizeSmall
-                        wrapMode: Text.WordWrap
-                        width: parent.width
-                    }
-
-                    Label {
-                        text: abundance
-                        font.pixelSize: Theme.fontSizeSmall
-                        wrapMode: Text.WordWrap
-                        width: parent.width
-                    }
-
-                    Label {
-                        text: notes
-                        font.pixelSize: Theme.fontSizeExtraSmall
-                        wrapMode: Text.WordWrap
-                        width: parent.width
-                        color: Theme.secondaryHighlightColor
-                    }
-
-                    SilicaGridView {
-                        id: image_grid
-                        width: parent.width
+                    Column {
+                        id: unit_column
+                        x: Theme.horizontalPageMargin
+                        width: parent.width - 2*Theme.horizontalPageMargin
                         height: childrenRect.height
-                        cellWidth: width/5
-                        cellHeight: width/5
 
-                        model: images
+                        Label {
+                            visible: scientificName
+                            text: scientificName
+                            font.pixelSize: Theme.fontSizeMedium
+                            wrapMode: Text.WordWrap
+                            width: parent.width
+                            color: Theme.highlightColor
 
-                        delegate: BackgroundItem {
 
-                            id: image_delegate
+                        }
 
-                            Image {
-                                id: observation_image
-                                fillMode: Image.PreserveAspectCrop
-                                antialiasing: true
-                                source: thumbURL
-                                cache: false
-                                width: image_grid.cellWidth
-                                height: image_grid.cellHeight
-                            }
+                        Label {
+                            visible: vernacularName
+                            text: vernacularName
+                            font.pixelSize: Theme.fontSizeSmall
+                            wrapMode: Text.WordWrap
+                            width: parent.width
+                        }
 
-                            onClicked: {
-                                openImagePage()
-                            }
+                        Label {
+                            visible: abundance
+                            text: abundance
+                            font.pixelSize: Theme.fontSizeSmall
+                            wrapMode: Text.WordWrap
+                            width: parent.width
+                        }
 
-                            function openImagePage() {
-                                pageStack.push("ImagePage.qml", {image_model: model})
+                        Label {
+                            visible: notes
+                            text: notes
+                            font.pixelSize: Theme.fontSizeExtraSmall
+                            wrapMode: Text.WordWrap
+                            width: parent.width
+                            color: Theme.secondaryHighlightColor
+                        }
+
+                        SilicaGridView {
+                            id: image_grid
+                            width: parent.width
+                            height: childrenRect.height
+                            cellWidth: width/5
+                            cellHeight: width/5
+
+                            model: images
+
+                            delegate: BackgroundItem {
+
+                                id: image_delegate
+
+                                Image {
+                                    id: observation_image
+                                    fillMode: Image.PreserveAspectCrop
+                                    antialiasing: true
+                                    source: thumbURL
+                                    cache: false
+                                    width: image_grid.cellWidth
+                                    height: image_grid.cellHeight
+                                }
+
+                                onClicked: {
+                                    openImagePage()
+                                }
+
+                                function openImagePage() {
+                                    pageStack.push("ImagePage.qml", {image_model: model})
+                                }
                             }
                         }
                     }
