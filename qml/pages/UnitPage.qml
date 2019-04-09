@@ -55,17 +55,33 @@ Page {
                 onClicked: openTaxoDialog()
             }
 
-            TextField {
-                id: amount_field
+            BackgroundItem {
+                id: amount_row
                 width: parent.width
-                text: unit_model ? unit_model.amount : ""
-                inputMethodHints: Qt.ImhFormattedNumbersOnly
-                label: qsTr("Amount ")
-                placeholderText: label //"Amount e.g. '5m2f' or '7'"
-                EnterKey.iconSource: "image://theme/icon-m-enter-accept"
+                height: amount_field.height
 
-                onTextChanged: {
-                    unit_model.amount = text
+                property bool is_numeric: true
+
+                TextField {
+                    id: amount_field
+                    width: parent.width - amount_input_method_button.width - Theme.paddingLarge
+                    text: unit_model ? unit_model.amount : ""
+                    inputMethodHints: amount_row.is_numeric ? Qt.ImhFormattedNumbersOnly : Qt.ImhNoPredictiveText
+                    label: qsTr("Amount ")
+                    placeholderText: amount_row.is_numeric ? qsTr("Amount e.g. '7'") : qsTr("Amount e.g. '5m2f'")
+                    EnterKey.iconSource: "image://theme/icon-m-enter-accept"
+                    onTextChanged: {unit_model.amount = text}
+                }
+
+                IconButton {
+                    id: amount_input_method_button
+                    anchors.left: amount_field.right
+                    anchors.top: amount_field.top
+                    icon.source: amount_row.is_numeric ? "image://theme/icon-m-keyboard" : "image://theme/icon-m-dialpad"
+                    onClicked: {
+                        amount_row.is_numeric = !amount_row.is_numeric
+                        amount_field.forceActiveFocus()
+                    }
                 }
             }
 

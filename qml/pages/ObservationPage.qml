@@ -137,8 +137,8 @@ Dialog {
 
                 function openDateDialog() {
                     var dialog = pageStack.push("Sailfish.Silica.DatePickerDialog", {
-                                    date: selectedDate
-                                 })
+                                                    date: selectedDate
+                                                })
 
                     dialog.accepted.connect(function() {
                         selectedDate = dialog.date
@@ -157,10 +157,10 @@ Dialog {
 
                 function openTimeDialog() {
                     var dialog = pageStack.push("Sailfish.Silica.TimePickerDialog", {
-                                    hourMode: DateTime.TwentyFourHours,
-                                    hour: selectedTime.getHours(),
-                                    minute: selectedTime.getMinutes()
-                                 })
+                                                    hourMode: DateTime.TwentyFourHours,
+                                                    hour: selectedTime.getHours(),
+                                                    minute: selectedTime.getMinutes()
+                                                })
 
                     dialog.accepted.connect(function() {
                         selectedTime = dialog.time
@@ -302,6 +302,7 @@ Dialog {
                                 dialog.accepted.connect(function() {
                                     taxo_name = dialog.selected_taxo.name
                                     taxo_id = dialog.selected_taxo.id
+                                    species_button.forceActiveFocus()
                                 })
                             }
 
@@ -322,23 +323,43 @@ Dialog {
 
                             function openUnitDialog() {
                                 pageStack.push("UnitPage.qml", {
-                                                unit_model: model,
+                                                   unit_model: model,
                                                    model_index: index
-                                             })
+                                               })
                             }
                         }
                     }
 
-                    TextField {
-                        id: amount_field
+                    BackgroundItem {
+                        id: amount_row
                         width: parent.width
-                        text: amount
-                        inputMethodHints: Qt.ImhFormattedNumbersOnly
-                        label: qsTr("Amount ")
-                        placeholderText: label //"Amount e.g. '5m2f' or '7'"
-                        EnterKey.iconSource: "image://theme/icon-m-enter-accept"
-                        onTextChanged: {amount = text}
+                        height: amount_field.height
+
+                        property bool is_numeric: true
+
+                        TextField {
+                            id: amount_field
+                            width: parent.width - amount_input_method_button.width - Theme.paddingLarge
+                            text: amount
+                            inputMethodHints: amount_row.is_numeric ? Qt.ImhFormattedNumbersOnly : Qt.ImhNoPredictiveText
+                            label: qsTr("Amount ")
+                            placeholderText: amount_row.is_numeric ? qsTr("Amount e.g. '7'") : qsTr("Amount e.g. '5m2f'")
+                            EnterKey.iconSource: "image://theme/icon-m-enter-accept"
+                            onTextChanged: {amount = text}
+                        }
+
+                        IconButton {
+                            id: amount_input_method_button
+                            anchors.left: amount_field.right
+                            anchors.top: amount_field.top
+                            icon.source: amount_row.is_numeric ? "image://theme/icon-m-keyboard" : "image://theme/icon-m-dialpad"
+                            onClicked: {
+                                amount_row.is_numeric = !amount_row.is_numeric
+                                amount_field.forceActiveFocus()
+                            }
+                        }
                     }
+
                 }
             }
 
