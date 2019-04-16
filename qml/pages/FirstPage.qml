@@ -6,7 +6,9 @@ import "../js/logic.js" as Logic
 
 Page {
     id: mainPage
+    objectName: "MainPage"
     property var logged_in
+    property bool is_pending_documents
 
     Component.onCompleted: {
         Db.dbInit();
@@ -15,6 +17,7 @@ Page {
 
     onStatusChanged: {
         logged_in = (Logic.person_token !== "")
+        is_pending_documents = (Db.getDocuments().rows.length !== 0)
     }
 
     SilicaFlickable {
@@ -28,7 +31,7 @@ Page {
 
             MenuItem {
                 text: qsTr("New Observation")
-                onClicked: pageStack.push("ObservationPage.qml")
+                onClicked: pageStack.push("NewObservationPage.qml")
             }
         }
 
@@ -50,7 +53,7 @@ Page {
                     text: qsTr("New Observation")
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.right: new_observation_image.left
-                    x: Theme.horizontalPageMargin
+                    anchors.rightMargin: Theme.paddingLarge
                 }
 
                 Image {
@@ -60,7 +63,7 @@ Page {
                     anchors.verticalCenter: parent.verticalCenter
                 }
 
-                onClicked: pageStack.push("ObservationPage.qml")
+                onClicked: pageStack.push("NewObservationPage.qml")
             }
 
             BackgroundItem {
@@ -71,7 +74,7 @@ Page {
                     text: qsTr("Observations")
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.right: my_observations_image.left
-                    x: Theme.horizontalPageMargin
+                    anchors.rightMargin: Theme.paddingLarge
                 }
 
                 Image {
@@ -92,7 +95,7 @@ Page {
                     text: qsTr("Encyclopedia")
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.right: taxo_image.left
-                    x: Theme.horizontalPageMargin
+                    anchors.rightMargin: Theme.paddingLarge
                 }
 
                 Image {
@@ -113,7 +116,7 @@ Page {
                     text: qsTr("News")
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.right: news_image.left
-                    x: Theme.horizontalPageMargin
+                    anchors.rightMargin: Theme.paddingLarge
                 }
 
                 Image {
@@ -134,7 +137,7 @@ Page {
                     text: qsTr("Profile")
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.right: user_page_image.left
-                    x: Theme.horizontalPageMargin
+                    anchors.rightMargin: Theme.paddingLarge
                 }
 
                 Image {
@@ -147,6 +150,36 @@ Page {
                 onClicked: pageStack.push("UserPage.qml")
             }
 
+            BackgroundItem {
+                width: parent.width
+                id: resend_page
+                visible: is_pending_documents
+
+                Image {
+                    id: warning_image
+                    source: "image://theme/icon-m-cloud-upload?" + Theme.rgba('yellow', 1)
+                    anchors.right: resend_text.left
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.rightMargin: Theme.paddingLarge
+                }
+
+                Label {
+                    id: resend_text
+                    text: qsTr("Pending Documents")
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.right: resend_page_image.left
+                    anchors.rightMargin: Theme.paddingLarge
+                }
+
+                Image {
+                    id: resend_page_image
+                    source: "image://theme/icon-m-right"
+                    anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                onClicked: pageStack.push("ResendPage.qml")
+            }
 
         }
     }

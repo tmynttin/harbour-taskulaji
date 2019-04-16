@@ -40,7 +40,7 @@ CoverBackground {
     }
 
     function openObservationPage() {
-        var item = pageStack.find(function(item, index) { return item.objectName === "ObservationPage" })
+        var item = pageStack.find(function(item, index) { return item.objectName === "NewObservationPage" })
 
         if (item) {
             appWindow.activate()
@@ -49,7 +49,7 @@ CoverBackground {
             appWindow.activate()
             pageStack.clear()
             pageStack.push(Qt.resolvedUrl("../pages/FirstPage.qml"), {}, PageStackAction.Immediate)
-            pageStack.push(Qt.resolvedUrl("../pages/ObservationPage.qml"), {}, PageStackAction.Immediate)
+            pageStack.push(Qt.resolvedUrl("../pages/NewObservationPage.qml"), {}, PageStackAction.Immediate)
         }
     }
 }

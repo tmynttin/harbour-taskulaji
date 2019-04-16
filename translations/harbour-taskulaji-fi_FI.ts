@@ -63,6 +63,10 @@
         <source>Observations</source>
         <translation>Havainnot</translation>
     </message>
+    <message>
+        <source>Pending Documents</source>
+        <translation>Lähtevät havainnot</translation>
+    </message>
 </context>
 <context>
     <name>ImagePage</name>
@@ -83,64 +87,7 @@
     </message>
 </context>
 <context>
-    <name>MyObservationsPage</name>
-    <message>
-        <source>Refresh</source>
-        <translation>Päivitä</translation>
-    </message>
-    <message>
-        <source>My Observations</source>
-        <translation>Omat havainnot</translation>
-    </message>
-    <message>
-        <source>More</source>
-        <translation>Lisää</translation>
-    </message>
-</context>
-<context>
-    <name>NewsPage</name>
-    <message>
-        <source>News</source>
-        <translation>Tiedotteet</translation>
-    </message>
-    <message>
-        <source>More</source>
-        <translation>Lisää</translation>
-    </message>
-    <message>
-        <source>Refresh</source>
-        <translation>Päivitä</translation>
-    </message>
-</context>
-<context>
-    <name>ObservationMapSettingPage</name>
-    <message>
-        <source>Start date</source>
-        <translation>Alkupäivä</translation>
-    </message>
-    <message>
-        <source>End date</source>
-        <translation>Loppupäivä</translation>
-    </message>
-    <message>
-        <source>Only own observations</source>
-        <translation>Vain omat havainnot</translation>
-    </message>
-    <message>
-        <source>Observation search settings</source>
-        <translation>Havaintohakuasetukset</translation>
-    </message>
-    <message>
-        <source>Taxon: </source>
-        <translation>Taksoni: </translation>
-    </message>
-    <message>
-        <source>All</source>
-        <translation>Kaikki</translation>
-    </message>
-</context>
-<context>
-    <name>ObservationPage</name>
+    <name>NewObservationPage</name>
     <message>
         <source>Observation</source>
         <translation>Uusi havainto</translation>
@@ -178,6 +125,14 @@
         <translation>Paikka</translation>
     </message>
     <message>
+        <source>Locality names</source>
+        <translation>Paikannimet</translation>
+    </message>
+    <message>
+        <source>Locality description</source>
+        <translation>Paikan vapaamuotoinen kuvaus</translation>
+    </message>
+    <message>
         <source>Observations</source>
         <translation>Havainnot</translation>
     </message>
@@ -194,12 +149,103 @@
         <translation>Määrä </translation>
     </message>
     <message>
-        <source>Locality names</source>
-        <translation>Paikannimet</translation>
+        <source>Amount e.g. &apos;7&apos;</source>
+        <translation>Määrä, esim. &quot;7&quot;</translation>
     </message>
     <message>
-        <source>Locality description</source>
-        <translation>Paikan vapaamuotoinen kuvaus</translation>
+        <source>Amount e.g. &apos;5m2f&apos;</source>
+        <translation>Määrä, esim. &quot;5m2f&quot;</translation>
+    </message>
+</context>
+<context>
+    <name>NewsPage</name>
+    <message>
+        <source>News</source>
+        <translation>Tiedotteet</translation>
+    </message>
+    <message>
+        <source>More</source>
+        <translation>Lisää</translation>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation>Päivitä</translation>
+    </message>
+</context>
+<context>
+    <name>ObservationConfirmationPage</name>
+    <message>
+        <source>Observation Confirmation</source>
+        <translation>Havainnon lähetys</translation>
+    </message>
+    <message>
+        <source>Sending...</source>
+        <translation>Lähetetään...</translation>
+    </message>
+    <message>
+        <source>Send successful</source>
+        <translation>Lähetys onnistui</translation>
+    </message>
+    <message>
+        <source>Save document</source>
+        <translation>Tallenna havainto</translation>
+    </message>
+    <message>
+        <source>Document saved to pending documents</source>
+        <translation>Havainto tallennettu lähteviin havaintoihin</translation>
+    </message>
+</context>
+<context>
+    <name>ObservationListPage</name>
+    <message>
+        <source>Gathering list</source>
+        <translation>Havaintolista</translation>
+    </message>
+</context>
+<context>
+    <name>ObservationMapSettingPage</name>
+    <message>
+        <source>Start date</source>
+        <translation>Alkupäivä</translation>
+    </message>
+    <message>
+        <source>End date</source>
+        <translation>Loppupäivä</translation>
+    </message>
+    <message>
+        <source>Only own observations</source>
+        <translation>Vain omat havainnot</translation>
+    </message>
+    <message>
+        <source>Observation search settings</source>
+        <translation>Havaintohakuasetukset</translation>
+    </message>
+    <message>
+        <source>Taxon: </source>
+        <translation>Taksoni: </translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation>Kaikki</translation>
+    </message>
+</context>
+<context>
+    <name>ResendPage</name>
+    <message>
+        <source>Delete all</source>
+        <translation>Poista kaikki</translation>
+    </message>
+    <message>
+        <source>Pending documents</source>
+        <translation>Lähtevät havainnot</translation>
+    </message>
+    <message>
+        <source>Resend</source>
+        <translation>Lähetä uudelleen</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Poista</translation>
     </message>
 </context>
 <context>
@@ -253,6 +299,14 @@
     <message>
         <source>Delete unit</source>
         <translation>Poista havaintoyksikkö</translation>
+    </message>
+    <message>
+        <source>Amount e.g. &apos;7&apos;</source>
+        <translation>Määrä, esim. &quot;7&quot;</translation>
+    </message>
+    <message>
+        <source>Amount e.g. &apos;5m2f&apos;</source>
+        <translation>Määrä, esim. &quot;5m2f&quot;</translation>
     </message>
 </context>
 <context>

@@ -63,6 +63,10 @@
         <source>Observations</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Pending Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ImagePage</name>
@@ -83,64 +87,7 @@
     </message>
 </context>
 <context>
-    <name>MyObservationsPage</name>
-    <message>
-        <source>Refresh</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>My Observations</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>More</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>NewsPage</name>
-    <message>
-        <source>News</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>More</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Refresh</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ObservationMapSettingPage</name>
-    <message>
-        <source>Start date</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>End date</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Only own observations</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Observation search settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Taxon: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>All</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ObservationPage</name>
+    <name>NewObservationPage</name>
     <message>
         <source>Observation</source>
         <translation type="unfinished"></translation>
@@ -178,6 +125,14 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Locality names</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Locality description</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Observations</source>
         <translation type="unfinished"></translation>
     </message>
@@ -194,11 +149,102 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Locality names</source>
+        <source>Amount e.g. &apos;7&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Locality description</source>
+        <source>Amount e.g. &apos;5m2f&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>NewsPage</name>
+    <message>
+        <source>News</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>More</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ObservationConfirmationPage</name>
+    <message>
+        <source>Observation Confirmation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sending...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send successful</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document saved to pending documents</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ObservationListPage</name>
+    <message>
+        <source>Gathering list</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ObservationMapSettingPage</name>
+    <message>
+        <source>Start date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>End date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only own observations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Observation search settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Taxon: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ResendPage</name>
+    <message>
+        <source>Delete all</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pending documents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resend</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -252,6 +298,14 @@
     </message>
     <message>
         <source>Delete unit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Amount e.g. &apos;7&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Amount e.g. &apos;5m2f&apos;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

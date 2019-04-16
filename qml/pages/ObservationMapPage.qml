@@ -23,8 +23,41 @@ Page {
     backNavigation: false
 
     Component.onCompleted: {
+
         kartta.zoomLevel = zoom_level + Screen.height / 960
         get_observations(current_page)
+    }
+
+    onStatusChanged: {
+        if (distribution_map_page.status == PageStatus.Active) {
+            hit_gatherings.clear()
+        }
+    }
+
+    Timer {
+        id: hit_timer
+        running: false
+        repeat: false
+        interval: 100
+        onTriggered: {
+            if (hit_gatherings.count > 1) {
+                pageStack.push("ObservationListPage.qml",
+                               {gathering_list_model:hit_gatherings})
+            }
+            else {
+                var document_model = hit_gatherings.get(0)
+                pageStack.push('DocumentInfoPage.qml',
+                               {documentId: document_model.documentId,
+                                   gatheringId: document_model.gatheringId})
+            }
+            //hit_gatherings.clear()
+        }
+
+
+    }
+
+    ListModel {
+        id: hit_gatherings
     }
 
     Plugin {
@@ -74,10 +107,15 @@ Page {
                         MouseArea {
                             anchors.fill: marker_image
                             onClicked: {
-                                pageStack.push('DocumentInfoPage.qml',
-                                               {documentId: documentId,
-                                                   gatheringId: gatheringId})
+                                mouse.accepted = false
+                                hit_gatherings.append(model)
+                                hit_timer.restart()
+//                                pageStack.push('DocumentInfoPage.qml',
+//                                               {documentId: documentId,
+//                                                   gatheringId: gatheringId})
+                                console.log("Clicked: " + gatheringId)
                             }
+                            propagateComposedEvents: true
                         }
                     }
 
@@ -112,6 +150,12 @@ Page {
                     map_model.clear()
                     get_observations(current_page)
                 }
+            }
+
+            IconButton {
+                id: list_button
+                icon.source: "image://theme/icon-m-note"
+                onClicked: pageStack.push("ObservationListPage.qml", {gathering_list_model:map_model})
             }
 
             IconButton {
@@ -155,10 +199,10 @@ Page {
         var formatted_end_date = Qt.formatDate(end_date, "yyyy-MM-dd")
 
         var parameters = {"taxonId":taxo_id,
-                        "pageSize":"100",
-                        "page":current_page,
-                        "time":formatted_start_date + "/" + formatted_end_date,
-                        "coordinates":coordinate}
+            "pageSize":"100",
+            "page":current_page,
+            "time":formatted_start_date + "/" + formatted_end_date,
+            "coordinates":coordinate}
         if (own_observations) {
             parameters.editorOrObserverPersonToken = Logic.person_token
         }
@@ -174,20 +218,38 @@ Page {
             last_page = response.lastPage
 
             for (var i in response.results) {
-
+                var gathering_exists = false
                 var result = response.results[i]
-                var centerLatitude = parseFloat(result.gathering.conversions.wgs84CenterPoint.lat)
-                var centerLongitude = parseFloat(result.gathering.conversions.wgs84CenterPoint.lon)
-
                 var gatheringId = result.gathering.gatheringId.split("/").pop()
-                var documentId = result.document.documentId
-                //var documentId = (result.gathering.gatheringId.split("#"))[0]
 
-                map_model.append({ 'latti': centerLatitude,
-                                     'lontti': centerLongitude,
-                                     'documentId': documentId,
-                                     'gatheringId': gatheringId
-                                 })
+                for (var j=0; j < map_model.count; j++) {
+                    if (map_model.count > 0 && map_model.get(j).gatheringId === gatheringId) {
+                        gathering_exists = true
+                    }
+                }
+
+                if (!gathering_exists) {
+
+                    var centerLatitude = parseFloat(result.gathering.conversions.wgs84CenterPoint.lat)
+                    var centerLongitude = parseFloat(result.gathering.conversions.wgs84CenterPoint.lon)
+
+
+                    var documentId = result.document.documentId
+                    var date = result.gathering.displayDateTime
+                    var municipality = result.gathering.interpretations.municipalityDisplayname
+                    var locality = result.gathering.locality
+                    var observer = result.gathering.team ? result.gathering.team[0] : ""
+
+                    map_model.append({ 'latti': centerLatitude,
+                                         'lontti': centerLongitude,
+                                         'documentId': documentId,
+                                         'gatheringId': gatheringId,
+                                         'date': date,
+                                         'municipality': municipality,
+                                         'locality': locality,
+                                         'observer': observer
+                                     })
+                }
             }
             current_page++
 

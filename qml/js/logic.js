@@ -22,10 +22,9 @@ function get_person_token() {
 }
 
 function processRequest(xhr, callback, e) {
-    console.log(xhr.readyState)
-    console.log(xhr.status)
 
     if (xhr.readyState === 4) {
+        console.log(xhr.status)
         var response
         try {
             response = JSON.parse(xhr.responseText);

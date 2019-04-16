@@ -8,7 +8,10 @@ import "../js/database.js" as DB
 
 Dialog {
     id: observation_page
-    objectName: "ObservationPage"
+    objectName: "NewObservationPage"
+    acceptDestination: Qt.resolvedUrl("ObservationConfirmationPage.qml")
+    //acceptDestinationProperties: {observation: obs}
+
 
     property var locale: Qt.locale()
     property var currentDate: new Date()
@@ -34,8 +37,11 @@ Dialog {
     onDone: {
         if (result == DialogResult.Accepted) {
             build_document()
-            send_data()
         }
+    }
+
+    onAccepted: {
+        acceptDestinationInstance.observation = obs
     }
 
     function get_municipality(geometry) {
@@ -197,7 +203,7 @@ Dialog {
 
             BackgroundItem {
                 anchors.leftMargin: Theme.paddingLarge
-                anchors.verticalCenter: position_button.verticalCenter
+                //anchors.verticalCenter: position_button.verticalCenter
                 onClicked: {
                     openMapDialog()
                 }

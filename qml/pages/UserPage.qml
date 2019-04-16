@@ -24,7 +24,7 @@ Page {
     }
 
     function handlePersonResponse(status, response) {
-        console.log(response)
+        console.log(JSON.stringify(response))
         if (status === 400) {
             console.log("Invalid token detected")
             clearUserData()

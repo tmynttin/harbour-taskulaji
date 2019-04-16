@@ -196,7 +196,7 @@ Page {
 
             var this_gathering = response.document.gatherings[gathering_index]
 
-            console.log(JSON.stringify(response.document.gatherings[gathering_index]))
+            //console.log(JSON.stringify(response.document.gatherings[gathering_index]))
 
             if (this_gathering.team) {
                 observer = this_gathering.team[0]

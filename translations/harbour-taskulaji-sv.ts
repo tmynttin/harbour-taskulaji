@@ -63,6 +63,10 @@
         <source>Observations</source>
         <translation type="unfinished">Observationer</translation>
     </message>
+    <message>
+        <source>Pending Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ImagePage</name>
@@ -83,18 +87,74 @@
     </message>
 </context>
 <context>
-    <name>MyObservationsPage</name>
+    <name>NewObservationPage</name>
     <message>
-        <source>Refresh</source>
-        <translation>Updatera</translation>
+        <source>Observation</source>
+        <translation type="unfinished">Observation</translation>
     </message>
     <message>
-        <source>My Observations</source>
-        <translation>Egna observationer</translation>
+        <source>Observer</source>
+        <translation type="unfinished">Observerare</translation>
     </message>
     <message>
-        <source>More</source>
-        <translation>Mera</translation>
+        <source>Hide observer</source>
+        <translation type="unfinished">Göm observerare</translation>
+    </message>
+    <message>
+        <source>Observation Time</source>
+        <translation type="unfinished">Observationstid</translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation type="unfinished">Datum</translation>
+    </message>
+    <message>
+        <source>Time</source>
+        <translation type="unfinished">Tid</translation>
+    </message>
+    <message>
+        <source>Location</source>
+        <translation type="unfinished">Plats</translation>
+    </message>
+    <message>
+        <source>Coarse location</source>
+        <translation type="unfinished">Ungefärlig plats</translation>
+    </message>
+    <message>
+        <source>Position</source>
+        <translation type="unfinished">Position</translation>
+    </message>
+    <message>
+        <source>Locality names</source>
+        <translation type="unfinished">Ortnamn</translation>
+    </message>
+    <message>
+        <source>Locality description</source>
+        <translation type="unfinished">Beskrivning av ort</translation>
+    </message>
+    <message>
+        <source>Observations</source>
+        <translation type="unfinished">Observationer</translation>
+    </message>
+    <message>
+        <source>Species: </source>
+        <translation type="unfinished">Art: </translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Tum</translation>
+    </message>
+    <message>
+        <source>Amount </source>
+        <translation type="unfinished">Mängd </translation>
+    </message>
+    <message>
+        <source>Amount e.g. &apos;7&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Amount e.g. &apos;5m2f&apos;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -110,6 +170,36 @@
     <message>
         <source>Refresh</source>
         <translation>Updatera</translation>
+    </message>
+</context>
+<context>
+    <name>ObservationConfirmationPage</name>
+    <message>
+        <source>Observation Confirmation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sending...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send successful</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document saved to pending documents</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ObservationListPage</name>
+    <message>
+        <source>Gathering list</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -140,66 +230,22 @@
     </message>
 </context>
 <context>
-    <name>ObservationPage</name>
+    <name>ResendPage</name>
     <message>
-        <source>Observation</source>
-        <translation>Observation</translation>
+        <source>Delete all</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Observer</source>
-        <translation>Observerare</translation>
+        <source>Pending documents</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Hide observer</source>
-        <translation>Göm observerare</translation>
+        <source>Resend</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Observation Time</source>
-        <translation>Observationstid</translation>
-    </message>
-    <message>
-        <source>Date</source>
-        <translation>Datum</translation>
-    </message>
-    <message>
-        <source>Time</source>
-        <translation>Tid</translation>
-    </message>
-    <message>
-        <source>Location</source>
-        <translation>Plats</translation>
-    </message>
-    <message>
-        <source>Coarse location</source>
-        <translation>Ungefärlig plats</translation>
-    </message>
-    <message>
-        <source>Position</source>
-        <translation>Position</translation>
-    </message>
-    <message>
-        <source>Observations</source>
-        <translation>Observationer</translation>
-    </message>
-    <message>
-        <source>Species: </source>
-        <translation>Art: </translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation>Tum</translation>
-    </message>
-    <message>
-        <source>Amount </source>
-        <translation>Mängd </translation>
-    </message>
-    <message>
-        <source>Locality names</source>
-        <translation>Ortnamn</translation>
-    </message>
-    <message>
-        <source>Locality description</source>
-        <translation>Beskrivning av ort</translation>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -252,6 +298,14 @@
     </message>
     <message>
         <source>Delete unit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Amount e.g. &apos;7&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Amount e.g. &apos;5m2f&apos;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
