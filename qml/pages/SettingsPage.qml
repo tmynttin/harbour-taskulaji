@@ -6,6 +6,14 @@ import "../js/database.js" as Db
 
 Page {
     id: settings_page
+    property var user_data
+    property string person_token: ""
+
+    Component.onCompleted: {
+        user_data = Db.dbGetUser()
+        person_token = user_data.person_token ? user_data.person_token : ""
+        checkPersonToken()
+    }
 
     function checkPersonToken() {
         user_data = Db.dbGetUser()
@@ -46,20 +54,41 @@ Page {
         }
     }
 
-//    function saveSetting(setting, value) {
-//        Db.
-//    }
-
     SilicaFlickable {
         anchors.fill: parent
+        contentHeight: settings_column.height
 
         PullDownMenu {
+            id: pullDownMenu
 
             MenuItem {
                 text: qsTr("Reset settings")
                 onClicked: {
+                    Remorse.popupAction(settings_page, qsTr("Restoring default settings"), function () {Db.setDefaultSettings(); pageStack.pop()})
+                }
+            }
 
-                    Db.setDefaultSettings()
+            MenuItem {
+                text: qsTr("Logout")
+                onClicked: {
+                    clearUserData()
+                }
+                visible: (person_token !== "")
+            }
+
+            MenuItem {
+                text: qsTr("Login")
+                onClicked: {
+                    openLoginDialog();
+                }
+                visible: (person_token === "")
+
+                function openLoginDialog() {
+                    var dialog = pageStack.push("LoginPage.qml", {})
+                    dialog.accepted.connect(function() {
+                        person_token = dialog.person_token
+                        Logic.api_qet(saveUserData, "person/" + person_token);
+                    })
                 }
             }
         }
@@ -70,6 +99,36 @@ Page {
 
             PageHeader {
                 title: qsTr("Settings")
+            }
+
+            SectionHeader {
+                text: qsTr("User Settings")
+                visible: user_data.person_token
+            }
+
+            TextField {
+                visible: user_data.person_token
+                width: parent.width
+                readOnly: true
+                label: qsTr("User name")
+                text: user_data.name ? user_data.name : ""
+            }
+
+            TextField {
+                visible: user_data.person_token
+                width: parent.width
+                readOnly: true
+                label: qsTr("User ID")
+                text: user_data.person_id ? user_data.person_id : ""
+            }
+
+            TextArea {
+                visible: user_data.person_token
+                width: parent.width
+                readOnly: false
+                label: qsTr("Person Token")
+                text: user_data.person_token ? user_data.person_token : ""
+                selectionMode: TextInput.SelectWords
             }
 
             SectionHeader {
@@ -118,7 +177,6 @@ Page {
                 id: max_observations
                 width: parent.width
                 inputMethodHints: Qt.ImhFormattedNumbersOnly
-                //text: qsTr("Maximum number of observations shown")
                 label: qsTr("Maximum number of observations shown")
                 text: get_max_observations()
                 onTextChanged: {
@@ -142,9 +200,6 @@ Page {
                 color: Theme.lightSecondaryColor
                 text: qsTr("This is the maxumum number of observations shown when browsing observations. Default is 200. If larger amount is used, yuor device may become unresponsive.")
             }
-
-
-
         }
     }
 }

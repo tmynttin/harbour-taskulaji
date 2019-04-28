@@ -52,10 +52,6 @@
         <translation>Taskulaji</translation>
     </message>
     <message>
-        <source>Profile</source>
-        <translation>Profiili</translation>
-    </message>
-    <message>
         <source>Encyclopedia</source>
         <translation>Lajitietoa</translation>
     </message>
@@ -66,6 +62,10 @@
     <message>
         <source>Pending Documents</source>
         <translation>Lähtevät havainnot</translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -297,6 +297,34 @@
         <source>This is the maxumum number of observations shown when browsing observations. Default is 200. If larger amount is used, yuor device may become unresponsive.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Restoring default settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Logout</source>
+        <translation type="unfinished">Kirjaudu ulos</translation>
+    </message>
+    <message>
+        <source>Login</source>
+        <translation type="unfinished">Kirjaudu</translation>
+    </message>
+    <message>
+        <source>User Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User name</source>
+        <translation type="unfinished">Käyttäjän nimi</translation>
+    </message>
+    <message>
+        <source>User ID</source>
+        <translation type="unfinished">Käyttäjän ID</translation>
+    </message>
+    <message>
+        <source>Person Token</source>
+        <translation type="unfinished">Person Token</translation>
+    </message>
 </context>
 <context>
     <name>TaxoInfoPage</name>
@@ -357,37 +385,6 @@
     <message>
         <source>Amount e.g. &apos;5m2f&apos;</source>
         <translation>Määrä, esim. &quot;5m2f&quot;</translation>
-    </message>
-</context>
-<context>
-    <name>UserPage</name>
-    <message>
-        <source>Refresh</source>
-        <translation>Päivitä</translation>
-    </message>
-    <message>
-        <source>Logout</source>
-        <translation>Kirjaudu ulos</translation>
-    </message>
-    <message>
-        <source>User name</source>
-        <translation>Käyttäjän nimi</translation>
-    </message>
-    <message>
-        <source>User ID</source>
-        <translation>Käyttäjän ID</translation>
-    </message>
-    <message>
-        <source>Person Token</source>
-        <translation>Person token</translation>
-    </message>
-    <message>
-        <source>Login</source>
-        <translation>Kirjaudu</translation>
-    </message>
-    <message>
-        <source>Settings</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

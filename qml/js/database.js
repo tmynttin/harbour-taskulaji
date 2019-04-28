@@ -16,12 +16,9 @@ function dbInit() {
             tx.executeSql('CREATE TABLE IF NOT EXISTS user_data (person_token text, person_id text, name text)')
             tx.executeSql('CREATE TABLE IF NOT EXISTS document_backups (document text)')
             tx.executeSql('CREATE TABLE IF NOT EXISTS settings (id integer, hide_observer integer, coarse_location integer, max_observations integer)')
-            var settings_count = tx.executeSql('SELECT * FROM settings');
-            console.log("Settings: " + JSON.stringify(settings_count.rows.item(0)))
-            console.log("Settings rows: " + settings_count.rows.length)
-            if (settings_count.rows.length === 0) {
-                tx.executeSql('INSERT INTO settings VALUES(?, ?, ?, ?)',
-                              [0, 0, 0, 200]);
+            var settings = tx.executeSql('SELECT * FROM settings');
+            if (settings.rows.length === 0) {
+                setDefaultSettings()
             }
 
         })
@@ -106,9 +103,11 @@ function setDefaultSettings() {
     var db = getDB();
     db.transaction(function (tx) {
         tx.executeSql('DROP TABLE IF EXISTS settings');
-        tx.executeSql('CREATE TABLE IF NOT EXISTS settings (id integer, hide_observer integer, coarse_location integer, max_observations integer)')
+        tx.executeSql('CREATE TABLE settings (id integer, hide_observer integer, coarse_location integer, max_observations integer)')
         tx.executeSql('INSERT INTO settings VALUES(?, ?, ?, ?)',
                       [0, 0, 0, 200]);
+        var settings = tx.executeSql('SELECT * FROM settings');
+        console.log("Settings reset: " + JSON.stringify(settings.rows.item(0)))
     });
 }
 

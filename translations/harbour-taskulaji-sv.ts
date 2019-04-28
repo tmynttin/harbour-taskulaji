@@ -52,10 +52,6 @@
         <translation>Taskulaji</translation>
     </message>
     <message>
-        <source>Profile</source>
-        <translation>Profil</translation>
-    </message>
-    <message>
         <source>Encyclopedia</source>
         <translation type="unfinished">Encyklopedi</translation>
     </message>
@@ -65,6 +61,10 @@
     </message>
     <message>
         <source>Pending Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -297,6 +297,34 @@
         <source>This is the maxumum number of observations shown when browsing observations. Default is 200. If larger amount is used, yuor device may become unresponsive.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Restoring default settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Logout</source>
+        <translation type="unfinished">Logga ut</translation>
+    </message>
+    <message>
+        <source>Login</source>
+        <translation type="unfinished">Logga in</translation>
+    </message>
+    <message>
+        <source>User Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User name</source>
+        <translation type="unfinished">Anvendarnamn</translation>
+    </message>
+    <message>
+        <source>User ID</source>
+        <translation type="unfinished">Anvendar ID</translation>
+    </message>
+    <message>
+        <source>Person Token</source>
+        <translation type="unfinished">Person Token</translation>
+    </message>
 </context>
 <context>
     <name>TaxoInfoPage</name>
@@ -356,37 +384,6 @@
     </message>
     <message>
         <source>Amount e.g. &apos;5m2f&apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>UserPage</name>
-    <message>
-        <source>Refresh</source>
-        <translation>Updatera</translation>
-    </message>
-    <message>
-        <source>Logout</source>
-        <translation>Logga ut</translation>
-    </message>
-    <message>
-        <source>User name</source>
-        <translation>Anvendarnamn</translation>
-    </message>
-    <message>
-        <source>User ID</source>
-        <translation>Anvendar ID</translation>
-    </message>
-    <message>
-        <source>Person Token</source>
-        <translation>Person Token</translation>
-    </message>
-    <message>
-        <source>Login</source>
-        <translation>Logga in</translation>
-    </message>
-    <message>
-        <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

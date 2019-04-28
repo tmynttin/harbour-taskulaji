@@ -134,7 +134,7 @@ Page {
                 id: user_page
 
                 Label {
-                    text: qsTr("Profile")
+                    text: qsTr("Settings")
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.right: user_page_image.left
                     anchors.rightMargin: Theme.paddingLarge
@@ -147,7 +147,7 @@ Page {
                     anchors.verticalCenter: parent.verticalCenter
                 }
 
-                onClicked: pageStack.push("UserPage.qml")
+                onClicked: pageStack.push("SettingsPage.qml")
             }
 
             BackgroundItem {
