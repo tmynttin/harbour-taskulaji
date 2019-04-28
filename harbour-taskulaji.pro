@@ -40,7 +40,8 @@ DISTFILES += \
     qml/pages/ObservationMapSettingPage.qml \
     qml/pages/DocumentInfoPage.qml \
     qml/pages/ObservationConfirmationPage.qml \
-    qml/pages/ResendPage.qml
+    qml/pages/ResendPage.qml \
+    qml/pages/SettingsPage.qml
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128
 

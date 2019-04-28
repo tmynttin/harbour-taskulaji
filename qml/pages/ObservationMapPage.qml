@@ -4,6 +4,7 @@ import Sailfish.Silica 1.0
 import QtLocation 5.0
 import QtPositioning 5.3
 import "../js/logic.js" as Logic
+import "../js/database.js" as Db
 
 
 Page {
@@ -23,7 +24,7 @@ Page {
     backNavigation: false
 
     Component.onCompleted: {
-
+        max_count = Db.getSetting("max_observations")
         kartta.zoomLevel = zoom_level + Screen.height / 960
         get_observations(current_page)
     }
@@ -240,6 +241,8 @@ Page {
                     var locality = result.gathering.locality
                     var observer = result.gathering.team ? result.gathering.team[0] : ""
 
+                    if (map_model.count <= max_count) {
+
                     map_model.append({ 'latti': centerLatitude,
                                          'lontti': centerLongitude,
                                          'documentId': documentId,
@@ -249,16 +252,21 @@ Page {
                                          'locality': locality,
                                          'observer': observer
                                      })
+                    }
                 }
             }
             current_page++
 
-            if ((current_page <= last_page) && (response.total < 1000)) {
+            if ((current_page <= last_page) && (map_model.count < max_count)) {
                 get_observations(current_page)
             }
             else {
                 console.log("Items: " + map_model.count)
                 run_timer = false
+
+                if (map_model.count >= max_count) {
+                    Remorse.popupAction(distribution_map_page, qsTr("Too many observations to show"), function() {})
+                }
             }
         }
         else {

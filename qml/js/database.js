@@ -15,11 +15,22 @@ function dbInit() {
         db.transaction(function (tx) {
             tx.executeSql('CREATE TABLE IF NOT EXISTS user_data (person_token text, person_id text, name text)')
             tx.executeSql('CREATE TABLE IF NOT EXISTS document_backups (document text)')
+            tx.executeSql('CREATE TABLE IF NOT EXISTS settings (id integer, hide_observer integer, coarse_location integer, max_observations integer)')
+            var settings_count = tx.executeSql('SELECT * FROM settings');
+            console.log("Settings: " + JSON.stringify(settings_count.rows.item(0)))
+            console.log("Settings rows: " + settings_count.rows.length)
+            if (settings_count.rows.length === 0) {
+                tx.executeSql('INSERT INTO settings VALUES(?, ?, ?, ?)',
+                              [0, 0, 0, 200]);
+            }
+
         })
     } catch (err) {
         console.log("Database creation error: " + err)
     };
 }
+
+
 
 function dbCreateUser(pToken, pId, pName) {
     var db = getDB();
@@ -89,4 +100,33 @@ function deleteAllDocuments() {
     db.transaction(function (tx) {
         tx.executeSql("DELETE FROM document_backups")
     });
+}
+
+function setDefaultSettings() {
+    var db = getDB();
+    db.transaction(function (tx) {
+        tx.executeSql('DROP TABLE IF EXISTS settings');
+        tx.executeSql('CREATE TABLE IF NOT EXISTS settings (id integer, hide_observer integer, coarse_location integer, max_observations integer)')
+        tx.executeSql('INSERT INTO settings VALUES(?, ?, ?, ?)',
+                      [0, 0, 0, 200]);
+    });
+}
+
+function saveSetting(setting, value) {
+    var db = getDB();
+    db.transaction(function (tx) {
+        tx.executeSql("UPDATE settings SET " + setting + "=" + value + " WHERE id='0'");
+        var settings = tx.executeSql("SELECT * FROM settings WHERE id='0'");
+        console.log(JSON.stringify(settings.rows.item(0)))
+    });
+}
+
+function getSetting(setting) {
+    var db = getDB();
+    var settings
+    db.transaction(function (tx) {
+        settings = tx.executeSql("SELECT * FROM settings WHERE id='0'");
+        console.log(JSON.stringify(settings.rows.item(0)))
+    });
+    return settings.rows.item(0)[setting]
 }

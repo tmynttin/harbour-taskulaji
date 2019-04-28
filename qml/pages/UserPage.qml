@@ -5,7 +5,7 @@ import "../js/database.js" as Db
 
 
 Page {
-    id: newsPage
+    id: user_page
     property var user_data
     property string person_token: ""
 
@@ -64,6 +64,14 @@ Page {
                 text: qsTr("Refresh")
                 onClicked: {
                     user_data = Db.dbGetUser();
+                }
+            }
+
+            MenuItem {
+                text: qsTr("Settings")
+                onClicked: {
+
+                    pageStack.push("SettingsPage.qml", {})
                 }
             }
 

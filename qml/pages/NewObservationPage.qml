@@ -132,7 +132,11 @@ Dialog {
             TextSwitch {
                 id: hide_user
                 text: qsTr("Hide observer")
-                checked: false
+                checked: get_default_hide()
+
+                function get_default_hide() {
+                    return DB.getSetting("hide_observer")
+                }
             }
 
             SectionHeader { text: qsTr("Observation Time") }
@@ -189,7 +193,7 @@ Dialog {
 
                 id: secure_level
                 text: qsTr("Coarse location")
-                checked: false
+                checked: get_default_coarse()
 
                 onCheckedChanged: {
                     if (checked) {
@@ -198,6 +202,10 @@ Dialog {
                     else {
                         sec_lev = "none"
                     }
+                }
+
+                function get_default_coarse() {
+                    return DB.getSetting("coarse_location")
                 }
             }
 

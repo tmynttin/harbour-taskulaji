@@ -203,6 +203,13 @@
     </message>
 </context>
 <context>
+    <name>ObservationMapPage</name>
+    <message>
+        <source>Too many observations to show</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ObservationMapSettingPage</name>
     <message>
         <source>Start date</source>
@@ -246,6 +253,49 @@
     <message>
         <source>Delete</source>
         <translation>Poista</translation>
+    </message>
+</context>
+<context>
+    <name>SettingsPage</name>
+    <message>
+        <source>Reset settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Observation Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide observer</source>
+        <translation type="unfinished">Salaa havainnoija</translation>
+    </message>
+    <message>
+        <source>When making a new observation, the observer name is hidden by default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Coarse loaction</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When making a new observation, the location is coarsed to 10x10 km square by default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Borwse Observations Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximum number of observations shown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This is the maxumum number of observations shown when browsing observations. Default is 200. If larger amount is used, yuor device may become unresponsive.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -334,6 +384,10 @@
     <message>
         <source>Login</source>
         <translation>Kirjaudu</translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
