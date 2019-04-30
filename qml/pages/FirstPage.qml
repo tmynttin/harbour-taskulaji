@@ -7,7 +7,7 @@ import "../js/logic.js" as Logic
 Page {
     id: mainPage
     objectName: "MainPage"
-    property var logged_in
+    property bool logged_in
     property bool is_pending_documents
 
     Component.onCompleted: {
@@ -26,11 +26,10 @@ Page {
 
         PullDownMenu {
             id: pull_down
-            visible: logged_in
-            spacing: Theme.paddingLarge
 
             MenuItem {
                 text: qsTr("New Observation")
+                visible: logged_in
                 onClicked: pageStack.push("NewObservationPage.qml")
             }
         }
