@@ -194,6 +194,18 @@
         <source>Document saved to pending documents</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Returning to main menu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sending failed. Status code: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>. Document saved to pending documents</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ObservationListPage</name>
@@ -258,10 +270,6 @@
 <context>
     <name>SettingsPage</name>
     <message>
-        <source>Reset settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
@@ -286,15 +294,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Borwse Observations Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Maximum number of observations shown</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This is the maxumum number of observations shown when browsing observations. Default is 200. If larger amount is used, yuor device may become unresponsive.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -323,6 +323,18 @@
     </message>
     <message>
         <source>Person Token</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Browse Observations Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This is the maximum number of observations shown when browsing observations. Default is 200. WARNING: If larger number is used, yuor device may become unresponsive.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Restore default settings</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -65,7 +65,7 @@
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Asetukset</translation>
     </message>
 </context>
 <context>
@@ -194,6 +194,18 @@
         <source>Document saved to pending documents</source>
         <translation>Havainto tallennettu lähteviin havaintoihin</translation>
     </message>
+    <message>
+        <source>Returning to main menu</source>
+        <translation>Palataan päävalikkoon</translation>
+    </message>
+    <message>
+        <source>Sending failed. Status code: </source>
+        <translation>Lähettäminen epäonnistui. Virhekoodi: </translation>
+    </message>
+    <message>
+        <source>. Document saved to pending documents</source>
+        <translation>. Havainto tallennettu lähteviin havaintoihin</translation>
+    </message>
 </context>
 <context>
     <name>ObservationListPage</name>
@@ -206,7 +218,7 @@
     <name>ObservationMapPage</name>
     <message>
         <source>Too many observations to show</source>
-        <translation type="unfinished"></translation>
+        <translation>Liian monta havaintoa näytettäväksi</translation>
     </message>
 </context>
 <context>
@@ -258,72 +270,72 @@
 <context>
     <name>SettingsPage</name>
     <message>
-        <source>Reset settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Asetukset</translation>
     </message>
     <message>
         <source>New Observation Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Uuden havainnon asetukset</translation>
     </message>
     <message>
         <source>Hide observer</source>
-        <translation type="unfinished">Salaa havainnoija</translation>
+        <translation>Salaa havainnoija</translation>
     </message>
     <message>
         <source>When making a new observation, the observer name is hidden by default</source>
-        <translation type="unfinished"></translation>
+        <translation>Tehtäessä uutta havaintoa, salaa havainnoija -asetus on valmiiksi valittuna</translation>
     </message>
     <message>
         <source>Coarse loaction</source>
-        <translation type="unfinished"></translation>
+        <translation>Karkeista sijainti</translation>
     </message>
     <message>
         <source>When making a new observation, the location is coarsed to 10x10 km square by default</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Borwse Observations Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Tehtäessä uutta havaintoa, karkeista sijainti -asetus on valmiiksi valittuna</translation>
     </message>
     <message>
         <source>Maximum number of observations shown</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This is the maxumum number of observations shown when browsing observations. Default is 200. If larger amount is used, yuor device may become unresponsive.</source>
-        <translation type="unfinished"></translation>
+        <translation>Näytettävien havaintojen maksimimäärä</translation>
     </message>
     <message>
         <source>Restoring default settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Palautetaan oletusasetukset</translation>
     </message>
     <message>
         <source>Logout</source>
-        <translation type="unfinished">Kirjaudu ulos</translation>
+        <translation>Kirjaudu ulos</translation>
     </message>
     <message>
         <source>Login</source>
-        <translation type="unfinished">Kirjaudu</translation>
+        <translation>Kirjaudu</translation>
     </message>
     <message>
         <source>User Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Käyttäjäasetukset</translation>
     </message>
     <message>
         <source>User name</source>
-        <translation type="unfinished">Käyttäjän nimi</translation>
+        <translation>Käyttäjän nimi</translation>
     </message>
     <message>
         <source>User ID</source>
-        <translation type="unfinished">Käyttäjän ID</translation>
+        <translation>Käyttäjän ID</translation>
     </message>
     <message>
         <source>Person Token</source>
-        <translation type="unfinished">Person Token</translation>
+        <translation>Person Token</translation>
+    </message>
+    <message>
+        <source>Browse Observations Settings</source>
+        <translation>Havaintojen selausasetukset</translation>
+    </message>
+    <message>
+        <source>This is the maximum number of observations shown when browsing observations. Default is 200. WARNING: If larger number is used, yuor device may become unresponsive.</source>
+        <translation>Tämä on havaintojen maksimimäärä, joka näytetään kartalla havaintoja selatessa. Oletus on 200. VAROITUS: Jos suurempi arvo on käytössä, laitteesi saattaa hidastua.</translation>
+    </message>
+    <message>
+        <source>Restore default settings</source>
+        <translation>Palauta oletusasetukset</translation>
     </message>
 </context>
 <context>

@@ -65,11 +65,11 @@ Dialog {
         if (status === 200) {
             operation_completed = true
             confirmation_status.text = qsTr("Send successful")
-            Remorse.popupAction(confirmation_page, "Returning to main menu", function() { accept()})
+            Remorse.popupAction(confirmation_page, qsTr("Returning to main menu"), function() { accept()})
         }
         else {
             Db.saveDocument(observation)
-            confirmation_status.text = qsTr("Sending failed. Status code: " + str(status) + ". Document saved to pending documents")
+            confirmation_status.text = qsTr("Sending failed. Status code: ") + str(status) + qsTr(". Document saved to pending documents")
             operation_completed = true
         }
     }

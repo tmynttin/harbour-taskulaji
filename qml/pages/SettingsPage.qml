@@ -62,7 +62,7 @@ Page {
             id: pullDownMenu
 
             MenuItem {
-                text: qsTr("Reset settings")
+                text: qsTr("Restore default settings")
                 onClicked: {
                     Remorse.popupAction(settings_page, qsTr("Restoring default settings"), function () {Db.setDefaultSettings(); pageStack.pop()})
                 }
@@ -170,7 +170,7 @@ Page {
             }
 
             SectionHeader {
-                text: qsTr("Borwse Observations Settings")
+                text: qsTr("Browse Observations Settings")
             }
 
             TextField {
@@ -198,7 +198,7 @@ Page {
                 wrapMode: Text.WordWrap
                 font.pixelSize: Theme.fontSizeExtraSmall
                 color: Theme.lightSecondaryColor
-                text: qsTr("This is the maxumum number of observations shown when browsing observations. Default is 200. If larger amount is used, yuor device may become unresponsive.")
+                text: qsTr("This is the maximum number of observations shown when browsing observations. Default is 200. WARNING: If larger number is used, yuor device may become unresponsive.")
             }
         }
     }

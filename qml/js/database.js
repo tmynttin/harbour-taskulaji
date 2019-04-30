@@ -1,5 +1,7 @@
 .import QtQuick.LocalStorage 2.0 as Sql
 
+var CURRENT_DB_VERSION = 0;
+
 function getDB() {
     try {
         var db = Sql.LocalStorage.openDatabaseSync("Karttatesti", "1.0", "StorageDatabase", 100000);
@@ -20,6 +22,12 @@ function dbInit() {
             if (settings.rows.length === 0) {
                 setDefaultSettings()
             }
+            var db_version = tx.executeSql('PRAGMA user_version').rows.item(0).user_version;
+            console.log("user_version: " + db_version)
+            if (db_version < CURRENT_DB_VERSION) {
+                console.log("Old version in use")
+                updateDatabase(db_version)
+            }
 
         })
     } catch (err) {
@@ -27,7 +35,18 @@ function dbInit() {
     };
 }
 
-
+function updateDatabase(db_version) {
+    // Can be used to update tables if new columns are added
+    var db = getDB();
+    if (db_version < 0) {
+        db.transaction(function (tx) {
+            tx.executeSql('ALTER TABLE settings ADD COLUMN newcolumn INTEGER;');
+            saveSetting("newcolumn", 5)
+            tx.executeSql('PRAGMA user_version=0')
+            db_version = 1;
+        });
+    }
+}
 
 function dbCreateUser(pToken, pId, pName) {
     var db = getDB();
