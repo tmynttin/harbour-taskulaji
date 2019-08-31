@@ -280,7 +280,8 @@ Dialog {
                 width: parent.width
                 label: qsTr("Locality names")
                 placeholderText: label
-                EnterKey.iconSource: "image://theme/icon-m-enter-accept"
+                EnterKey.iconSource: "image://theme/icon-m-enter-close"
+                EnterKey.onClicked: this.focus = false
             }
 
             TextField {
@@ -288,7 +289,8 @@ Dialog {
                 width: parent.width
                 label: qsTr("Locality description")
                 placeholderText: label
-                EnterKey.iconSource: "image://theme/icon-m-enter-accept"
+                EnterKey.iconSource: "image://theme/icon-m-enter-close"
+                EnterKey.onClicked: this.focus = false
             }
 
             SectionHeader {
@@ -358,7 +360,8 @@ Dialog {
                             inputMethodHints: amount_row.is_numeric ? Qt.ImhFormattedNumbersOnly : Qt.ImhNoPredictiveText
                             label: qsTr("Amount ")
                             placeholderText: amount_row.is_numeric ? qsTr("Amount e.g. '7'") : qsTr("Amount e.g. '5m2f'")
-                            EnterKey.iconSource: "image://theme/icon-m-enter-accept"
+                            EnterKey.iconSource: "image://theme/icon-m-enter-close"
+                            EnterKey.onClicked: this.focus = false
                             onTextChanged: {amount = text}
                         }
 

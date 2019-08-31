@@ -179,6 +179,8 @@ Page {
                 inputMethodHints: Qt.ImhFormattedNumbersOnly
                 label: qsTr("Maximum number of observations shown")
                 text: get_max_observations()
+                EnterKey.iconSource: "image://theme/icon-m-enter-close"
+                EnterKey.onClicked: this.focus = false
                 onTextChanged: {
                     set_max_observations()
                 }

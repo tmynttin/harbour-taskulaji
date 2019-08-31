@@ -69,7 +69,8 @@ Page {
                     inputMethodHints: amount_row.is_numeric ? Qt.ImhFormattedNumbersOnly : Qt.ImhNoPredictiveText
                     label: qsTr("Amount ")
                     placeholderText: amount_row.is_numeric ? qsTr("Amount e.g. '7'") : qsTr("Amount e.g. '5m2f'")
-                    EnterKey.iconSource: "image://theme/icon-m-enter-accept"
+                    EnterKey.iconSource: "image://theme/icon-m-enter-close"
+                    EnterKey.onClicked: this.focus = false
                     onTextChanged: {unit_model.amount = text}
                 }
 
@@ -91,7 +92,8 @@ Page {
                 label: qsTr("Notes")
                 text: unit_model ? unit_model.notes : ""
                 placeholderText: label
-                EnterKey.iconSource: "image://theme/icon-m-enter-accept"
+                EnterKey.iconSource: "image://theme/icon-m-enter-close"
+                EnterKey.onClicked: this.focus = false
 
                 onTextChanged: {
                     unit_model.notes = text
