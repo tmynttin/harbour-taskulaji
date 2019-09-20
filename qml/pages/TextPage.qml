@@ -17,6 +17,7 @@ Page {
 
             PageHeader {
                 title: page_title
+                wrapMode: Text.Wrap
             }
 
             Label {
@@ -26,6 +27,7 @@ Page {
                 width: parent.width - 2 * x
                 wrapMode: Text.Wrap
                 font.pixelSize: Theme.fontSizeSmall
+                textFormat: Text.RichText
             }
         }
     }
