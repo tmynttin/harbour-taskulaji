@@ -120,8 +120,8 @@ Page {
                         }
 
                         Label {
-                            visible: abundance
-                            text: abundance
+                            visible: abundance ? true : false
+                            text: abundance ? abundance : ""
                             font.pixelSize: Theme.fontSizeSmall
                             wrapMode: Text.WordWrap
                             width: parent.width

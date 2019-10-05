@@ -10,8 +10,11 @@ import "../js/database.js" as Db
 Page {
     id: distribution_map_page
 
+    signal page_closed()
+
     property string taxo_id: ""
     property string taxo_name: ""
+    property string area: ""
     property var start_date: new Date()
     property var end_date: new Date()
     property bool run_timer: false
@@ -140,7 +143,10 @@ Page {
             IconButton {
                 id: back_button
                 icon.source: "image://theme/icon-m-back"
-                onClicked: pageStack.pop()
+                onClicked: {
+                    distribution_map_page.page_closed()
+                    pageStack.pop()
+                }
             }
 
             IconButton {
@@ -169,12 +175,14 @@ Page {
                                                     end_date: end_date,
                                                     taxo_id: taxo_id,
                                                     taxo_name: taxo_name,
+                                                    area: area,
                                                     own_observations: own_observations})
                     dialog.accepted.connect(function() {
                         start_date = dialog.start_date
                         end_date = dialog.end_date
                         taxo_id = dialog.taxo_id
                         taxo_name = dialog.taxo_name
+                        area = dialog.area
                         own_observations = dialog.own_observations
                         current_page = 1
                         map_model.clear()
@@ -202,6 +210,7 @@ Page {
         var parameters = {"taxonId":taxo_id,
             "pageSize":"100",
             "page":current_page,
+            "area":area,
             "time":formatted_start_date + "/" + formatted_end_date,
             "coordinates":coordinate}
         if (own_observations) {

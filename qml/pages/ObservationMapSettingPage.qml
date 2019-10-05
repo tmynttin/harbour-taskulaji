@@ -2,6 +2,7 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import "../js/logic.js" as Logic
 import "../js/document.js" as Doc
+import "../js/areas.js" as Areas
 
 Dialog {
     id: observation_map_setting_page
@@ -9,9 +10,11 @@ Dialog {
     property var end_date: new Date()
     property string taxo_id
     property string taxo_name
+    property string area
     property bool own_observations
 
     SilicaFlickable {
+        id: flickable
         anchors.fill: parent
         contentHeight: column.height
         contentWidth: parent.width
@@ -78,6 +81,36 @@ Dialog {
                 value: end_date.toDateString()
                 width: parent.width
                 onClicked: openDateDialog()
+            }
+
+            ComboBox {
+
+                property var area_model: Areas.areas
+
+                Component.onCompleted: {
+                    for (var i in area_model) {
+                        if (area_model[i].name === area) {
+                            currentIndex = i
+                        }
+                    }
+                }
+
+                id: area_combobox
+                width: parent.width
+                label: qsTr("Area")
+                menu: ContextMenu {
+                    Repeater {
+                        id: area_list
+                        model: area_combobox.area_model
+                        MenuItem {
+                            id: area_item
+                            text: modelData.name
+                            onClicked: {
+                                area = modelData.name
+                            }
+                        }
+                    }
+                }
             }
 
             TextSwitch {

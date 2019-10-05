@@ -247,6 +247,10 @@
         <source>All</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Area</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ResendPage</name>
@@ -357,6 +361,29 @@
     <name>TaxoSearchPage</name>
     <message>
         <source>Taxo Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UnitListPage</name>
+    <message>
+        <source>Refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Units</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>More</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Map view</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

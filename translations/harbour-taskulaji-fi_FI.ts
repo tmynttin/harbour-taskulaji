@@ -247,6 +247,10 @@
         <source>All</source>
         <translation>Kaikki</translation>
     </message>
+    <message>
+        <source>Area</source>
+        <translation>Alue</translation>
+    </message>
 </context>
 <context>
     <name>ResendPage</name>
@@ -358,6 +362,29 @@
     <message>
         <source>Taxo Search</source>
         <translation>Lajihaku</translation>
+    </message>
+</context>
+<context>
+    <name>UnitListPage</name>
+    <message>
+        <source>Refresh</source>
+        <translation>Päivitä</translation>
+    </message>
+    <message>
+        <source>Units</source>
+        <translation>Havainnot</translation>
+    </message>
+    <message>
+        <source>Search settings</source>
+        <translation>Hakuasetukset</translation>
+    </message>
+    <message>
+        <source>More</source>
+        <translation>Lisää</translation>
+    </message>
+    <message>
+        <source>Map view</source>
+        <translation>Karttanäkymä</translation>
     </message>
 </context>
 <context>

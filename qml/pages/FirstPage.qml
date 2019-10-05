@@ -83,7 +83,7 @@ Page {
                     anchors.verticalCenter: parent.verticalCenter
                 }
 
-                onClicked: pageStack.push("ObservationMapPage.qml")
+                onClicked: pageStack.push("UnitListPage.qml")
             }
 
             BackgroundItem {
