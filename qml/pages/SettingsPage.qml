@@ -2,6 +2,7 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import "../js/logic.js" as Logic
 import "../js/database.js" as Db
+import "../js/areas.js" as Areas
 
 
 Page {
@@ -172,6 +173,72 @@ Page {
             SectionHeader {
                 text: qsTr("Browse Observations Settings")
             }
+
+            ValueButton {
+                id: species_button
+
+                function openTaxoDialog() {
+                    var dialog = pageStack.push("TaxoSearchPage.qml", {})
+                    dialog.accepted.connect(function() {
+                        Db.saveSetting("taxo_name", "\"" + dialog.selected_taxo.name + "\"")
+                        Db.saveSetting("taxo_id", "\"" + dialog.selected_taxo.id + "\"")
+                        value = dialog.selected_taxo.name
+                        species_button.forceActiveFocus()
+                    })
+                }
+
+                label: qsTr("Species: ")
+                value: Db.getSetting("taxo_name") ? Db.getSetting("taxo_name") : qsTr("None")
+                width: parent.width - Theme.paddingLarge
+                onClicked: openTaxoDialog()
+            }
+
+            ComboBox {
+
+                Component.onCompleted: {
+                    var area = Db.getSetting("area")
+                    for (var i in area_list.model) {
+                        if (area_list.model[i].name === area) {
+                            currentIndex = i
+                        }
+                    }
+                }
+
+                id: area_combobox
+                width: parent.width
+                label: qsTr("Area")
+                menu: ContextMenu {
+                    Repeater {
+                        id: area_list
+                        model: Areas.areas
+                        MenuItem {
+                            id: area_item
+                            text: modelData.name
+                            onClicked: {
+                                var area = "\"" + modelData.name + "\""
+                                Db.saveSetting("area", area)
+                            }
+                        }
+                    }
+                }
+            }
+
+            TextSwitch {
+                 id: own_observations_switch
+                 text: qsTr("Only own observations")
+                 checked: get_own_observations()
+                 onCheckedChanged: set_own_observations()
+
+                 function set_own_observations() {
+                     var own_observations_setting = checked ? 1 : 0
+                     Db.saveSetting("own_observations", own_observations_setting)
+                 }
+
+                 function get_own_observations() {
+                     return Db.getSetting("own_observations")
+                 }
+             }
+
 
             TextField {
                 id: max_observations

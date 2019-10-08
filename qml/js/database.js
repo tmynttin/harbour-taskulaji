@@ -1,6 +1,6 @@
 .import QtQuick.LocalStorage 2.0 as Sql
 
-var CURRENT_DB_VERSION = 0;
+var CURRENT_DB_VERSION = 1;
 
 function getDB() {
     try {
@@ -13,12 +13,13 @@ function getDB() {
 
 function dbInit() {
     var db = Sql.LocalStorage.openDatabaseSync("Karttatesti", "1.0", "StorageDatabase", 100000);
-    try {
+    //try {
         db.transaction(function (tx) {
             tx.executeSql('CREATE TABLE IF NOT EXISTS user_data (person_token text, person_id text, name text)')
             tx.executeSql('CREATE TABLE IF NOT EXISTS document_backups (document text)')
-            tx.executeSql('CREATE TABLE IF NOT EXISTS settings (id integer, hide_observer integer, coarse_location integer, max_observations integer)')
+            tx.executeSql('CREATE TABLE IF NOT EXISTS settings (id INTEGER, hide_observer INTEGER, coarse_location INTEGER, max_observations INTEGER, area TEXT, taxo_id TEXT, taxo_name TEXT, own_observations INTEGER)')
             var settings = tx.executeSql('SELECT * FROM settings');
+            console.log("settings: " + JSON.stringify(settings.rows.item(0)))
             if (settings.rows.length === 0) {
                 setDefaultSettings()
             }
@@ -30,19 +31,33 @@ function dbInit() {
             }
 
         })
-    } catch (err) {
-        console.log("Database creation error: " + err)
-    };
+    //} catch (err) {
+    //    console.log("Database creation error: " + err)
+    //};
 }
 
 function updateDatabase(db_version) {
     // Can be used to update tables if new columns are added
     var db = getDB();
-    if (db_version < 0) {
+    if (db_version < 1) {
         db.transaction(function (tx) {
-            tx.executeSql('ALTER TABLE settings ADD COLUMN newcolumn INTEGER;');
-            saveSetting("newcolumn", 5)
-            tx.executeSql('PRAGMA user_version=0')
+            tx.executeSql('ALTER TABLE settings ADD COLUMN area TEXT;');
+            tx.executeSql('ALTER TABLE settings ADD COLUMN taxo_id TEXT;');
+            tx.executeSql('ALTER TABLE settings ADD COLUMN taxo_name TEXT;');
+            tx.executeSql('ALTER TABLE settings ADD COLUMN own_observations INTEGER;');
+
+            var settings = tx.executeSql('SELECT * FROM settings');
+            console.log("settings: " + JSON.stringify(settings.rows.item(0)))
+
+            tx.executeSql("UPDATE settings SET area='Suomi' WHERE id='0'");
+            tx.executeSql("UPDATE settings SET taxo_id='' WHERE id='0'");
+            tx.executeSql("UPDATE settings SET taxo_name='' WHERE id='0'");
+            tx.executeSql("UPDATE settings SET own_observations=0 WHERE id='0'");
+
+            settings = tx.executeSql('SELECT * FROM settings');
+            console.log("settings: " + JSON.stringify(settings.rows.item(0)))
+
+            tx.executeSql('PRAGMA user_version=1')
             db_version = 1;
         });
     }
@@ -122,9 +137,10 @@ function setDefaultSettings() {
     var db = getDB();
     db.transaction(function (tx) {
         tx.executeSql('DROP TABLE IF EXISTS settings');
-        tx.executeSql('CREATE TABLE settings (id integer, hide_observer integer, coarse_location integer, max_observations integer)')
-        tx.executeSql('INSERT INTO settings VALUES(?, ?, ?, ?)',
-                      [0, 0, 0, 200]);
+        tx.executeSql('CREATE TABLE settings (id INTEGER, hide_observer INTEGER, coarse_location INTEGER, max_observations INTEGER, area TEXT, taxo_id TEXT, taxo_name TEXT, own_observations INTEGER)')
+        tx.executeSql('INSERT INTO settings VALUES(?, ?, ?, ?, ?, ?, ?, ?)',
+                      [0, 0, 0, 200, "Suomi", "", "", 0]);
+        tx.executeSql('PRAGMA user_version=1')
         var settings = tx.executeSql('SELECT * FROM settings');
         console.log("Settings reset: " + JSON.stringify(settings.rows.item(0)))
     });

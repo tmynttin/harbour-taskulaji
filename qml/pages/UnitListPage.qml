@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import "../js/logic.js" as Logic
+import "../js/database.js" as Db
 
 Page {
     id: unit_list_page
@@ -193,6 +194,10 @@ Page {
     }
 
     Component.onCompleted: {
+        taxo_id = Db.getSetting("taxo_id")
+        taxo_name = Db.getSetting("taxo_name")
+        area = Db.getSetting("area")
+        own_observations = Db.getSetting("own_observations")
         get_units()
     }
 
