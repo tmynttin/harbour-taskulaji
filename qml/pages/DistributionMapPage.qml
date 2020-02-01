@@ -29,12 +29,12 @@ Page {
     Column {
         id: column
         width: parent.width
-        spacing: Theme.paddingLarge
+        spacing: Theme.paddingSmall
 
         Map {
             id: kartta
             width: parent.width
-            height: distribution_map_page.height * 0.75
+            height: distribution_map_page.height * 0.85
             plugin: mapPlugin
             center {
                 latitude: 65.5

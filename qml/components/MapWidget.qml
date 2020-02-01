@@ -17,7 +17,7 @@ Item {
     property real zoom_level: 3.5
 
     Component.onCompleted: {
-        kartta.zoomLevel = zoom_level + Screen.height / 960
+        kartta.zoomLevel = zoom_level + Screen.width / 540
         get_distribution(current_page)
     }
 
