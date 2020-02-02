@@ -59,7 +59,7 @@ function api_qet(callback, end_point, params) {
 function api_post(callback, end_point, send_data, params) {
     var xhr = new XMLHttpRequest();
     params = params || {};
-    //var end_point = ep;
+
     var parameters = "";
     for (var p in params) {
         parameters += "&" + p + "=" + params[p];
@@ -75,6 +75,19 @@ function api_post(callback, end_point, send_data, params) {
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.setRequestHeader("Accept", "application/json");
     xhr.send(send_data);
+}
+
+function get_xeno_canto_audio(callback, scientific_name) {
+    var xhr = new XMLHttpRequest();
+
+    var xeno_canto_api = "https://www.xeno-canto.org/api/2/recordings?query="
+
+    var request = xeno_canto_api + scientific_name + "+q:A"// + "+cnt:finland"
+    console.log(request)
+    xhr.onreadystatechange = function() {processRequest(xhr, callback);};
+
+    xhr.open('GET', request, true);
+    xhr.send();
 }
 
 get_person_token();

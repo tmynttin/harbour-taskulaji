@@ -15,6 +15,7 @@ TARGET = harbour-taskulaji
 CONFIG += sailfishapp_qml
 
 DISTFILES += \
+    qml/components/AudioPlayer.qml \
     qml/cover/CoverPage.qml \
     qml/js/areas.js \
     qml/pages/*.qml \

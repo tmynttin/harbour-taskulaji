@@ -341,6 +341,22 @@
         <source>Restore default settings</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Species: </source>
+        <translation type="unfinished">Art: </translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Tum</translation>
+    </message>
+    <message>
+        <source>Area</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only own observations</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TaxoInfoPage</name>

@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import QtLocation 5.0
+import QtMultimedia 5.6
 import "../components"
 import "../js/logic.js" as Logic
 
@@ -19,6 +20,9 @@ Page {
         load_page()
     }
 
+    onTaxo_informationChanged: {
+        audio.scientific_name = taxo_information.scientificName
+    }
 
 
     BusyIndicator {
@@ -107,6 +111,10 @@ Page {
                     }
 
                 }
+            }
+
+            AudioPlayer {
+                id: audio
             }
 
             SilicaListView {

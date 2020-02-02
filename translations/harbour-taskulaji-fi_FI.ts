@@ -341,6 +341,22 @@
         <source>Restore default settings</source>
         <translation>Palauta oletusasetukset</translation>
     </message>
+    <message>
+        <source>Species: </source>
+        <translation type="unfinished">Laji: </translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Tyhjä</translation>
+    </message>
+    <message>
+        <source>Area</source>
+        <translation type="unfinished">Alue</translation>
+    </message>
+    <message>
+        <source>Only own observations</source>
+        <translation type="unfinished">Vain omat havainnot</translation>
+    </message>
 </context>
 <context>
     <name>TaxoInfoPage</name>
