@@ -83,11 +83,11 @@ Column {
             id: unit_remover_1
             anchors.left: parent.left
             icon.source: "image://theme/icon-m-previous"
+            visible: audio_index > 0
             onClicked: {
-                if (audio_index > 0) {
-                    audio_index--
-                    set_audio_url(audio_index)
-                }
+                audio_index--
+                set_audio_url(audio_index)
+
             }
         }
 
@@ -110,11 +110,11 @@ Column {
             id: unit_remover
             anchors.right: parent.right
             icon.source: "image://theme/icon-m-next"
+            visible: audio_index < (number_of_recordings - 1)
             onClicked: {
-                if (audio_index < (number_of_recordings - 1)) {
-                    audio_index++
-                    set_audio_url(audio_index)
-                }
+                audio_index++
+                set_audio_url(audio_index)
+
             }
         }
     }
