@@ -22,6 +22,7 @@ Page {
 
     onTaxo_informationChanged: {
         audio.scientific_name = taxo_information.scientificName
+        audio.synonym_name = taxo_information.synonymNames
     }
 
 

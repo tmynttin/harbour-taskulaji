@@ -6,6 +6,7 @@ import "../js/logic.js" as Logic
 Column {
     id: player
     property string scientific_name
+    property string synonym_name
     property string audio_source
     property string gen
     property string sp
@@ -15,18 +16,36 @@ Column {
     property string loc
     property int audio_index: 0
     property int number_of_recordings: 0
-    property var recordings
+    property var recordings: []
 
     width: parent.width
     visible: number_of_recordings > 0
 
     onScientific_nameChanged: {
-        get_audio()
+        get_audio(scientific_name)
+    }
+
+    onSynonym_nameChanged: {
+        get_audio(synonym_name)
+    }
+
+    Timer {
+        id: play_timer
+        interval: 500
+        onTriggered: audio.play()
     }
 
     MediaPlayer {
         id: audio
         source: audio_source
+
+        onStatusChanged: {
+            if (status == MediaPlayer.EndOfMedia && audio_index < (number_of_recordings - 1)) {
+                audio_index++
+                set_audio_url(audio_index)
+                play_timer.start()
+            }
+        }
     }
 
     ProgressBar {
@@ -74,16 +93,16 @@ Column {
         text: cnt + ", " + loc
     }
 
-    Item {
-        x: Theme.horizontalPageMargin
-        height: Theme.itemSizeLarge
-        width: parent.width - 2*x
+    Row {
+//        x: Theme.horizontalPageMargin
+//        height: Theme.itemSizeLarge
+//        width: parent.width - 2*x
 
         IconButton {
             id: unit_remover_1
-            anchors.left: parent.left
+            //anchors.left: parent.left
             icon.source: "image://theme/icon-m-previous"
-            visible: audio_index > 0
+            enabled: audio_index > 0
             onClicked: {
                 audio_index--
                 set_audio_url(audio_index)
@@ -93,7 +112,7 @@ Column {
 
         IconButton {
             id: play_stop_button
-            anchors.horizontalCenter: parent.horizontalCenter
+            //anchors.horizontalCenter: parent.horizontalCenter
             icon.source: audio.playbackState == MediaPlayer.PlayingState ? "image://theme/icon-m-pause" : "image://theme/icon-m-play"
             onClicked: {
                 console.log("playing: " + audio.source)
@@ -108,9 +127,9 @@ Column {
 
         IconButton {
             id: unit_remover
-            anchors.right: parent.right
+            //anchors.right: parent.right
             icon.source: "image://theme/icon-m-next"
-            visible: audio_index < (number_of_recordings - 1)
+            enabled: audio_index < (number_of_recordings - 1)
             onClicked: {
                 audio_index++
                 set_audio_url(audio_index)
@@ -119,14 +138,14 @@ Column {
         }
     }
 
-    function get_audio() {
-        Logic.get_xeno_canto_audio(set_audio, scientific_name)
+    function get_audio(name) {
+        Logic.get_xeno_canto_audio(set_audio, name)
         run_timer = true
     }
 
     function set_audio(status, response) {
-        recordings = response.recordings
-        number_of_recordings = response.numRecordings
+        recordings = recordings.concat(response.recordings)
+        number_of_recordings += response.numRecordings
         if (number_of_recordings > 0) {
             set_audio_url(audio_index)
         }
