@@ -17,16 +17,31 @@ Column {
     property int audio_index: 0
     property int number_of_recordings: 0
     property var recordings: []
+    property int queries_completed: 0
 
     width: parent.width
-    visible: number_of_recordings > 0
+    visible: false
 
     onScientific_nameChanged: {
+        audio_index = 0
+        number_of_recordings = 0
+        recordings = []
+        queries_completed = 0
         get_audio(scientific_name)
     }
 
-    onSynonym_nameChanged: {
-        get_audio(synonym_name)
+    onQueries_completedChanged: {
+        if (queries_completed == 1) {
+            if (synonym_name !== "") {
+                get_audio(synonym_name)
+            }
+            else {
+                finalize_player()
+            }
+        }
+        else if (queries_completed == 2) {
+            finalize_player()
+        }
     }
 
     Timer {
@@ -71,7 +86,6 @@ Column {
         font.pixelSize: Theme.fontSizeTiny
         color: Theme.highlightColor
         width: parent.width
-        wrapMode: Text.WordWrap
         text: gen + (sp ? " " + sp : "") + ": " + type
     }
 
@@ -80,7 +94,6 @@ Column {
         font.pixelSize: Theme.fontSizeTiny
         color: Theme.highlightColor
         width: parent.width
-        wrapMode: Text.WordWrap
         text: rec
     }
 
@@ -89,30 +102,23 @@ Column {
         font.pixelSize: Theme.fontSizeTiny
         color: Theme.highlightColor
         width: parent.width
-        wrapMode: Text.WordWrap
         text: cnt + ", " + loc
     }
 
     Row {
-//        x: Theme.horizontalPageMargin
-//        height: Theme.itemSizeLarge
-//        width: parent.width - 2*x
 
         IconButton {
-            id: unit_remover_1
-            //anchors.left: parent.left
+            id: previous_button
             icon.source: "image://theme/icon-m-previous"
             enabled: audio_index > 0
             onClicked: {
                 audio_index--
                 set_audio_url(audio_index)
-
             }
         }
 
         IconButton {
             id: play_stop_button
-            //anchors.horizontalCenter: parent.horizontalCenter
             icon.source: audio.playbackState == MediaPlayer.PlayingState ? "image://theme/icon-m-pause" : "image://theme/icon-m-play"
             onClicked: {
                 console.log("playing: " + audio.source)
@@ -126,29 +132,39 @@ Column {
         }
 
         IconButton {
-            id: unit_remover
-            //anchors.right: parent.right
+            id: next_button
             icon.source: "image://theme/icon-m-next"
             enabled: audio_index < (number_of_recordings - 1)
             onClicked: {
                 audio_index++
                 set_audio_url(audio_index)
-
             }
         }
     }
 
     function get_audio(name) {
         Logic.get_xeno_canto_audio(set_audio, name)
-        run_timer = true
     }
 
     function set_audio(status, response) {
+        console.log("Adding recordings: " + response.recordings.length)
         recordings = recordings.concat(response.recordings)
-        number_of_recordings += response.numRecordings
+        number_of_recordings = parseInt(recordings.length)
+        queries_completed++
+    }
+
+    function finalize_player() {
+        arrange_recordings()
         if (number_of_recordings > 0) {
             set_audio_url(audio_index)
+            player.visible = true
         }
+    }
+
+    function arrange_recordings() {
+        var finnish_recordings = recordings.filter(function(record) {return (record.cnt === "Finland")});
+        var other_recordings = recordings.filter(function(record) {return (record.cnt !== "Finland")});
+        recordings = finnish_recordings.concat(other_recordings)
     }
 
     function set_audio_url(index) {
@@ -163,6 +179,6 @@ Column {
         var url_base_end_location = sono_path.indexOf("/", 40)
         var url_base = sono_path.substring(0, url_base_end_location)
         audio_source = "https:" + url_base + "/" + file_name
-        console.log("Audio file location: " + audio_source)
+        console.log("Audio url: " + audio_source)
     }
 }
