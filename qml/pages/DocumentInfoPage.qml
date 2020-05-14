@@ -178,7 +178,7 @@ Page {
     {
         run_timer = true
 
-        Logic.api_qet(write_document, "warehouse/query/single",
+        Logic.api_qet(write_document, "warehouse/query/document",
                       {"documentId":documentId})
         run_timer = true
     }

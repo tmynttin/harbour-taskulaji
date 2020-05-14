@@ -10,7 +10,8 @@ Dialog {
     property var selected_taxo
     property bool info_search: false
 
-    onSearchStringChanged: search_timer.restart()
+    //onSearchStringChanged: search_timer.restart()
+    onSearchStringChanged: result_list.get_taxons()
 
     Timer {
         id: search_timer
@@ -57,13 +58,13 @@ Dialog {
         delegate: BackgroundItem {
             id: backgroundItem
 
-            ListView.onAdd: AddAnimation {
-                target: backgroundItem
-            }
+//            ListView.onAdd: AddAnimation {
+//                target: backgroundItem
+//            }
 
-            ListView.onRemove: RemoveAnimation {
-                target: backgroundItem
-            }
+//            ListView.onRemove: RemoveAnimation {
+//                target: backgroundItem
+//            }
 
             Label {
                 x: searchField.textLeftMargin

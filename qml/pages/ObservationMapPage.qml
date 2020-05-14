@@ -217,7 +217,7 @@ Page {
             parameters.editorOrObserverPersonToken = Logic.person_token
         }
 
-        Logic.api_qet(draw_observations, "warehouse/query/list", parameters)
+        Logic.api_qet(draw_observations, "warehouse/query/unit/list", parameters)
         run_timer = true
     }
 

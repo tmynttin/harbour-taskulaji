@@ -359,6 +359,29 @@
     </message>
 </context>
 <context>
+    <name>StatisticsPage</name>
+    <message>
+        <source>Refresh</source>
+        <translation type="unfinished">Updatera</translation>
+    </message>
+    <message>
+        <source>Map view</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>More</source>
+        <translation type="unfinished">Mera</translation>
+    </message>
+    <message>
+        <source>Units</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>TaxoInfoPage</name>
     <message>
         <source>Parents</source>
@@ -400,6 +423,10 @@
     </message>
     <message>
         <source>Map view</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Staistics view</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

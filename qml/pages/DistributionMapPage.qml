@@ -105,7 +105,7 @@ Page {
 
     function get_distribution(page)
     {
-        Logic.api_qet(draw_distribution, "warehouse/query/aggregate",
+        Logic.api_qet(draw_distribution, "warehouse/query/unit/aggregate",
                       {"aggregateBy": "gathering.conversions.wgs84Grid05.lat,gathering.conversions.wgs84Grid05.lon,gathering.conversions.month",
                        "taxonId":taxo_id,
                        "pageSize":"1000",

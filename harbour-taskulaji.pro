@@ -16,11 +16,14 @@ CONFIG += sailfishapp_qml
 
 DISTFILES += \
     qml/components/AudioPlayer.qml \
+    qml/components/BarChart.qml \
+    qml/components/LineChart.qml \
     qml/cover/CoverPage.qml \
     qml/js/areas.js \
     qml/pages/*.qml \
     qml/components/*.qml \
     qml/js/*.js \
+    qml/pages/StatisticsPage.qml \
     qml/pages/UnitListPage.qml \
     rpm/harbour-taskulaji.changes.in \
     rpm/harbour-taskulaji.changes.run.in \

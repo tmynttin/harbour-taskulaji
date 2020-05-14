@@ -22,7 +22,10 @@ Page {
 
     onTaxo_informationChanged: {
         audio.scientific_name = taxo_information.scientificName
-        audio.synonym_name = taxo_information.synonymNames
+        audio.synonym_name = taxo_information.synonymNames ? taxo_information.synonymNames : ""
+        chart.taxo_id = taxo_id
+        chart.class_id = taxo_information.parent["class"].id
+        chart.getData()
     }
 
 
@@ -116,6 +119,10 @@ Page {
 
             AudioPlayer {
                 id: audio
+            }
+
+            LineChart {
+                id: chart
             }
 
             SilicaListView {
@@ -388,8 +395,12 @@ Page {
                     var thumb = media_data.media.thumbnailURL
                     var full = media_data.media.fullURL
                     var author = media_data.media.author
-                    var vernacularName = media_data.unit.linkings.taxon.vernacularName.fi
-                    var scientificName = media_data.unit.linkings.taxon.scientificName
+                    var vernacularName = ""
+                    var scientificName = ""
+                    if (media_data.unit.linkings) {
+                        vernacularName = media_data.unit.linkings.taxon.vernacularName.fi
+                        scientificName = media_data.unit.linkings.taxon.scientificName
+                    }
 
                     image_grid.model.append({ 'thumbURL': thumb,
                                                 'fullURL': full,

@@ -5,6 +5,9 @@ import "../js/database.js" as Db
 
 Page {
     id: unit_list_page
+
+    signal settings_changed()
+
     property string taxo_id: ""
     property string taxo_name: ""
     property string area: "Suomi"
@@ -33,9 +36,9 @@ Page {
             MenuItem {
                 text: qsTr("Refresh")
                 onClicked: {
-                    unit_list_model.clear()
+                    statistics_model.clear()
                     current_page = 1
-                    get_units()
+                    get_statistics()
                 }
             }
 
@@ -57,37 +60,12 @@ Page {
                         taxo_name = observation_map.taxo_name
                         area = observation_map.area
                         own_observations = observation_map.own_observations
-                        unit_list_model.clear()
+                        statistics_model.clear()
                         current_page = 1
-                        get_units()
+                        get_statistics()
                     })
                 }
 
-            }
-
-            MenuItem {
-                text: qsTr("Staistics view")
-                onClicked: {
-                    var staistics_page = pageStack.push("StatisticsPage.qml", {
-                                       taxo_id: taxo_id,
-                                       taxo_name: taxo_name,
-                                       start_date: start_date,
-                                       end_date: end_date,
-                                       own_observations: own_observations,
-                                       area: area})
-
-                    staistics_page.settings_changed.connect(function() {
-                        start_date = staistics_page.start_date
-                        end_date = staistics_page.end_date
-                        taxo_id = staistics_page.taxo_id
-                        taxo_name = staistics_page.taxo_name
-                        area = staistics_page.area
-                        own_observations = staistics_page.own_observations
-                        unit_list_model.clear()
-                        current_page = 1
-                        get_units()
-                    })
-                }
             }
 
             MenuItem {
@@ -109,8 +87,9 @@ Page {
                         area = dialog.area
                         own_observations = dialog.own_observations
                         current_page = 1
-                        unit_list_model.clear()
-                        get_units()
+                        statistics_model.clear()
+                        settings_changed()
+                        get_statistics()
                     })
                 }
             }
@@ -120,7 +99,7 @@ Page {
             MenuItem {
                 text: qsTr("More")
                 onClicked: {
-                    get_units()
+                    get_statistics()
                 }
             }
         }
@@ -138,10 +117,10 @@ Page {
                 id: unit_list
                 width: parent.width
                 height: childrenRect.height
-                spacing: Theme.paddingLarge
+                spacing: Theme.paddingSmall
 
                 model: ListModel {
-                    id: unit_list_model
+                    id: statistics_model
                 }
 
                 section {
@@ -159,13 +138,16 @@ Page {
 
                     MouseArea {
                         anchors.fill: unit_column
-                        onClicked: {pageStack.push('DocumentInfoPage.qml',
-                                                   {documentId: documentId,
-                                                       gatheringId: gatheringId})
+                        onClicked: {pageStack.push('ObservationMapPage.qml', {
+                                                       taxo_id: id,
+                                                       taxo_name: finnishName,
+                                                       start_date: start_date,
+                                                       end_date: end_date,
+                                                       own_observations: own_observations,
+                                                       area: area})
                         }
-
                         onPressAndHold: {
-                            pageStack.push('TaxoInfoPage.qml', {taxo_id : taxo_id})
+                            pageStack.push('TaxoInfoPage.qml', {taxo_id : id.split("/")[3]})
                         }
                     }
 
@@ -176,7 +158,6 @@ Page {
                         height: childrenRect.height
 
                         Label {
-                            visible: scientificName
                             text: scientificName
                             font.pixelSize: Theme.fontSizeMedium
                             wrapMode: Text.WordWrap
@@ -185,36 +166,19 @@ Page {
                         }
 
                         Label {
-                            visible: vernacularName
-                            text: vernacularName
+                            visible: finnishName
+                            text: finnishName
                             font.pixelSize: Theme.fontSizeSmall
                             wrapMode: Text.WordWrap
                             width: parent.width
                         }
 
                         Label {
-                            visible: abundance ? true : false
-                            text: abundance ? abundance : ""
+                            visible: count ? true : false
+                            text: count ? count : ""
                             font.pixelSize: Theme.fontSizeSmall
                             wrapMode: Text.WordWrap
                             width: parent.width
-                        }
-
-                        Label {
-                            visible: notes
-                            text: notes
-                            font.pixelSize: Theme.fontSizeExtraSmall
-                            wrapMode: Text.WordWrap
-                            width: parent.width
-                            color: Theme.secondaryHighlightColor
-                        }
-
-                        Label {
-                            id: gathering_time
-                            text: Format.formatDate(time, Formatter.DateLong) + ", " + municipality
-                            font.pixelSize: Theme.fontSizeExtraSmall
-                            font.italic: true
-                            color: Theme.secondaryHighlightColor
                         }
                     }
                 }
@@ -227,10 +191,10 @@ Page {
         taxo_name = Db.getSetting("taxo_name")
         area = Db.getSetting("area")
         own_observations = Db.getSetting("own_observations")
-        get_units()
+        get_statistics()
     }
 
-    function get_units()
+    function get_statistics()
     {
         run_timer = true
 
@@ -241,17 +205,20 @@ Page {
             "pageSize":"1000",
             "page":current_page,
             "area":area,
-            "time":formatted_start_date + "/" + formatted_end_date}//,
-            //"coordinates":coordinate}
+            "time":formatted_start_date + "/" + formatted_end_date,
+            "aggregateBy":"unit.linkings.taxon.nameFinnish,unit.linkings.taxon.scientificName,unit.linkings.taxon.id",
+            "orderBy":"individualCountSum DESC",
+            "onlyCount":"false"}
+
         if (own_observations) {
             parameters.editorOrObserverPersonToken = Logic.person_token
         }
 
-        Logic.api_qet(write_units, "warehouse/query/unit/list", parameters)
+        Logic.api_qet(write_statistics, "warehouse/query/unit/aggregate", parameters)
 
     }
 
-    function write_units(status, response) {
+    function write_statistics(status, response) {
         if (status === 200) {
             //console.log(JSON.stringify(response.document.gatherings[gathering_index]))
 
@@ -259,45 +226,26 @@ Page {
 
             for (var i in response.results) {
                 var result = response.results[i]
-                var taxo_id = ""
+                var finnishName = ""
                 var scientificName = ""
-                var vernacularName = ""
-                var abundanceString = ""
-                var municipality = ""
-                var notes = ""
+                var id = ""
+                var count = ""
 
-                var unit = result.unit
-                if (unit.linkings) {
-                    taxo_id = (unit.linkings.taxon.id).split("/").pop()
-                    scientificName = unit.linkings.taxon.scientificName
-
-                    vernacularName = unit.linkings.taxon.vernacularName ? unit.linkings.taxon.vernacularName.fi : ""
+                var names = result.aggregateBy
+                id = names["unit.linkings.taxon.id"]
+                if (names["unit.linkings.taxon.nameFinnish"]) {
+                    finnishName = names["unit.linkings.taxon.nameFinnish"]
                 }
-                else {
-                    vernacularName = unit.taxonVerbatim
+                if (names["unit.linkings.taxon.scientificName"]) {
+                    scientificName = names["unit.linkings.taxon.scientificName"]
                 }
-                abundanceString = unit.abundanceString
 
-                municipality = result.gathering.interpretations.municipalityDisplayname
+                count = result.individualCountSum
 
-                notes = unit.notes ? unit.notes : ""
-
-                var date_string = result.gathering.displayDateTime.slice(0,10)
-                var time = new Date(date_string)
-
-                var gatheringId = result.gathering.gatheringId.split("/").pop()
-                var documentId = result.document.documentId
-
-                unit_list_model.append({ 'taxo_id': taxo_id,
+                statistics_model.append({ 'finnishName': finnishName,
                                           'scientificName': scientificName,
-                                          'vernacularName': vernacularName,
-                                          'abundance': abundanceString,
-                                          'municipality': municipality,
-                                          'time': time,
-                                          'notes': notes,
-                                          'gatheringId': gatheringId,
-                                          'documentId': documentId,
-                                          'section': Format.formatDate(time, Formatter.TimepointSectionRelative),
+                                            'id': id,
+                                          'count': count,
                                       })
             }
             current_page++

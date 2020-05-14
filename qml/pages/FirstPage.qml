@@ -2,6 +2,7 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import "../js/database.js" as Db
 import "../js/logic.js" as Logic
+import "../components"
 
 
 Page {
@@ -180,6 +181,12 @@ Page {
                 onClicked: pageStack.push("ResendPage.qml")
             }
 
+            Button {
+                text: "Rai rai"
+                onClicked: {
+                    pageStack.push("WebPage.qml", {go_to_url:"https://login.laji.fi/login?target=KE.389&redirectMethod=GET&locale=fi&next="})
+                }
+            }
         }
     }
 }
