@@ -244,7 +244,7 @@ Page {
             "time":formatted_start_date + "/" + formatted_end_date}//,
             //"coordinates":coordinate}
         if (own_observations) {
-            parameters.editorOrObserverPersonToken = Logic.person_token
+            parameters.editorOrObserverPersonToken = Logic.get_person_token()
         }
 
         Logic.api_qet(write_units, "warehouse/query/unit/list", parameters)

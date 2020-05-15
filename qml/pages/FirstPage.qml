@@ -17,7 +17,8 @@ Page {
     }
 
     onStatusChanged: {
-        logged_in = (Logic.person_token !== "")
+        console.log("Status changed: " + status + " Person token: " + Logic.get_person_token())
+        logged_in = (Logic.get_person_token() !== "")
         is_pending_documents = (Db.getDocuments().rows.length !== 0)
     }
 
@@ -179,13 +180,6 @@ Page {
                 }
 
                 onClicked: pageStack.push("ResendPage.qml")
-            }
-
-            Button {
-                text: "Rai rai"
-                onClicked: {
-                    pageStack.push("WebPage.qml", {go_to_url:"https://login.laji.fi/login?target=KE.389&redirectMethod=GET&locale=fi&next="})
-                }
             }
         }
     }

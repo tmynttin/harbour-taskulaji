@@ -7,13 +7,32 @@ import "../js/areas.js" as Areas
 
 Page {
     id: settings_page
+    property bool logged_in
     property var user_data
     property string person_token: ""
+    property string tmp_token: ""
+    property string login_url: ""
 
     Component.onCompleted: {
         user_data = Db.dbGetUser()
-        person_token = user_data.person_token ? user_data.person_token : ""
+        person_token = Logic.get_person_token()
+        logged_in = (person_token !== "")
         checkPersonToken()
+    }
+
+    onPerson_tokenChanged: {
+        console.log("Person token changed: " + person_token + ", " + Logic.get_person_token())
+        logged_in = (person_token !== "")
+    }
+
+    Timer {
+        id: login_timer
+        repeat: true
+        running: false
+        interval: 5000
+        onTriggered: {
+            login_check()
+        }
     }
 
     function checkPersonToken() {
@@ -36,7 +55,6 @@ Page {
     function clearUserData() {
         Db.dbDeleteUser();
         user_data = {"person_token": "", "person_id": "", "name": ""};
-        Logic.get_person_token();
         person_token = ""
     }
 
@@ -46,7 +64,6 @@ Page {
             var pName = response.fullName
             console.log("Name: " + pName + ", ID: " + pId)
             Db.dbCreateUser(person_token, pId, pName)
-            Logic.get_person_token()
             user_data = Db.dbGetUser()
             person_token = user_data.person_token
         }
@@ -55,9 +72,43 @@ Page {
         }
     }
 
+    function get_temp_token() {
+
+        Logic.api_qet(go_to_auth_page, "login", {});
+    }
+
+    function go_to_auth_page(status, response) {
+        if (status === 200) {
+            tmp_token = response.tmpToken
+            login_url = response.loginURL
+            login_timer.start()
+
+            pageStack.push("WebPage.qml", {go_to_url: login_url})
+        }
+    }
+
+    function login_check() {
+        Logic.api_post(set_person_token, "login/check", {}, {tmpToken: tmp_token})
+    }
+
+    function set_person_token(status, response) {
+        if (status === 200) {
+            person_token = response.token
+            Logic.api_qet(saveUserData, "person/" + person_token)
+            pageStack.pop()
+            login_timer.stop()
+        }
+    }
+
     SilicaFlickable {
         anchors.fill: parent
         contentHeight: settings_column.height
+
+        BusyIndicator {
+            id: login_timer_indicator
+            anchors.fill: parent
+            running: login_timer.running
+        }
 
         PullDownMenu {
             id: pullDownMenu
@@ -74,23 +125,15 @@ Page {
                 onClicked: {
                     clearUserData()
                 }
-                visible: (person_token !== "")
+                visible: logged_in
             }
 
             MenuItem {
                 text: qsTr("Login")
                 onClicked: {
-                    openLoginDialog();
+                    get_temp_token()
                 }
-                visible: (person_token === "")
-
-                function openLoginDialog() {
-                    var dialog = pageStack.push("LoginPage.qml", {})
-                    dialog.accepted.connect(function() {
-                        person_token = dialog.person_token
-                        Logic.api_qet(saveUserData, "person/" + person_token);
-                    })
-                }
+                visible: !logged_in
             }
         }
 
@@ -103,12 +146,14 @@ Page {
             }
 
             SectionHeader {
+                id: user_header
                 text: qsTr("User Settings")
-                visible: user_data.person_token
+                visible: logged_in
             }
 
             TextField {
-                visible: user_data.person_token
+                id: user_name
+                visible: logged_in
                 width: parent.width
                 readOnly: true
                 label: qsTr("User name")
@@ -116,7 +161,8 @@ Page {
             }
 
             TextField {
-                visible: user_data.person_token
+                id: user_id
+                visible: logged_in
                 width: parent.width
                 readOnly: true
                 label: qsTr("User ID")
@@ -124,7 +170,8 @@ Page {
             }
 
             TextArea {
-                visible: user_data.person_token
+                id: user_token
+                visible: logged_in
                 width: parent.width
                 readOnly: false
                 label: qsTr("Person Token")

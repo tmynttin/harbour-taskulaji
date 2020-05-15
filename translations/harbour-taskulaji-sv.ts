@@ -76,17 +76,6 @@
     </message>
 </context>
 <context>
-    <name>LoginPage</name>
-    <message>
-        <source>Login</source>
-        <translation>Logga in</translation>
-    </message>
-    <message>
-        <source>Person Token</source>
-        <translation>Person Token</translation>
-    </message>
-</context>
-<context>
     <name>NewObservationPage</name>
     <message>
         <source>Observation</source>

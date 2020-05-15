@@ -211,7 +211,7 @@ Page {
             "onlyCount":"false"}
 
         if (own_observations) {
-            parameters.editorOrObserverPersonToken = Logic.person_token
+            parameters.editorOrObserverPersonToken = Logic.get_person_token()
         }
 
         Logic.api_qet(write_statistics, "warehouse/query/unit/aggregate", parameters)
