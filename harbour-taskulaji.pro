@@ -17,12 +17,15 @@ CONFIG += sailfishapp_qml
 DISTFILES += \
     qml/components/AudioPlayer.qml \
     qml/components/BarChart.qml \
+    qml/components/DynamicMapWidget.qml \
     qml/components/LineChart.qml \
+    qml/components/StaticMapWidget.qml \
     qml/cover/CoverPage.qml \
     qml/js/areas.js \
     qml/pages/*.qml \
     qml/components/*.qml \
     qml/js/*.js \
+    qml/pages/OccurrencePage.qml \
     qml/pages/StatisticsPage.qml \
     qml/pages/UnitListPage.qml \
     rpm/harbour-taskulaji.changes.in \
@@ -40,8 +43,6 @@ DISTFILES += \
     qml/pages/UnitPage.qml \
     qml/pages/WebPage.qml \
     qml/components/TaxoListDelegate.qml \
-    qml/pages/DistributionMapPage.qml \
-    qml/components/MapWidget.qml \
     qml/pages/ObservationMapPage.qml \
     qml/pages/ObservationMapSettingPage.qml \
     qml/pages/DocumentInfoPage.qml \

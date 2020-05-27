@@ -23,9 +23,6 @@ Page {
     onTaxo_informationChanged: {
         audio.scientific_name = taxo_information.scientificName
         audio.synonym_name = taxo_information.synonymNames ? taxo_information.synonymNames : ""
-        chart.taxo_id = taxo_id
-        chart.class_id = taxo_information.parent["class"].id
-        chart.getData()
     }
 
 
@@ -43,8 +40,8 @@ Page {
         PullDownMenu {
 
             MenuItem {
-                text: qsTr("Map")
-                onClicked: pageStack.push("DistributionMapPage.qml", {
+                text: qsTr("Occurrence")
+                onClicked: pageStack.push("OccurrencePage.qml", {
                                               taxo_id: taxo_id
                                           })
             }
@@ -66,9 +63,9 @@ Page {
 
             Item {
                 width: parent.width
-                height: width * 0.8
+                height: width
 
-                MapWidget {
+                StaticMapWidget {
                     id: map_widget
                     taxo_id: taxo_info_page.taxo_id
                     width: parent.width / 2
@@ -105,24 +102,24 @@ Page {
                             height: image_grid.cellHeight
                         }
 
+                        MouseArea {
+                            anchors.fill: taxo_image
+
                         onClicked: {
                             openImagePage()
+                        }
                         }
 
                         function openImagePage() {
                             pageStack.push("ImagePage.qml", {image_model: model})
                         }
-                    }
+                   }
 
                 }
             }
 
             AudioPlayer {
                 id: audio
-            }
-
-            LineChart {
-                id: chart
             }
 
             SilicaListView {

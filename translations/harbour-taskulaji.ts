@@ -9,13 +9,6 @@
     </message>
 </context>
 <context>
-    <name>DistributionMapPage</name>
-    <message>
-        <source>Month</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>DocumentInfoPage</name>
     <message>
         <source>Gathering</source>
@@ -27,6 +20,13 @@
     </message>
     <message>
         <source>Document</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DynamicMapWidget</name>
+    <message>
+        <source>Month</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -253,6 +253,21 @@
     </message>
 </context>
 <context>
+    <name>OccurrencePage</name>
+    <message>
+        <source>Static occurrence map</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Monthly occurrence map</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Occurrence trend, 1960-2020</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ResendPage</name>
     <message>
         <source>Delete all</source>
@@ -392,7 +407,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Map</source>
+        <source>Occurrence</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

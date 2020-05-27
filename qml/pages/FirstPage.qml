@@ -180,13 +180,6 @@ Page {
 
                 onClicked: pageStack.push("ResendPage.qml")
             }
-
-            Button {
-                text: "Rai rai"
-                onClicked: {
-                    pageStack.push("WebPage.qml", {go_to_url:"https://login.laji.fi/login?target=KE.389&redirectMethod=GET&locale=fi&next="})
-                }
-            }
         }
     }
 }

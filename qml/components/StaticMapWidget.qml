@@ -35,7 +35,7 @@ Item {
     Rectangle {
         width: parent.width
         height: parent.height
-        visible: !run_timer
+        //visible: !run_timer
 
     Plugin {
         id: mapPlugin
