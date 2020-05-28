@@ -32,7 +32,9 @@ function processRequest(xhr, callback, e) {
         catch (e) {
             response = xhr.responseText
         }
-        callback(xhr.status, response);
+        if (callback !== null) {
+            callback(xhr.status, response);
+        }
     }
 }
 
@@ -49,6 +51,7 @@ function api_qet(callback, end_point, params) {
     }
 
     var request = api_url + end_point + "?access_token=" + access_token + "&personToken=" + person_token + parameters
+
     console.log(request)
     xhr.onreadystatechange = function() {processRequest(xhr, callback);};
 
