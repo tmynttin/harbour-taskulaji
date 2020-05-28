@@ -266,6 +266,10 @@
         <source>Occurrence trend, 1960-2020</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Monthly occurrence trend</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ResendPage</name>

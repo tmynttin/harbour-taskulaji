@@ -18,9 +18,12 @@ Page {
     }
 
     onTaxo_informationChanged: {
-        chart.taxo_id = taxo_id
-        chart.class_id = taxo_information.parent["class"].id
-        chart.getData()
+        decade_chart.taxo_id = taxo_id
+        decade_chart.class_id = taxo_information.parent["class"].id
+        decade_chart.getData()
+
+        month_chart.taxo_id = taxo_id
+        month_chart.getData()
     }
 
 
@@ -56,10 +59,24 @@ Page {
             StaticMapWidget {
                 id: static_map
                 taxo_id: taxo_info_page.taxo_id
-                zoom_level: 4.2
+                zoom_level: 4.5
                 width: parent.width
                 height: width * 2
             }
+
+            SectionHeader {
+                text: qsTr("Occurrence trend, 1960-2020")
+            }
+
+            DecadeChart {
+                width: parent.width
+                id: decade_chart
+            }
+
+            Label {
+                    width: parent.width
+                    text: ""
+                }
 
             SectionHeader {
                 text: qsTr("Monthly occurrence map")
@@ -68,18 +85,20 @@ Page {
             DynamicMapWidget {
                 id: dynamic_map
                 taxo_id: taxo_info_page.taxo_id
-                zoom_level: 4.2
+                zoom_level: 4.5
                 width: parent.width
                 height: width * 2 + Theme.paddingMedium + Theme.itemSizeExtraLarge
             }
 
+
+
             SectionHeader {
-                text: qsTr("Occurrence trend, 1960-2020")
+                text: qsTr("Monthly occurrence trend")
             }
 
-            LineChart {
+            MonthChart {
                 width: parent.width
-                id: chart
+                id: month_chart
             }
 
             Label {

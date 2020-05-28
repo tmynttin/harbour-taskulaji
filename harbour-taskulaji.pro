@@ -17,8 +17,9 @@ CONFIG += sailfishapp_qml
 DISTFILES += \
     qml/components/AudioPlayer.qml \
     qml/components/BarChart.qml \
+    qml/components/DecadeChart.qml \
     qml/components/DynamicMapWidget.qml \
-    qml/components/LineChart.qml \
+    qml/components/MonthChart.qml \
     qml/components/StaticMapWidget.qml \
     qml/cover/CoverPage.qml \
     qml/js/areas.js \

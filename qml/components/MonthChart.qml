@@ -6,14 +6,12 @@ Item {
     width: parent.width
     height: line_chart.height
 
-    property string taxo_id: "" //"MX.34535"
-    property string class_id: "" //"MX.37580"
+    property string taxo_id: ""
 
     property var taxo_points: []
-    property var class_points: []
     property var points: []
 
-    property int horizontalGridDensity: 5
+    property int horizontalGridDensity: 12
     property int verticalGridDensity: 5
 
     property real minX: 0
@@ -25,49 +23,24 @@ Item {
 
     property bool run_timer: false
 
-//    Component.onCompleted: {
-//        getPoints(class_id)
-//    }
-
-
-
-    onClass_pointsChanged: {
-        if (class_points.length > 0) {
-            console.log("Got super taxo points")
-            getPoints(taxo_id)
-        }
-
-
-    }
-
     onTaxo_pointsChanged: {
-        if (class_points.length > 0) {
+        if (taxo_points.length > 0) {
             setScaling()
             line_chart.requestPaint()
         }
     }
 
     function getData() {
-        console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXX    getting data: " + class_id)
         taxo_points = []
-        class_points = []
         points = []
-        getPoints(class_id)
+        getPoints(taxo_id)
     }
 
     function setScaling() {
         console.log("Setting scaling")
         for (var i in taxo_points) {
-            var factor = 0
-            for (var j in class_points) {
-                if (class_points[j].x === taxo_points[i].x) {
-                    factor = class_points[j].y
-                    break
-                }
-            }
-
+            var factor = 2020 - 2000
              points.push({x:taxo_points[i].x, y:taxo_points[i].y / factor})
-
         }
 
         console.log(JSON.stringify(points))
@@ -104,14 +77,13 @@ Item {
         anchors {
             top: parent.top
             left: parent.left
-            leftMargin: 3*Theme.paddingLarge
+            leftMargin: 4*Theme.paddingLarge
             right: parent.right
             rightMargin: Theme.paddingLarge
         }
         Rectangle {
             width: parent.width
             height: line_chart.height
-            //border.color: Theme.secondaryHighlightColor
             color: "transparent"
 
             Repeater {
@@ -130,7 +102,7 @@ Item {
                     font.pixelSize: Theme.fontSizeTiny
 
                     function getText() {
-                        var y = parseInt((minY + index * (maxY - minY) / (verticalGridDensity-1)) * 100) + "%"
+                        var y = parseInt(minY + index * (maxY - minY) / (verticalGridDensity-1))
                         return y
                     }
                 }
@@ -151,7 +123,7 @@ Item {
                     font.pixelSize: Theme.fontSizeTiny
 
                     function getText() {
-                        var y = parseInt(minX + index * (maxX - minX) / (horizontalGridDensity-1))
+                        var y = parseInt(index + 1)
                         return y
                     }
                 }
@@ -177,14 +149,14 @@ Item {
                     ctx.lineWidth = 1
 
                     ctx.beginPath()
-                    for (var i = 0; i < horizontalGridDensity; i++) {
-                        ctx.moveTo(0, i*height/(horizontalGridDensity-1))
-                        ctx.lineTo(width, i*height/(horizontalGridDensity-1))
+                    for (var i = 0; i < verticalGridDensity; i++) {
+                        ctx.moveTo(0, i*height/(verticalGridDensity-1))
+                        ctx.lineTo(width, i*height/(verticalGridDensity-1))
                     }
 
-                    for (var j = 0; j < verticalGridDensity; j++) {
-                        ctx.moveTo(j*width/(verticalGridDensity-1), 0)
-                        ctx.lineTo(j*width/(verticalGridDensity-1), height)
+                    for (var j = 0; j < horizontalGridDensity; j++) {
+                        ctx.moveTo(j*width/(horizontalGridDensity-1), 0)
+                        ctx.lineTo(j*width/(horizontalGridDensity-1), height)
                     }
                     ctx.stroke()
 
@@ -219,11 +191,11 @@ Item {
             "taxonId":taxon,
             "pageSize":"100",
             "page":"1",
-            "orderBy":"gathering.conversions.year",
-            "aggregateBy":"gathering.conversions.year",
+            "orderBy":"gathering.conversions.month",
+            "aggregateBy":"gathering.conversions.month",
             "onlyCount":"false",
             "area":"finland",
-            "yearMonth":"1960/2020"}
+            "yearMonth":"2000/2020"}
 
         Logic.api_qet(setPoints, "warehouse/query/unit/aggregate", parameters)
 
@@ -236,23 +208,17 @@ Item {
 
         for (var i in response.results) {
             var result = response.results[i]
-            var decade = result.aggregateBy["gathering.conversions.year"]
+            var month = result.aggregateBy["gathering.conversions.month"]
             var count = result.individualCountSum
 
-            var point = {x: decade, y: count}
+            var point = {x: month, y: count}
 
             temp_points.push(point)
         }
         console.log(JSON.stringify(temp_points))
-        if (class_points.length == 0) {
-            console.log("Setting super_taxo_points")
-            class_points = temp_points
-        }
-        else if (taxo_points.length == 0) {
-            console.log("Setting taxo_points")
-            taxo_points = temp_points
-            run_timer = false
-            isData = true
-        }
+
+        taxo_points = temp_points
+        run_timer = false
+        isData = true
     }
 }

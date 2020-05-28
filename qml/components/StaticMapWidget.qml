@@ -5,7 +5,6 @@ import QtLocation 5.0
 import QtPositioning 5.3
 import "../js/logic.js" as Logic
 
-
 Item {
     id: distribution_map_page
 
@@ -26,63 +25,63 @@ Item {
         get_distribution(current_page)
     }
 
-    BusyIndicator {
-        size: BusyIndicatorSize.Large
-        anchors.centerIn: parent
-        running: run_timer
-    }
-
     Rectangle {
+        id: map_rect
         width: parent.width
         height: parent.height
-        //visible: !run_timer
 
-    Plugin {
-        id: mapPlugin
-        name: "osm"
-    }
-
-    Map {
-        id: kartta
-        width: parent.width
-        height: parent.height
-        plugin: mapPlugin
-        center {
-            latitude: 65.5
-            longitude: 26
+        Plugin {
+            id: mapPlugin
+            name: "osm"
         }
-        gesture.enabled: false
 
-        MapItemView {
+        Map {
+            id: kartta
+            width: parent.width
+            height: parent.height
+            plugin: mapPlugin
+            center {
+                latitude: 65.5
+                longitude: 26
+            }
+            gesture.enabled: false
 
-            model: ListModel {
-                id: map_model
+            BusyIndicator {
+                size: BusyIndicatorSize.Large
+                anchors.centerIn: parent
+                running: run_timer
             }
 
-            delegate: MapRectangle {
-                id: distribution_delegate
-                color: 'green'
-                opacity: get_opacity()
-                border.width: 1
-                topLeft {
-                    latitude: latti+0.5
-                    longitude: lontti
-                }
-                bottomRight {
-                    latitude: latti
-                    longitude: lontti+0.5
+            MapItemView {
+
+                model: ListModel {
+                    id: map_model
                 }
 
-                function get_opacity() {
-                    var op = 0
-                    if (countti > 0) {op = 0.4}
-                    if (countti > 10) {op = 0.6}
-                    if (countti > 100) {op = 0.8}
-                    return op
+                delegate: MapRectangle {
+                    id: distribution_delegate
+                    color: 'green'
+                    opacity: get_opacity()
+                    border.width: 1
+                    topLeft {
+                        latitude: latti+0.5
+                        longitude: lontti
+                    }
+                    bottomRight {
+                        latitude: latti
+                        longitude: lontti+0.5
+                    }
+
+                    function get_opacity() {
+                        var op = 0
+                        if (countti > 0) {op = 0.4}
+                        if (countti > 10) {op = 0.6}
+                        if (countti > 100) {op = 0.8}
+                        return op
+                    }
                 }
             }
         }
-    }
     }
     function get_distribution(page)
     {

@@ -27,27 +27,15 @@ Item {
         get_distribution(current_page)
     }
 
-    BusyIndicator {
-        size: BusyIndicatorSize.Large
-        anchors.centerIn: parent
-        running: run_timer
-    }
-
     Rectangle {
         id: map_rect
         width: parent.width
         height: parent.height - month_slider.height
-        //visible: !run_timer
 
         Plugin {
             id: mapPlugin
             name: "osm"
         }
-
-        //        Column {
-        //            width: parent.width
-        //            spacing: Theme.paddingSmall
-
 
         Map {
             id: kartta
@@ -59,6 +47,12 @@ Item {
                 longitude: 26
             }
             gesture.enabled: false
+
+            BusyIndicator {
+                size: BusyIndicatorSize.Large
+                anchors.centerIn: parent
+                running: run_timer
+            }
 
             MapItemView {
 
@@ -106,7 +100,7 @@ Item {
 
         Timer {
             id: month_timer
-            running: true
+            running: !run_timer
             interval: 1000
             repeat: true
             onTriggered: month_slider.value = month_slider.value % 12 + 1
@@ -121,9 +115,6 @@ Item {
             anchors.centerIn: month_slider
             running: run_timer
         }
-        // }
-        // }
-
     }
     function get_distribution(page)
     {
