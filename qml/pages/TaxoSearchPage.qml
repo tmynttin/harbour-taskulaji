@@ -9,15 +9,28 @@ Dialog {
     property string activeView: "list"
     property var selected_taxo
     property bool info_search: false
+    property bool open_info: false
+    property bool selection_done: false
+    property int sent_counter: 0
+    property int received_counter: 0
 
-    //onSearchStringChanged: search_timer.restart()
     onSearchStringChanged: result_list.get_taxons()
 
     Timer {
-        id: search_timer
+        id: response_timer
         running: false
-        interval: 500
-        onTriggered: result_list.get_taxons()
+        interval: 100
+        triggeredOnStart: true
+        onTriggered: {
+            complete_selection()
+        }
+    }
+
+    BusyIndicator {
+        id: response_wait_indicator
+        size: BusyIndicatorSize.Large
+        anchors.centerIn: parent
+        running: selection_done
     }
 
     Column {
@@ -58,13 +71,13 @@ Dialog {
         delegate: BackgroundItem {
             id: backgroundItem
 
-//            ListView.onAdd: AddAnimation {
-//                target: backgroundItem
-//            }
+            ListView.onAdd: AddAnimation {
+                target: backgroundItem
+            }
 
-//            ListView.onRemove: RemoveAnimation {
-//                target: backgroundItem
-//            }
+            ListView.onRemove: RemoveAnimation {
+                target: backgroundItem
+            }
 
             Label {
                 x: searchField.textLeftMargin
@@ -75,17 +88,15 @@ Dialog {
 
             onClicked: {
                 selected_taxo = {"name": model.name, "id": model.id}
-                if(info_search) {
-                    pageStack.push("../pages/TaxoInfoPage.qml", {taxo_id : selected_taxo.id})
-                }
-                else{
-                    accept()
-                }
+                selection_done = true
+                response_timer.start()
             }
 
             onPressAndHold: {
                 selected_taxo = {"name": model.name, "id": model.id}
-                pageStack.push("../pages/TaxoInfoPage.qml", {taxo_id : selected_taxo.id})
+                open_info = true
+                selection_done = true
+                response_timer.start()
             }
         }
 
@@ -95,11 +106,13 @@ Dialog {
 
         function get_taxons() {
             if (searchString.length > 2) {
+                sent_counter++
                 Logic.api_qet(update_list, "autocomplete/taxon", {'q':searchString, 'matchType':'partial,exact'});
             }
         }
 
         function update_list(status, response) {
+            received_counter++
             if (status === 200) {
                 if (String(response[0].value).toLowerCase().search(searchString) > -1)
                 {
@@ -109,9 +122,31 @@ Dialog {
                                          'name': String(response[i].value)});
                     }
                 }
+
             }
             else {
                 pageStack.push("ErrorPage.qml", {message: response})
+            }
+        }
+    }
+
+    function complete_selection() {
+        // this is a workaround to prevent crashing if a response arrives from api after
+        // a selection is done
+        if (sent_counter > received_counter) {
+            console.log("Waiting... sent: " + sent_counter + " received: " + received_counter)
+            response_timer.restart()
+        }
+        else {
+            console.log("Waiting completed")
+            selection_done = false
+
+            if(info_search || open_info) {
+                open_info = false
+                pageStack.push("../pages/TaxoInfoPage.qml", {taxo_id : selected_taxo.id})
+            }
+            else{
+                accept()
             }
         }
     }
