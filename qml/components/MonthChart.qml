@@ -45,18 +45,12 @@ Item {
 
         console.log(JSON.stringify(points))
 
-        minX = points[0].x
+        minX = 1
         minY = points[0].y
-        maxX = points[0].x
+        maxX = 12
         maxY = points[0].y
 
         points.forEach(function(point) {
-            if (point.x > maxX) {
-                maxX = point.x
-            }
-            if (point.x < minX) {
-                minX = point.x
-            }
             if (point.y > maxY) {
                 maxY = point.y
             }
