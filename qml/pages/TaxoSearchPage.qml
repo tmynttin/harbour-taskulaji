@@ -4,33 +4,24 @@ import "../js/logic.js" as Logic
 
 Dialog {
     id: taxo_page
+    backNavigation: sent_counter === received_counter
+    canNavigateForward: sent_counter === received_counter
+    canAccept: sent_counter === received_counter
     property string searchString
     property bool keepSearchFieldFocus
     property string activeView: "list"
     property var selected_taxo
     property bool info_search: false
-    property bool open_info: false
-    property bool selection_done: false
     property int sent_counter: 0
     property int received_counter: 0
 
     onSearchStringChanged: result_list.get_taxons()
 
-    Timer {
-        id: response_timer
-        running: false
-        interval: 100
-        triggeredOnStart: true
-        onTriggered: {
-            complete_selection()
-        }
-    }
-
     BusyIndicator {
         id: response_wait_indicator
         size: BusyIndicatorSize.Large
         anchors.centerIn: parent
-        running: selection_done
+        running: sent_counter > received_counter
     }
 
     Column {
@@ -88,15 +79,18 @@ Dialog {
 
             onClicked: {
                 selected_taxo = {"name": model.name, "id": model.id}
-                selection_done = true
-                response_timer.start()
+                if(info_search) {
+                    pageStack.push("../pages/TaxoInfoPage.qml", {taxo_id : selected_taxo.id})
+                }
+                else{
+                    accept()
+                }
             }
 
             onPressAndHold: {
                 selected_taxo = {"name": model.name, "id": model.id}
-                open_info = true
-                selection_done = true
-                response_timer.start()
+                pageStack.push("../pages/TaxoInfoPage.qml", {taxo_id : selected_taxo.id})
+
             }
         }
 
@@ -126,27 +120,6 @@ Dialog {
             }
             else {
                 pageStack.push("ErrorPage.qml", {message: response})
-            }
-        }
-    }
-
-    function complete_selection() {
-        // this is a workaround to prevent crashing if a response arrives from api after
-        // a selection is done
-        if (sent_counter > received_counter) {
-            console.log("Waiting... sent: " + sent_counter + " received: " + received_counter)
-            response_timer.restart()
-        }
-        else {
-            console.log("Waiting completed")
-            selection_done = false
-
-            if(info_search || open_info) {
-                open_info = false
-                pageStack.push("../pages/TaxoInfoPage.qml", {taxo_id : selected_taxo.id})
-            }
-            else{
-                accept()
             }
         }
     }
