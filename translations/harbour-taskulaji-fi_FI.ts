@@ -9,13 +9,6 @@
     </message>
 </context>
 <context>
-    <name>DistributionMapPage</name>
-    <message>
-        <source>Month</source>
-        <translation>Kuukausi</translation>
-    </message>
-</context>
-<context>
     <name>DocumentInfoPage</name>
     <message>
         <source>Gathering</source>
@@ -28,6 +21,13 @@
     <message>
         <source>Document</source>
         <translation>Dokumentti</translation>
+    </message>
+</context>
+<context>
+    <name>DynamicMapWidget</name>
+    <message>
+        <source>Month</source>
+        <translation>Kuukausi</translation>
     </message>
 </context>
 <context>
@@ -176,10 +176,6 @@
         <translation>Lähetys onnistui</translation>
     </message>
     <message>
-        <source>Save document</source>
-        <translation>Tallenna havainto</translation>
-    </message>
-    <message>
         <source>Document saved to pending documents</source>
         <translation>Havainto tallennettu lähteviin havaintoihin</translation>
     </message>
@@ -194,6 +190,10 @@
     <message>
         <source>. Document saved to pending documents</source>
         <translation>. Havainto tallennettu lähteviin havaintoihin</translation>
+    </message>
+    <message>
+        <source>Save document locally</source>
+        <translation>Tallenna laitteeseen</translation>
     </message>
 </context>
 <context>
@@ -239,6 +239,25 @@
     <message>
         <source>Area</source>
         <translation>Alue</translation>
+    </message>
+</context>
+<context>
+    <name>OccurrencePage</name>
+    <message>
+        <source>Static occurrence map</source>
+        <translation>Esiintymiskartta</translation>
+    </message>
+    <message>
+        <source>Monthly occurrence map</source>
+        <translation>Kuukausittainen esiintmiskartta</translation>
+    </message>
+    <message>
+        <source>Occurrence trend, 1960-2020</source>
+        <translation>Esiintymiskehitys, 1960-2020</translation>
+    </message>
+    <message>
+        <source>Monthly occurrence trend</source>
+        <translation>Kuukausittainen esiintymiskehitys</translation>
     </message>
 </context>
 <context>
@@ -332,42 +351,42 @@
     </message>
     <message>
         <source>Species: </source>
-        <translation type="unfinished">Laji: </translation>
+        <translation>Laji: </translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">Tyhjä</translation>
+        <translation>Tyhjä</translation>
     </message>
     <message>
         <source>Area</source>
-        <translation type="unfinished">Alue</translation>
+        <translation>Alue</translation>
     </message>
     <message>
         <source>Only own observations</source>
-        <translation type="unfinished">Vain omat havainnot</translation>
+        <translation>Vain omat havainnot</translation>
     </message>
 </context>
 <context>
     <name>StatisticsPage</name>
     <message>
         <source>Refresh</source>
-        <translation type="unfinished">Päivitä</translation>
+        <translation>Päivitä</translation>
     </message>
     <message>
         <source>Map view</source>
-        <translation type="unfinished">Karttanäkymä</translation>
+        <translation>Karttanäkymä</translation>
     </message>
     <message>
         <source>Search settings</source>
-        <translation type="unfinished">Hakuasetukset</translation>
+        <translation>Hakuasetukset</translation>
     </message>
     <message>
         <source>More</source>
-        <translation type="unfinished">Lisää</translation>
+        <translation>Lisää</translation>
     </message>
     <message>
         <source>Units</source>
-        <translation type="unfinished">Havainnot</translation>
+        <translation>Havainnot</translation>
     </message>
 </context>
 <context>
@@ -381,8 +400,8 @@
         <translation>Alataksonit</translation>
     </message>
     <message>
-        <source>Map</source>
-        <translation>Kartta</translation>
+        <source>Occurrence</source>
+        <translation>Esiintyminen</translation>
     </message>
 </context>
 <context>
@@ -416,7 +435,7 @@
     </message>
     <message>
         <source>Staistics view</source>
-        <translation type="unfinished"></translation>
+        <translation>Tilastonäkymä</translation>
     </message>
 </context>
 <context>

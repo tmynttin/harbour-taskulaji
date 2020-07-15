@@ -9,13 +9,6 @@
     </message>
 </context>
 <context>
-    <name>DistributionMapPage</name>
-    <message>
-        <source>Month</source>
-        <translation type="unfinished">Månad</translation>
-    </message>
-</context>
-<context>
     <name>DocumentInfoPage</name>
     <message>
         <source>Gathering</source>
@@ -28,6 +21,13 @@
     <message>
         <source>Document</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DynamicMapWidget</name>
+    <message>
+        <source>Month</source>
+        <translation type="unfinished">Månad</translation>
     </message>
 </context>
 <context>
@@ -176,10 +176,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Save document</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Document saved to pending documents</source>
         <translation type="unfinished"></translation>
     </message>
@@ -193,6 +189,10 @@
     </message>
     <message>
         <source>. Document saved to pending documents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save document locally</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -238,6 +238,25 @@
     </message>
     <message>
         <source>Area</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>OccurrencePage</name>
+    <message>
+        <source>Static occurrence map</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Monthly occurrence map</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Occurrence trend, 1960-2020</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Monthly occurrence trend</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -381,7 +400,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Map</source>
+        <source>Occurrence</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

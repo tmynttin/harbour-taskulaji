@@ -25,19 +25,11 @@ Item {
 
     property bool run_timer: false
 
-//    Component.onCompleted: {
-//        getPoints(class_id)
-//    }
-
-
-
     onClass_pointsChanged: {
         if (class_points.length > 0) {
             console.log("Got super taxo points")
             getPoints(taxo_id)
         }
-
-
     }
 
     onTaxo_pointsChanged: {
@@ -48,7 +40,6 @@ Item {
     }
 
     function getData() {
-        console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXX    getting data: " + class_id)
         taxo_points = []
         class_points = []
         points = []
@@ -65,9 +56,7 @@ Item {
                     break
                 }
             }
-
              points.push({x:taxo_points[i].x, y:taxo_points[i].y / factor})
-
         }
 
         console.log(JSON.stringify(points))
@@ -111,7 +100,6 @@ Item {
         Rectangle {
             width: parent.width
             height: line_chart.height
-            //border.color: Theme.secondaryHighlightColor
             color: "transparent"
 
             Repeater {

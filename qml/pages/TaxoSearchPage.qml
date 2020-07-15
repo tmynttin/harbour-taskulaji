@@ -4,20 +4,24 @@ import "../js/logic.js" as Logic
 
 Dialog {
     id: taxo_page
+    backNavigation: sent_counter === received_counter
+    canNavigateForward: sent_counter === received_counter
+    canAccept: sent_counter === received_counter
     property string searchString
     property bool keepSearchFieldFocus
     property string activeView: "list"
     property var selected_taxo
     property bool info_search: false
+    property int sent_counter: 0
+    property int received_counter: 0
 
-    //onSearchStringChanged: search_timer.restart()
     onSearchStringChanged: result_list.get_taxons()
 
-    Timer {
-        id: search_timer
-        running: false
-        interval: 500
-        onTriggered: result_list.get_taxons()
+    BusyIndicator {
+        id: response_wait_indicator
+        size: BusyIndicatorSize.Large
+        anchors.centerIn: parent
+        running: sent_counter > received_counter
     }
 
     Column {
@@ -58,13 +62,13 @@ Dialog {
         delegate: BackgroundItem {
             id: backgroundItem
 
-//            ListView.onAdd: AddAnimation {
-//                target: backgroundItem
-//            }
+            ListView.onAdd: AddAnimation {
+                target: backgroundItem
+            }
 
-//            ListView.onRemove: RemoveAnimation {
-//                target: backgroundItem
-//            }
+            ListView.onRemove: RemoveAnimation {
+                target: backgroundItem
+            }
 
             Label {
                 x: searchField.textLeftMargin
@@ -86,6 +90,7 @@ Dialog {
             onPressAndHold: {
                 selected_taxo = {"name": model.name, "id": model.id}
                 pageStack.push("../pages/TaxoInfoPage.qml", {taxo_id : selected_taxo.id})
+
             }
         }
 
@@ -95,11 +100,13 @@ Dialog {
 
         function get_taxons() {
             if (searchString.length > 2) {
+                sent_counter++
                 Logic.api_qet(update_list, "autocomplete/taxon", {'q':searchString, 'matchType':'partial,exact'});
             }
         }
 
         function update_list(status, response) {
+            received_counter++
             if (status === 200) {
                 if (String(response[0].value).toLowerCase().search(searchString) > -1)
                 {
@@ -109,6 +116,7 @@ Dialog {
                                          'name': String(response[i].value)});
                     }
                 }
+
             }
             else {
                 pageStack.push("ErrorPage.qml", {message: response})

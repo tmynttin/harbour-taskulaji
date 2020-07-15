@@ -6,39 +6,52 @@ import QtPositioning 5.3
 import "../js/logic.js" as Logic
 
 
-Page {
+Item {
     id: distribution_map_page
+    width: Screen.width / 2
 
     property string taxo_id
-    property bool run_timer: false
+    property bool run_timer: true
     property int max_count
     property int current_page: 1
     property int last_page: 1
-    property real zoom_level: 4.2
+    property real zoom_level: 3.5
 
     Component.onCompleted: {
-        kartta.zoomLevel = zoom_level + Screen.height / 960
+        kartta.zoomLevel = zoom_level + Screen.width / 540
         get_distribution(current_page)
     }
 
-    Plugin {
-        id: mapPlugin
-        name: "osm"
+    onTaxo_idChanged: {
+        current_page = 1
+        get_distribution(current_page)
     }
 
-    Column {
-        id: column
+    Rectangle {
+        id: map_rect
         width: parent.width
-        spacing: Theme.paddingSmall
+        height: parent.height - month_slider.height
+
+        Plugin {
+            id: mapPlugin
+            name: "osm"
+        }
 
         Map {
             id: kartta
             width: parent.width
-            height: distribution_map_page.height * 0.85
+            height: parent.height
             plugin: mapPlugin
             center {
                 latitude: 65.5
                 longitude: 26
+            }
+            gesture.enabled: false
+
+            BusyIndicator {
+                size: BusyIndicatorSize.Large
+                anchors.centerIn: parent
+                running: run_timer
             }
 
             MapItemView {
@@ -72,46 +85,46 @@ Page {
                 }
             }
         }
-
-        Slider {
-            id: month_slider
-            width: parent.width
-            minimumValue: 1
-            maximumValue: 12
-            value: 1
-            stepSize: 1
-            valueText: value
-            label: qsTr("Month")
-
-            Timer {
-                id: month_timer
-                running: true
-                interval: 1000
-                repeat: true
-                onTriggered: month_slider.value = month_slider.value % 12 + 1
-            }
-
-            onClicked: {
-                month_timer.stop()
-            }
-
-            BusyIndicator {
-                size: BusyIndicatorSize.Large
-                anchors.centerIn: month_slider
-                running: run_timer
-            }
-        }
     }
 
+    Slider {
+        id: month_slider
+        width: parent.width
+        anchors.top: map_rect.bottom
+        minimumValue: 1
+        maximumValue: 12
+        value: 1
+        stepSize: 1
+        valueText: value
+        label: qsTr("Month")
+
+        Timer {
+            id: month_timer
+            running: !run_timer
+            interval: 1000
+            repeat: true
+            onTriggered: month_slider.value = month_slider.value % 12 + 1
+        }
+
+        onClicked: {
+            month_timer.stop()
+        }
+
+        BusyIndicator {
+            size: BusyIndicatorSize.Large
+            anchors.centerIn: month_slider
+            running: run_timer
+        }
+    }
     function get_distribution(page)
     {
         Logic.api_qet(draw_distribution, "warehouse/query/unit/aggregate",
                       {"aggregateBy": "gathering.conversions.wgs84Grid05.lat,gathering.conversions.wgs84Grid05.lon,gathering.conversions.month",
-                       "taxonId":taxo_id,
-                       "pageSize":"1000",
-                       "page":current_page,
-                       "time":"-7300/0",
-                       "area":"finland"})
+                          "taxonId":taxo_id,
+                          "pageSize":"1000",
+                          "page":current_page,
+                          "time":"-7300/0",
+                          "area":"finland"})
         run_timer = true
     }
 
@@ -150,4 +163,9 @@ Page {
         }
     }
 }
+
+
+
+
+
 
