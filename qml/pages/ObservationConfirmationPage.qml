@@ -46,7 +46,7 @@ Dialog {
                 width: parent.width - 2*Theme.paddingLarge
                 anchors.horizontalCenter: parent.horizontalCenter
 
-                text: qsTr("Save document")
+                text: qsTr("Save document locally")
 
                 onClicked: {
                     Db.saveDocument(observation)

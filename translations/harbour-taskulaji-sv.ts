@@ -187,10 +187,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Save document</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Document saved to pending documents</source>
         <translation type="unfinished"></translation>
     </message>
@@ -204,6 +200,10 @@
     </message>
     <message>
         <source>. Document saved to pending documents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save document locally</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
