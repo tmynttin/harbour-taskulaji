@@ -278,7 +278,12 @@ Page {
                 }
                 abundanceString = unit.abundanceString
 
-                municipality = result.gathering.interpretations.municipalityDisplayname
+                if (result.gathering.interpretations) {
+                    municipality = result.gathering.interpretations.municipalityDisplayname
+                }
+                else {
+                    municipality = ""
+                }
 
                 notes = unit.notes ? unit.notes : ""
 
